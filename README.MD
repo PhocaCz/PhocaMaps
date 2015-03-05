@@ -1,0 +1,1 @@
+Phoca Maps is Joomla! CMS extension. Component which displays map on website.
