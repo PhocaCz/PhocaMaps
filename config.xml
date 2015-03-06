@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<fields addfieldpath="/administrator/components/com_phocamaps/models/fields">
+		<fieldset name="display" label="COM_PHOCAMAPS_CONFIG_HEAD_DISPLAY_LABEL">
+	
+	<field name="enable_kml" type="list" default="0" label="COM_PHOCAMAPS_FIELD_ENABLE_KML_FILE_LOADING_LABEL" description="COM_PHOCAMAPS_FIELD_ENABLE_KML_FILE_LOADING_DESC">
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+	
+	<field name="display_print_route" type="list" default="1" label="COM_PHOCAMAPS_FIELD_DISPLAY_PRINT_ROUTE_LABEL" description="COM_PHOCAMAPS_FIELD_DISPLAY_PRINT_ROUTE_DESC">
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+<field name="enable_cache" type="list" default="0" label="COM_PHOCAMAPS_FIELD_ENABLE_CACHE_LABEL" description="COM_PHOCAMAPS_FIELD_ENABLE_CACHE_DESC">
+	<option value="1">COM_PHOCAMAPS_YES</option>
+	<option value="0">COM_PHOCAMAPS_NO</option>
+</field>
+
+<field name="close_opened_window" type="list" default="0" label="COM_PHOCAMAPS_FIELD_CLOSE_OPENED_WINDOW_LABEL" description="COM_PHOCAMAPS_FIELD_CLOSE_OPENED_WINDOW_DESC">
+	<option value="1">COM_PHOCAMAPS_YES</option>
+	<option value="0">COM_PHOCAMAPS_NO</option>
+</field>
+
+<field name="load_api_ssl" type="list" default="0" label="COM_PHOCAMAPS_FIELD_LOAD_API_SSL_LABEL" description="COM_PHOCAMAPS_FIELD_LOAD_API_SSL_DESC">
+	<option value="1">COM_PHOCAMAPS_YES</option>
+	<option value="0">COM_PHOCAMAPS_NO</option>
+</field>
+
+
+</fieldset>
+
+	
+		<fieldset name="permissions_LABEL" description="JCONFIG_PERMISSIONS_DESC" label="JCONFIG_PERMISSIONS_LABEL">
+			<field name="rules" type="rules" component="com_phocamaps" filter="rules" label="COM_PHOCAMAPS_FIELD_JCONFIG_PERMISSIONS_LABEL" section="component" description=""/>
+		</fieldset>
+	
+	</fields>
+</config>

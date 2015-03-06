@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+
+	<fieldset addfieldpath="/administrator/components/com_phocamaps/models/fields">
+
+<field name="id" type="text" default="0" label="JGLOBAL_FIELD_ID_LABEL" required="true" readonly="true" class="readonly" />
+
+<field name="title" type="text" class="inputbox" size="40" label="COM_PHOCAMAPS_FIELD_TITLE_LABEL" description="COM_PHOCAMAPS_FIELD_TITLE_DESC" required="true" />
+
+<field name="alias" type="text" class="inputbox" size="40" label="COM_PHOCAMAPS_FIELD_ALIAS_LABEL" description="COM_PHOCAMAPS_FIELD_ALIAS_DESC" />
+
+
+<field name="latitude" type="phocaselectmap" maptype="marker" label="COM_PHOCAMAPS_FIELD_LATITUDE_LABEL" description="COM_PHOCAMAPS_FIELD_LATITUDE_DESC" class="inputbox" size="40" onchange="setPMGPSLatitudeJForm(this.value);" />
+<field name="longitude" type="phocaselectmap" maptype="marker"  label="COM_PHOCAMAPS_FIELD_LONGITUDE_LABEL" description="COM_PHOCAMAPS_FIELD_LONGITUDE_DESC" class="inputbox" size="40" onchange="setPMGPSLongitudeJForm(this.value);" />
+
+<field name="gpslatitude" type="phocaselectmap" class="inputbox pmreadonly" size="40" label="COM_PHOCAMAPS_FIELD_GPS_LATITUDE_LABEL" description="COM_PHOCAMAPS_FIELD_GPS_LATITUDE_DESC" readonly="true"  />
+<field name="gpslongitude" type="phocaselectmap" class="inputbox pmreadonly" size="40" label="COM_PHOCAMAPS_FIELD_GPS_LONGITUDE_LABEL" description="COM_PHOCAMAPS_FIELD_GPS_LONGITUDE_DESC" readonly="true"  />
+
+
+<field name="catid" type="phocamapsmap" default="" label="COM_PHOCAMAPS_FIELD_SELECT_MAP_LABEL" description="COM_PHOCAMAPS_FIELD_SELECT_MAP_LABEL" required="true" class="inputbox" />
+
+<field name="markerwindow" type="list" label="COM_PHOCAMAPS_FIELD_OPEN_MARKER_WINDOW_LABEL" description="COM_PHOCAMAPS_FIELD_OPEN_MARKER_WINDOW_DESC" class="inputbox" size="1" default="0"  >
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option	value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+<field name="contentwidth" type="text" class="inputbox" size="40" label="COM_PHOCAMAPS_MARKER_CONTENT_WIDTH_LABEL" description="COM_PHOCAMAPS_MARKER_CONTENT_WIDTH_DESC" />
+<field name="contentheight" type="text" class="inputbox" size="40" label="COM_PHOCAMAPS_MARKER_CONTENT_HEIGHT_LABEL" description="COM_PHOCAMAPS_MARKER_CONTENT_HEIGHT_DESC" />
+
+<field name="displaygps" type="list" label="COM_PHOCAMAPS_FIELD_DISPLAY_GPS_LABEL" description="COM_PHOCAMAPS_FIELD_DISPLAY_GPS_DESC" class="inputbox" size="1" default="0"  >
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option	value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+
+
+<field name="ordering" type="PhocaMapsOrdering" table="map" class="inputbox" label="COM_PHOCAMAPS_FIELD_ORDERING_LABEL" description="COM_PHOCAMAPS_FIELD_ORDERING_DESC" />
+
+
+<field name="description" type="editor" buttons="true" hide="pagebreak,readmore" class="inputbox" label="COM_PHOCAMAPS_FIELD_DESC_LABEL" description="COM_PHOCAMAPS_FIELD_DESC_DESC" filter="safehtml" />
+
+
+
+<field name="icon" type="phocamapsradio" label="COM_PHOCAMAPS_FIELD_MARKER_ICON_LABEL" description="COM_PHOCAMAPS_FIELD_MARKER_ICON_DESC" class="inputbox" size="1" default="0" typedesign="2" >
+	<option value="0">COM_PHOCAMAPS_default</option>
+	<option	value="1">COM_PHOCAMAPS_IGREY</option>
+	<option	value="2">COM_PHOCAMAPS_IYELLOW</option>
+	<option	value="3">COM_PHOCAMAPS_IHOME</option>
+	<option	value="4">COM_PHOCAMAPS_IGREEN</option>
+	<option	value="5">COM_PHOCAMAPS_ISTAR</option>
+	<option	value="6">COM_PHOCAMAPS_IINFOH</option>
+	<option	value="7">COM_PHOCAMAPS_IINFOI</option>
+	<option	value="8">COM_PHOCAMAPS_IINFOP</option>
+	<option	value="9">COM_PHOCAMAPS_IINFOPH</option>
+	<option	value="10">COM_PHOCAMAPS_IINFOZ</option>
+</field>
+
+<field name="iconext" type="phocaselecticon" label="COM_PHOCAMAPS_FIELD_MARKER_ICON_EXT_LABEL" description="COM_PHOCAMAPS_FIELD_MARKER_ICON_EXT_DESC" class="inputbox" size="1" default="0"  />
+
+
+
+	</fieldset>
+	
+	<fieldset name="publish" label="COM_PHOCAMAPS_GROUP_LABEL_PUBLISHING_DETAILS" >
+
+<field name="published" type="list" label="COM_PHOCAMAPS_FIELD_PUBLISHED_LABEL" description="COM_PHOCAMAPS_FIELD_PUBLISHED_DESC" class="inputbox" size="1" default="1">
+	<option value="1">JPUBLISHED</option>
+	<option	value="0">JUNPUBLISHED</option>
+</field>
+<field name="language" type="contentlanguage" label="JFIELD_LANGUAGE_LABEL" description="COM_PHOCAMAPS_FIELD_LANGUAGE_MARKER_DESC" class="inputbox">
+	<option value="*">JALL</option>
+</field>
+
+	</fieldset>
+	
+</form>
