@@ -16,6 +16,7 @@ class PhocaMapsCpViewPhocaMapsGMap extends JViewLegacy
 	protected $zoom;
 	protected $type;
 	protected $t;
+	protected $enable_ssl;
 	
 	public function display($tpl = null) {
 
@@ -25,6 +26,7 @@ class PhocaMapsCpViewPhocaMapsGMap extends JViewLegacy
 		$this->longitude	= JRequest::getVar( 'lng', '-30', 'get', 'string' );
 		$this->zoom			= JRequest::getVar( 'zoom', '2', 'get', 'string' );
 		$this->type			= JRequest::getVar( 'type', 'map', 'get', 'string' );
+		$this->enable_ssl = JComponentHelper::getParams('com_phocamaps')->get('load_api_ssl');
 		
 		$document	= JFactory::getDocument();
 		$document->addCustomTag( "<style type=\"text/css\"> \n" 
