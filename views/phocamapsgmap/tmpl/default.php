@@ -7,7 +7,7 @@ $map	= new PhocaMapsMap($id);
 if ($this->type == 'marker') {
 	$map->loadCoordinatesJS();
 }
-$map->loadAPI();
+$map->loadAPI('jsapi', $this->enable_ssl);
 
 echo '<div align="center" style="margin:0;padding:0">';
 echo '<div id="phocaMap'.$id.'" style="margin:0;padding:0;width:750px;height:480px"></div></div>';
