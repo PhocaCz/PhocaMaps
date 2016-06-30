@@ -110,6 +110,7 @@ if ((!isset($this->map->longitude))
 		echo $map->setMapOption('scaleControl', $this->map->scalecontrol, TRUE ).','."\n";
 		echo $map->setMapOption('scrollwheel', $this->map->scrollwheelzoom).','."\n";
 		echo $map->setMapOption('disableDoubleClickZoom', $this->map->disabledoubleclickzoom).','."\n";
+		echo $map->setMapOption('styles', $this->map->mapstyles).','."\n";
 	//	echo $map->setMapOption('googleBar', $this->map->googlebar).','."\n";// Not ready yet
 	//	echo $map->setMapOption('continuousZoom', $this->map->continuouszoom).','."\n";// Not ready yet
 		echo $map->setMapTypeOpt($this->map->typeid)."\n";

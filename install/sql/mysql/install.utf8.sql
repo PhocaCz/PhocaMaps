@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS `#__phocamaps_map` (
   `googlebar` tinyint(1) NOT NULL default '0',
   `displayroute` tinyint(1) NOT NULL default '0',
   `kmlfile` varchar(255) NOT NULL default '',
+  `mapstyles` MEDIUMTEXT NOT NULL,
   `description` text NOT NULL,
   `published` tinyint(1) NOT NULL default '0',
   `checked_out` int(11) unsigned NOT NULL default '0',

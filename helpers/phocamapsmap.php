@@ -375,30 +375,32 @@ class PhocaMapsMap
 		$output .= ', '."\n".'   map: '.$this->_map."\n";
 		$output .= ' });'."\n";		
 
+		if($open != 2){
+			if ($name == 'Global') {
+				$output .= ' infoPhocaWindow'.$name.$this->_id.' = new google.maps.InfoWindow({'."\n";
+			} else {
+				$output .= ' var infoPhocaWindow'.$name.$this->_id.' = new google.maps.InfoWindow({'."\n";
+			}		
+			$output .= '   content: \''.$text.'\''."\n"
+					  .' });'."\n";
 		
-		if ($name == 'Global') {
-			$output .= ' infoPhocaWindow'.$name.$this->_id.' = new google.maps.InfoWindow({'."\n";
-		} else {
-			$output .= ' var infoPhocaWindow'.$name.$this->_id.' = new google.maps.InfoWindow({'."\n";
-		}		
-		$output .= '   content: \''.$text.'\''."\n"
-				  .' });'."\n";
-	
-		if ($closeOpenedWindow == 0) {
-			$output .= ' google.maps.event.addListener(markerPhocaMarker'.$name.$this->_id.', \'click\', function() {'."\n"
-			.'   infoPhocaWindow'.$name.$this->_id.'.open('.$this->_map.', markerPhocaMarker'.$name.$this->_id.' );'."\n"
-			.' });'."\n";
-		} else {
-			$output .= ' google.maps.event.addListener(markerPhocaMarker'.$name.$this->_id.', \'click\', function() {'."\n"
-			.'   if(PhocaOpenedWindow) PhocaOpenedWindow.close();'."\n"
-			.'   infoPhocaWindow'.$name.$this->_id.'.open('.$this->_map.', markerPhocaMarker'.$name.$this->_id.' );'."\n"
-			.'   PhocaOpenedWindow = infoPhocaWindow'.$name.$this->_id."\n"
-			.' });'."\n";
+			if ($closeOpenedWindow == 0) {
+				$output .= ' google.maps.event.addListener(markerPhocaMarker'.$name.$this->_id.', \'click\', function() {'."\n"
+				.'   infoPhocaWindow'.$name.$this->_id.'.open('.$this->_map.', markerPhocaMarker'.$name.$this->_id.' );'."\n"
+				.' });'."\n";
+			} else {
+				$output .= ' google.maps.event.addListener(markerPhocaMarker'.$name.$this->_id.', \'click\', function() {'."\n"
+				.'   if(PhocaOpenedWindow) PhocaOpenedWindow.close();'."\n"
+				.'   infoPhocaWindow'.$name.$this->_id.'.open('.$this->_map.', markerPhocaMarker'.$name.$this->_id.' );'."\n"
+				.'   PhocaOpenedWindow = infoPhocaWindow'.$name.$this->_id."\n"
+				.' });'."\n";
+			}
+				
+			if ($open) {
+				$output .= '   google.maps.event.trigger(markerPhocaMarker'.$name.$this->_id.', \'click\');'."\n";
+			}
 		}
-			
-		if ($open) {
-			$output .= '   google.maps.event.trigger(markerPhocaMarker'.$name.$this->_id.', \'click\');'."\n";
-		}
+		
 		return $output;
 	}
 	
