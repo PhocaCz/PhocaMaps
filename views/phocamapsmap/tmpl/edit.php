@@ -49,14 +49,14 @@ foreach($this->form->getFieldset('publish') as $field) {
 }
 echo '</div>';
 				
-echo '<div class="tab-pane active" id="design">'."\n"; 
+echo '<div class="tab-pane" id="design">'."\n"; 
 $formArray = array ('border');
 echo $r->group($this->form, $formArray);
 echo '</div>'. "\n";
 
 
-echo '<div class="tab-pane active" id="advanced">'."\n"; 
-$formArray = array ('typeid', 'typecontrol', 'typecontrolposition', 'doubleclickzoom', 'scrollwheelzoom', 'zoomcontrol', 'scalecontrol', 'displayroute', 'kmlfile');
+echo '<div class="tab-pane" id="advanced">'."\n"; 
+$formArray = array ('typeid', 'typecontrol', 'typecontrolposition', 'doubleclickzoom', 'scrollwheelzoom', 'zoomcontrol', 'scalecontrol', 'displayroute', 'kmlfile', 'mapstyles');
 echo $r->group($this->form, $formArray);
 echo '</div>'. "\n";
 	

@@ -51,7 +51,7 @@ foreach($this->form->getFieldset('publish') as $field) {
 }
 echo '</div>';
 				
-echo '<div class="tab-pane active" id="design">'."\n"; 
+echo '<div class="tab-pane" id="design">'."\n"; 
 $formArray = array ('icon', 'iconext');
 echo $r->group($this->form, $formArray);
 echo '</div>'. "\n";
