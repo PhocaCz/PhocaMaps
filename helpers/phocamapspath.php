@@ -14,7 +14,7 @@ class PhocaMapsPath extends JObject
 {
 	function __construct() {}
 	
-	function &getInstance() {
+	public static function getInstance() {
 		static $instance;
 		if (!$instance) {
 			$instance = new PhocaMapsPath();
@@ -25,8 +25,8 @@ class PhocaMapsPath extends JObject
 		return $instance;
 	}
 
-	function getPath() {
-		$instance 	= &PhocaMapsPath::getInstance();
+	public static function getPath() {
+		$instance 	= PhocaMapsPath::getInstance();
 		return $instance;
 	}
 

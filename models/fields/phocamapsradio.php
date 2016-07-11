@@ -55,7 +55,7 @@ class JFormFieldPhocaMapsRadio extends JFormField
 			// Initialize some JavaScript option attributes.
 			$onclick	= !empty($option->onclick) ? ' onclick="'.$option->onclick.'"' : '';
 
-			$html[] = '<input type="radio" id="'.$this->id.$i.'" name="'.$this->name.'"' .
+			$html[] = '<div style="padding:10px"><input type="radio" id="'.$this->id.$i.'" name="'.$this->name.'"' .
 					' value="'.htmlspecialchars($option->value, ENT_COMPAT, 'UTF-8').'"'
 					.$checked.$class.$onclick.$disabled.'/>';
 			
@@ -69,12 +69,12 @@ class JFormFieldPhocaMapsRadio extends JFormField
 					$cssPart 	= '';
 					$htmlPart 	= '<div style="clear:both"></div>';
 				} else {
-					$cssPart 	='margin-right:40px;';
-					$htmlPart 	= '';
+					$cssPart 	='margin-right:10px;';
+					$htmlPart 	= '<div style="clear:both"></div>';
 				}
 				
 				$html[] = '<label for="'.$this->id.$i.'" '.$class.' style="width:auto">'. JText::_($option->text). '</label>'
-						. '<div style="position:relative;float:left;margin:0px;padding:0px;margin-left:5px;'.$cssPart.'">'.$option->img.'</div>'. $htmlPart;
+						. '<div style="position:relative;float:left;margin:0px;padding:0px;margin-left:5em;margin-top: -2em;'.$cssPart.'">'.$option->img.'</div></div>'. $htmlPart;
 			}
 		}
 
@@ -159,7 +159,7 @@ class JFormFieldPhocaMapsRadio extends JFormField
 				$tmp->img 	= '';
 				$tmp->imgnr	= 0;
 			} else {
-				$tmp->img = JHTML::_('image', 'components/com_phocamaps/assets/images/'.$optName.'/image.png', '', array('style' => 'margin:0;padding:0'));
+				$tmp->img = JHTML::_('image', 'media/com_phocamaps/images/'.$optName.'/image.png', '', array('style' => 'margin:0;padding:0'));
 				$tmp->imgnr =  $i;
 				$i++;
 			}

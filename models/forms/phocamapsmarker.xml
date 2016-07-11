@@ -19,10 +19,17 @@
 
 <field name="catid" type="phocamapsmap" default="" label="COM_PHOCAMAPS_FIELD_SELECT_MAP_LABEL" description="COM_PHOCAMAPS_FIELD_SELECT_MAP_LABEL" required="true" class="inputbox" />
 
+<!--
 <field name="markerwindow" type="list" label="COM_PHOCAMAPS_FIELD_OPEN_MARKER_WINDOW_LABEL" description="COM_PHOCAMAPS_FIELD_OPEN_MARKER_WINDOW_DESC" class="inputbox" size="1" default="0"  >
 	<option value="0">COM_PHOCAMAPS_NO</option>
 	<option	value="1">COM_PHOCAMAPS_YES</option>
-</field>
+</field>-->
+
+<field name="markerwindow" type="list" label="COM_PHOCAMAPS_FIELD_MARKER_WINDOW_LABEL" description="COM_PHOCAMAPS_FIELD_MARKER_WINDOW_DESC" class="inputbox" size="1" default="0"  >
+	<option value="0">COM_PHOCAMAPS_CLOSED</option>
+	<option value="1">COM_PHOCAMAPS_OPENED</option>
+	<option value="2">COM_PHOCAMAPS_HIDDEN</option>
+ </field>
 
 <field name="contentwidth" type="text" class="inputbox" size="40" label="COM_PHOCAMAPS_MARKER_CONTENT_WIDTH_LABEL" description="COM_PHOCAMAPS_MARKER_CONTENT_WIDTH_DESC" />
 <field name="contentheight" type="text" class="inputbox" size="40" label="COM_PHOCAMAPS_MARKER_CONTENT_HEIGHT_LABEL" description="COM_PHOCAMAPS_MARKER_CONTENT_HEIGHT_DESC" />

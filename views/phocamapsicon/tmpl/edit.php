@@ -39,7 +39,7 @@ if ($this->item->url != '') {
 }
 
 
-$formArray = array ('title', 'alias', 'url', 'object', 'urls', 'objects', 'objectshape', 'lang','ordering');
+$formArray = array ('title', 'alias', 'url', 'object', 'objectshape', 'lang','ordering');
 echo $r->group($this->form, $formArray);
 $formArray = array('description');
 echo $r->group($this->form, $formArray, 1);

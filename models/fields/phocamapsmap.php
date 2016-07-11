@@ -27,11 +27,14 @@ class JFormFieldPhocaMapsMap extends JFormField
 		$db->setQuery( $query );
 		$items = $db->loadObjectList();
 		
-		$required	= ((string) $this->element['required'] == 'true') ? TRUE : FALSE;
+		$attr = '';
+		$attr .= $this->required ? ' required aria-required="true"' : '';
+		$attr .= ' class="inputbox"';
+	
 		
 		array_unshift($items, JHTML::_('select.option', '', '- '.JText::_('COM_PHOCAMAPS_SELECT_MAP').' -', 'value', 'text'));
 
-		return JHTML::_('select.genericlist',  $items, $this->name, 'class="inputbox"', 'value', 'text', $this->value, $this->id );
+		return JHTML::_('select.genericlist',  $items, $this->name, trim($attr), 'value', 'text', $this->value, $this->id );
 	
 	}
 }

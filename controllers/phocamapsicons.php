@@ -14,7 +14,7 @@ class PhocaMapsCpControllerPhocaMapsIcons extends JControllerAdmin
 {
 	protected	$option 		= 'com_phocamaps';
 	
-	public function &getModel($name = 'PhocaMapsIcon', $prefix = 'PhocaMapsCpModel')
+	public function &getModel($name = 'PhocaMapsIcon', $prefix = 'PhocaMapsCpModel', $config = array())
 	{
 		$model = parent::getModel($name, $prefix, array('ignore_request' => true));
 		return $model;

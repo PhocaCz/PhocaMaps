@@ -15,7 +15,7 @@ class PhocaMapsIcon
 {
 	function __construct() {}
 	
-	function getIconData($icon) {
+	public static function getIconData($icon) {
 		
 		// Icon Grey
 		$i[1]['name']	= 'igrey';

@@ -22,6 +22,10 @@ class PhocaMapsCpViewPhocaMapsMarkers extends JViewLegacy
 		$this->items		= $this->get('Items');
 		$this->pagination	= $this->get('Pagination');
 		$this->state		= $this->get('State');
+		
+		$paramsC 					= JComponentHelper::getParams('com_phocamaps');
+		$this->t['maps_api_key']	= $paramsC->get( 'maps_api_key', '' );
+		//$this->t['load_api_ssl'] 	= $paramsC->get( 'load_api_ssl', 1 );
 
 		JHTML::stylesheet( $this->t['s'] );
 		

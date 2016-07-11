@@ -36,12 +36,20 @@ class PhocaMapsRenderAdminViews
 		return '</form>'."\n".'</div>'."\n";
 	}
 	
-	public function startFilter($txtFilter){
-		$o = '<div id="j-sidebar-container" class="span2">'."\n"
-		. JHtmlSidebar::render()."\n"
-		. '<hr />'."\n";
-		$o .= '<div class="filter-select hidden-phone">'."\n"
-		. '<h4 class="page-header">'. JText::_($txtFilter).'</h4>'."\n";
+	public function startFilter($txtFilter = ''){
+		$o = '<div id="j-sidebar-container" class="span2">'."\n". JHtmlSidebar::render()."\n";
+		
+		if ($txtFilter != '') {
+
+
+
+			$o .= '<hr />'."\n" . '<div class="filter-select ">'."\n"
+			. '<h4 class="page-header">'. JText::_($txtFilter).'</h4>'."\n";
+		} else {
+			$o .= '<div>';
+
+		}
+		
 		return $o;
 	}
 
@@ -50,32 +58,45 @@ class PhocaMapsRenderAdminViews
 	}
 	
 	public function selectFilterPublished($txtSp, $state) {
-		return'<select name="filter_published" class="inputbox" onchange="this.form.submit()">'."\n"
+		return '<div class="btn-group pull-right ph-select-status">'. "\n"
+		.'<select name="filter_published" class="inputbox" onchange="this.form.submit()">'."\n"
 		. '<option value="">'.JText::_($txtSp).'</option>'
 		. JHtml::_('select.options', JHtml::_('jgrid.publishedOptions', array('archived' => 0, 'trash' => 0)), 'value', 'text', $state, true)
-		.'</select>'. "\n";
+		.'</select></div>'. "\n";
 	}
 	
 	public function selectFilterType($txtSp, $type, $typeList) {
-		return'<select name="filter_type" class="inputbox" onchange="this.form.submit()">'."\n"
+		return '<div class="btn-group pull-right">'. "\n"
+		.'<select name="filter_type" class="inputbox" onchange="this.form.submit()">'."\n"
 		. '<option value="">'.JText::_($txtSp).'</option>'
 		. JHtml::_('select.options', $typeList, 'value', 'text', $type, true)
-		.'</select>'. "\n";
+		.'</select></div>'. "\n";
 	}
 	
 	public function selectFilterLanguage($txtLng, $state) {
-		return'<select name="filter_language" class="inputbox" onchange="this.form.submit()">'."\n"
+		return '<div class="btn-group pull-right">'. "\n"
+		.'<select name="filter_language" class="inputbox" onchange="this.form.submit()">'."\n"
 		. '<option value="">'.JText::_($txtLng).'</option>'
 		. JHtml::_('select.options', JHtml::_('contentlanguage.existing', true, true), 'value', 'text', $state)
-		.'</select>'. "\n";
+		.'</select></div>'. "\n";
 	}
 	
-	
-	public function selectFilterCategory($categoryList, $txtLng, $state, $name = 'filter_category_id') {
-		return '<select name="'.htmlspecialchars($name).'" class="inputbox" onchange="this.form.submit()">'."\n"
+	public function selectFilterCategory($categoryList, $txtLng, $state) {
+		return '<div class="btn-group pull-right ">'. "\n"
+		.'<select name="filter_category_id" class="inputbox" onchange="this.form.submit()">'."\n"
 		. '<option value="">'.JText::_($txtLng).'</option>'
 		. JHtml::_('select.options', $categoryList, 'value', 'text', $state)
-		. '</select>'. "\n";
+		. '</select></div>'. "\n";
+	}
+	
+	public function selectFilterLevels($txtLng, $state) {
+		$levelList = array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5);
+		return 
+		'<div class="btn-group pull-right">'. "\n"
+		.'<select name="filter_level" class="inputbox" onchange="this.form.submit()">'."\n"
+		. '<option value="">'.JText::_($txtLng).'</option>'
+		. JHtml::_('select.options', $levelList, 'value', 'text', $state)
+		. '</select></div>'. "\n";
 	}
 	
 	public function startMainContainer() {
@@ -86,9 +107,16 @@ class PhocaMapsRenderAdminViews
 		return '</div>'. "\n";
 	}
 	
-	public function startFilterBar() {
-		return '<div id="filter-bar" class="btn-toolbar">'. "\n";
-	}
+
+	
+	public function startFilterBar($id = 0) {
+		if ((int)$id > 0) {
+			return '<div id="filter-bar'.$id.'" class="btn-toolbar ph-btn-toolbar-'.$id.'">'. "\n";
+		} else {
+			return '<div id="filter-bar'.$id.'" class="btn-toolbar">'. "\n";
+		}
+	}	
+	
 	
 	public function endFilterBar() {
 		return '</div>' . "\n" . '<div class="clearfix"> </div>'. "\n";
@@ -102,10 +130,11 @@ class PhocaMapsRenderAdminViews
 		.'</div>'. "\n";
 	}
 	
+
 	public function inputFilterSearchClear($txtFs, $txtFc) {
 		return '<div class="btn-group pull-left hidden-phone">'. "\n"
 		.'<button class="btn tip hasTooltip" type="submit" title="'.JText::_($txtFs).'"><i class="icon-search"></i></button>'. "\n"
-		.'<button class="btn tip hasTooltip" type="button" onclick="document.id(\'filter_search\').value=\'\';this.form.submit();"'
+		.'<button class="btn tip hasTooltip" type="button" onclick="document.getElementById(\'filter_search\').value=\'\';this.form.submit();"'
 		.' title="'.JText::_($txtFc).'"><i class="icon-remove"></i></button>'. "\n"
 		.'</div>'. "\n";
 	}
@@ -223,12 +252,13 @@ class PhocaMapsRenderAdminViews
 		return $o;
 	}
 	
-	public function formInputs($listOrder, $originalOrders) {
+
+	public function formInputs($listOrder, $listDirn, $originalOrders) {
 	
 		return '<input type="hidden" name="task" value="" />'. "\n"
 		.'<input type="hidden" name="boxchecked" value="0" />'. "\n"
 		.'<input type="hidden" name="filter_order" value="'.$listOrder.'" />'. "\n"
-		.'<input type="hidden" name="filter_order_Dir" value="" />'. "\n"
+		.'<input type="hidden" name="filter_order_Dir" value="'.$listDirn.'" />'. "\n"
 		. JHtml::_('form.token'). "\n"
 		.'<input type="hidden" name="original_order_values" value="'. implode($originalOrders, ',').'" />'. "\n";
 	}

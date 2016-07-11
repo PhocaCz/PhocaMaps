@@ -10,7 +10,7 @@
  */
 defined( '_JEXEC' ) or die();
 jimport('joomla.application.component.modeladmin');
-
+//use Joomla\String\StringHelper;
 class PhocaMapsCpModelPhocaMapsMap extends JModelAdmin
 {
 
@@ -378,6 +378,9 @@ class PhocaMapsCpModelPhocaMapsMap extends JModelAdmin
 		{
 			$title = JString::increment($title);
 			$alias = JString::increment($alias, 'dash');
+			// Joomla! 3.5
+			//$title = StringHelper::increment($title);
+			//$alias = StringHelper::increment($alias, 'dash');
 		}
 
 		return array($title, $alias);

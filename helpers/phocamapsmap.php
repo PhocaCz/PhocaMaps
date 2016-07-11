@@ -62,15 +62,41 @@ class PhocaMapsMap
 	/*
 	 * Loaded only one time per site (addScript)
 	 */
-	function loadAPI( $src = 'jsapi', $ssl = 0) {
+	function loadAPI( $articleIdOfPlugin = '') {
 		$document	= JFactory::getDocument();
-		if ($ssl == 1) {
+		
+		$paramsC 	= JComponentHelper::getParams('com_phocamaps');
+		$key 		= $paramsC->get( 'maps_api_key', '' );
+		$ssl 		= $paramsC->get( 'load_api_ssl', 1 );
+		
+		if ($ssl) {
+			$h = 'https://';
+		} else {
+			$h = 'http://';
+		}
+		if ($key) {
+			$k = '&key='.strip_tags($key);
+		} else {
+			$k = '';
+		}
+		
+		
+		/*if ($ssl == 1) {
 			$scriptLink	= 'https://www.google.com/'.$src;
 		} else {
 			$scriptLink	= 'http://www.google.com/'.$src;
+		}*/
+		
+		if ($articleIdOfPlugin != '') {
+			$initMaps = 'initMaps' . (int)$articleIdOfPlugin;
+		} else {
+			$initMaps = 'initMaps';
 		}
+		
+		$s = '<script async defer src="'.$h.'maps.googleapis.com/maps/api/js?callback='.$initMaps.$k.'" type="text/javascript"></script>';
 
-		$document->addScript($scriptLink);
+		//$document->addCustomTag($s);// must be loaded as last in the html, cannot be in header
+		return $s;
 
 	}
 	
@@ -93,11 +119,25 @@ class PhocaMapsMap
 	
 	function addAjaxAPI($type = 'maps', $version = '3.x', $params = '') {
 		
-		if ($params == '') {
+		return ""; // backward compatibility
+		
+		/* google.load("maps", "3.x", {"other_params":"sensor=false"}); */
+		/*$js = 'function initMap() {'."\n"
+			 .'   '.$this->_tst.'.setAttribute("oldValue'.$this->_id.'",0);'."\n"
+		     .'   '.$this->_tst.'.setAttribute("refreshMap'.$this->_id.'",0);'."\n"
+		     .'   '.$this->_tstint.' = setInterval("CheckPhocaMap'.$this->_id.'()",500);'."\n"
+			.'}'."\n";
+			//.'google.setOnLoadCallback(initMap);'."\n";
+			
+		
+	
+		return $js;
+		
+		/*if ($params == '') {
 			return ' google.load("'.$type.'", "'.$version.'");'."\n";
 		} else {
 			return ' google.load("'.$type.'", "'.$version.'", '.$params.');'."\n";
-		}
+		}*/
 	}
 
 	/*
@@ -182,15 +222,29 @@ class PhocaMapsMap
 		return ' var '.$this->_options.' = {'."\n";
 	}
 	
-	function endMapOptions (){
-		return ' };'."\n\n";
+	function endMapOptions ($customOptions = ''){
+		
+		$o = '';
+		if ($customOptions != '') {
+			
+			$o .= "\n" . ', '. strip_tags($customOptions);
+		}
+		
+		$o .= ' };'."\n\n";
+		return $o;
+		//return ',tilt:0 };'."\n\n";
 	}
 	
 	// Options
 	function setMapOption($option, $value, $trueOrFalse = FALSE) {
 		$js = '';
 		if (!$trueOrFalse) {
-			$js .= '   '.$option.': '.$value;
+			if ($value == '') {
+				$js .= '   '.$option.': \'\'';
+			} else {
+				$js .= '   '.$option.': '.$value;
+			}
+			
 		} else {
 			if ($value == 0) {
 				$js .= '   '.$option.': false';
@@ -376,7 +430,7 @@ class PhocaMapsMap
 		$output .= ' });'."\n";		
 
 		
-		if ($name == 'Global') {
+	/*	if ($name == 'Global') {
 			$output .= ' infoPhocaWindow'.$name.$this->_id.' = new google.maps.InfoWindow({'."\n";
 		} else {
 			$output .= ' var infoPhocaWindow'.$name.$this->_id.' = new google.maps.InfoWindow({'."\n";
@@ -399,7 +453,35 @@ class PhocaMapsMap
 		if ($open) {
 			$output .= '   google.maps.event.trigger(markerPhocaMarker'.$name.$this->_id.', \'click\');'."\n";
 		}
-		return $output;
+		return $output;*/
+		
+		if($open != 2){
+			if ($name == 'Global') {
+				$output .= ' infoPhocaWindow'.$name.$this->_id.' = new google.maps.InfoWindow({'."\n";
+			} else {
+				$output .= ' var infoPhocaWindow'.$name.$this->_id.' = new google.maps.InfoWindow({'."\n";
+			}		
+			$output .= '   content: \''.$text.'\''."\n"
+					  .' });'."\n";
+			
+			if ($closeOpenedWindow == 0) {
+				$output .= ' google.maps.event.addListener(markerPhocaMarker'.$name.$this->_id.', \'click\', function() {'."\n"
+				.'   infoPhocaWindow'.$name.$this->_id.'.open('.$this->_map.', markerPhocaMarker'.$name.$this->_id.' );'."\n"
+				.' });'."\n";
+			} else {
+				$output .= ' google.maps.event.addListener(markerPhocaMarker'.$name.$this->_id.', \'click\', function() {'."\n"
+				.'   if(PhocaOpenedWindow) PhocaOpenedWindow.close();'."\n"
+				.'   infoPhocaWindow'.$name.$this->_id.'.open('.$this->_map.', markerPhocaMarker'.$name.$this->_id.' );'."\n"
+				.'   PhocaOpenedWindow = infoPhocaWindow'.$name.$this->_id."\n"
+				.' });'."\n";
+			}
+				
+			if ($open) {
+				$output .= '   google.maps.event.trigger(markerPhocaMarker'.$name.$this->_id.', \'click\');'."\n";
+			}
+ 		}
+		
+ 		return $output;
 	}
 	
 	/*
@@ -516,16 +598,44 @@ class PhocaMapsMap
 		return '';
 	}
 	
-	function setInitializeFunction() {
+
+	/* We have divided one function into two:
+	* setInitializeFunctionSpecificMap() + setInitializeFunction()
+	* because of more instances in plugin
+	* Google Maps API does not like to load the api script more times
+	* so we have only one initMaps() which then:
+	*  - in component calls initMap() only once
+	*  - in plugin calls initMap1(), initMap2(), initMap3() - more times
+	* All calls will be set at the end of all plugin instances in body function initMaps()
+	* Be aware - in blog view we get more articles displayed togehter
+	* it is not possible to collect the initMap1(), initMap2(), initMap3() of more articles together
+	* so we call the api more times - for each article and this throws google maps api warning but without
+	* this calling maps will be not displayed
+	*              Article1               Aritcle2
+	*                /\                      /\
+    *         plugin1 plugin2	    plugin1(3) plugin2(4)
+	* we can work with more instances in one article so we collect the function calls to one block
+	* but we cannot do the same for more instances of article
+	*/
 	
-		$js = ' function initialize'.$this->_id.'() {'."\n"
-			 .'   '.$this->_tst.'.setAttribute("oldValue'.$this->_id.'",0);'."\n"
-		     .'   '.$this->_tst.'.setAttribute("refreshMap'.$this->_id.'",0);'."\n"
-		     .'   '.$this->_tstint.' = setInterval("CheckPhocaMap'.$this->_id.'()",500);'."\n"
-			 .' }'."\n\n"
-			 .' google.setOnLoadCallback(initialize'.$this->_id.');'."\n";
+	function setInitializeFunctionSpecificMap() {
+		$js = 'function initMap'.$this->_id.'() {'."\n"
+				 .'   '.$this->_tst.'.setAttribute("oldValue'.$this->_id.'",0);'."\n"
+				 .'   '.$this->_tst.'.setAttribute("refreshMap'.$this->_id.'",0);'."\n"
+				 .'   '.$this->_tstint.' = setInterval("CheckPhocaMap'.$this->_id.'()",500);'."\n"
+				.'}'."\n";
 		return $js;
 	}
+	
+	function setInitializeFunction() {
+
+		$js = 'function initMaps() {'."\n";
+			$js .= '   '.'initMap'.$this->_id.'();'."\n";
+		$js .= '}'."\n";
+		return $js;
+	}
+	
+
 	
 	function setListener() {
 		$js = ' google.maps.event.addDomListener('.$this->_tst.', \'DOMMouseScroll\', CancelEventPhocaMap'.$this->_id.');'."\n"
@@ -879,14 +989,28 @@ class PhocaMapsMap
 		return $js;
 	}
 	
-	function directionInitializeFunction($from, $to){
-		$js ='function initialize'.$this->_id.'(fromPMAddress'.$this->_id.', toPMAddress'.$this->_id.') {'."\n"
+	function directionInitializeFunctionSpecificMap($from, $to){
+		$js ='function initMap'.$this->_id.'() {'."\n"
+		
+		/*.'   '.$this->_tst.'.setAttribute("oldValue",0);'."\n"
+		.'   '.$this->_tst.'.setAttribute("refreshMap",0);'."\n"
+		.'   '.$this->_tstint.' = setInterval("CheckPhocaMap()",500);'."\n"*/
+		
 		.'     '.$this->_dirdisplay.' = new google.maps.DirectionsRenderer();'."\n"
 		.'     '.$this->_dirservice.' = new google.maps.DirectionsService();'."\n"
 		.'     '.$this->_dirdisplay.'.setPanel(document.getElementById("directionsPanel'.$this->_id.'"));'."\n"
 		.'     setPhocaDir'.$this->_id.'(\''.htmlspecialchars(base64_decode($from), ENT_QUOTES).'\', \''.htmlspecialchars(base64_decode($to), ENT_QUOTES).'\');'."\n"
-		.'}'."\n\n"
-		.'google.setOnLoadCallback(initialize'.$this->_id.');'."\n";
+		.'}'."\n\n";
+		//.'google.setOnLoadCallback(initialize'.$this->_id.');'."\n";
+		return $js;
+	
+	}
+	
+	function directionInitializeFunction() {
+
+		$js = 'function initMaps() {'."\n";
+			$js .= '   '.'initMap'.$this->_id.'();'."\n";
+		$js .= '}'."\n";
 		return $js;
 	}
 
@@ -934,12 +1058,19 @@ class PhocaMapsMap
 		return $js;
 	}
 	*/
-	function setKMLFile($kmlFile) {
+
 	
+	function setKMLFile($kmlFile) {
+		
+		
+		//$suffix = time() + (10 * 365 * 24 * 60 * 60);
+		//$kmlFile = $kmlFile . '?sid='. (string)$suffix;
+		
 		//$js = ' var kmlLayer'.$this->_id.' = new google.maps.KmlLayer(\''.$kmlFile.'\');'."\n"
 		//		.' kmlLayer'.$this->_id.'.setMap('.$this->_map.');'."\n";
-		$js = ' var kmlLayer'.$this->_id.' = new google.maps.KmlLayer({ url: \''.$kmlFile.'\'});'."\n"
-				.' kmlLayer'.$this->_id.'.setMap('.$this->_map.');'."\n";
+
+		$js = ' var kmlLayer'.$this->_id.' = new google.maps.KmlLayer({ url: \''.$kmlFile.'\', suppressInfoWindows: true, preserveViewport: false, map: '.$this->_map.'});'."\n";
+				//.' kmlLayer'.$this->_id.'.setMap('.$this->_map.');'."\n";
 		return $js;
 	}
 }

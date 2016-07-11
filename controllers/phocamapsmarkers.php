@@ -16,7 +16,7 @@ class PhocaMapsCpControllerPhocaMapsMarkers extends JControllerAdmin
 	
 	
 	
-	public function &getModel($name = 'PhocaMapsMarker', $prefix = 'PhocaMapsCpModel')
+	public function &getModel($name = 'PhocaMapsMarker', $prefix = 'PhocaMapsCpModel', $config = array())
 	{
 		$model = parent::getModel($name, $prefix, array('ignore_request' => true));
 		return $model;

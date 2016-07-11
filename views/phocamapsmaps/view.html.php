@@ -18,10 +18,14 @@ class PhocaMapsCpViewPhocaMapsMaps extends JViewLegacy
 	
 	function display($tpl = null) {
 		
-		$this->t	= PhocaMapsUtils::setVars('map');
+		$this->t			= PhocaMapsUtils::setVars('map');
 		$this->items		= $this->get('Items');
 		$this->pagination	= $this->get('Pagination');
 		$this->state		= $this->get('State');
+		
+		$paramsC 					= JComponentHelper::getParams('com_phocamaps');
+		$this->t['maps_api_key']	= $paramsC->get( 'maps_api_key', '' );
+		//$this->t['load_api_ssl'] 	= $paramsC->get( 'load_api_ssl', 1 );
 		
 		// Preprocess the list of items to find ordering divisions.
 		foreach ($this->items as &$item) {

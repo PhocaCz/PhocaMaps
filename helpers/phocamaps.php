@@ -67,10 +67,19 @@ class PhocaMapsHelper
 		
 	}
 	
+	
 	public static function fixImagePath($description) {
-		$description = str_replace('<img src="'.JURI::root(true).'/', '', $description);// no double
-		$description = str_replace('<img src="', '<img src="'.JURI::root(true).'/', $description);
-		return $description;
-	}
+          
+          $description = str_replace('<img src="'.JURI::root(true).'/', '', $description);// no double
+          $description = str_replace('<img src="', '<img src="'.JURI::root(true).'/', $description);
+          
+          // correct possible problems with full paths
+          $description = str_replace('<img src="'.JURI::root(true).'/http://', '<img src="http://', $description);
+          $description = str_replace('<img src="/http://', '<img src="http://', $description);
+		  
+		  $description = str_replace('<img src="'.JURI::root(true).'/https://', '<img src="https://', $description);
+          $description = str_replace('<img src="/https://', '<img src="https://', $description);
+          return $description;
+       }
 }
 ?>

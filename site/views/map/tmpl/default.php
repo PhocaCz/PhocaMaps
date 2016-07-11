@@ -24,7 +24,7 @@ if ((!isset($this->map->longitude))
 	
 	$id		= '';
 	$map	= new PhocaMapsMap($id);
-	$map->loadAPI('jsapi', (int)$this->t['load_api_ssl']);
+	//$map->loadAPI();
 	$map->loadGeoXMLJS();
 	$map->loadBase64JS();
 	
@@ -112,13 +112,14 @@ if ((!isset($this->map->longitude))
 		echo $map->setMapOption('disableDoubleClickZoom', $this->map->disabledoubleclickzoom).','."\n";
 	//	echo $map->setMapOption('googleBar', $this->map->googlebar).','."\n";// Not ready yet
 	//	echo $map->setMapOption('continuousZoom', $this->map->continuouszoom).','."\n";// Not ready yet
+		echo $map->setMapOption('styles', $this->map->map_styles).','."\n";
 		echo $map->setMapTypeOpt($this->map->typeid)."\n";
-		echo $map->endMapOptions();
+		echo $map->endMapOptions($this->map->custom_options);
 		if ($this->t['close_opened_window'] == 1) {
 			echo $map->setCloseOpenedWindow();
 		}
 		echo $map->setMap();
-		
+	
 		// Markers
 		jimport('joomla.filter.output');
 		if (isset($this->marker) && !empty($this->marker)) {
@@ -170,16 +171,19 @@ if ((!isset($this->map->longitude))
 		if ($this->t['displaydir']) {
 			echo $map->setDirectionDisplayService('phocaDir');
 		}
-		echo $map->setListener();
+		if(isset($this->map->scrollwheelzoom) && $this->map->scrollwheelzoom != 0){
+			echo $map->setListener();
+		}
 		echo $map->endMapFunction();
 
 		if ($this->t['displaydir']) {
 			
 			echo $map->setDirectionFunction($this->t['display_print_route'], $this->map->id, $this->map->alias, $this->t['lang']);
 		}
-		
+		echo $map->setInitializeFunctionSpecificMap();
 		echo $map->setInitializeFunction();
-	echo $map->endJScData();
+		echo $map->endJScData();
+		echo $map->loadAPI();// must be loaded as last
 }
 
 

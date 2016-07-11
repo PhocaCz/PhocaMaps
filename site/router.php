@@ -121,7 +121,7 @@ function PhocaMapsParseRoute($segments)
 	$app 	= JFactory::getApplication('site');
 	$menu  = $app->getMenu();
 	//$menu =& J Site::getMenu();
-	$item =& $menu->getActive();
+	$item = $menu->getActive();
 
 
 	// Count route segments

@@ -298,3 +298,11 @@ input.pmreadonly:hover
 #phocamaps img {
   max-width: none;
 }
+
+.ph-btn-toolbar-2 {
+	clear: right;
+	padding-top: 10px;
+}
+.ph-select-status {
+	padding-left: 5px;
+}

@@ -92,12 +92,12 @@ class PhocaMapsViewMap extends JViewLegacy
 		
 		$this->t['params'] = '';
 		if (!isset($this->map->lang) || (isset($this->map->lang) && $this->map->lang == '')) {
-			$this->t['params'] 		= '{other_params:"sensor=false"}';
+			$this->t['params'] 		= '';
 			$this->t['paramssearch'] 	= '';
 			$this->t['lang']			= '';
 		} else {
 			//$this->t['params'] = '{"language":"'.$this->map->lang.'", "other_params":"sensor=false"}';
-			$this->t['params'] 		= '{other_params:"sensor=false&language='.$this->map->lang.'"}';
+			$this->t['params'] 		= '{other_params:"language='.$this->map->lang.'"}';
 			$this->t['paramssearch'] 	= '{"language":"'.$this->map->lang.'"}';
 			$this->t['lang']			= $this->map->lang;
 		}
@@ -194,7 +194,49 @@ class PhocaMapsViewMap extends JViewLegacy
 			}
 		}
 		
-		
+		$this->_prepareDocument();
 		parent::display($tpl);
+	}
+	
+	protected function _prepareDocument() {
+		
+		$app		= JFactory::getApplication();
+		$menus		= $app->getMenu();
+		$menu 		= $menus->getActive();
+		$pathway 	= $app->getPathway();
+		$title 		= null;
+		
+	
+	
+		if ($menu) {
+			$this->t['p']->def('page_heading', $this->t['p']->get('page_title', $menu->title));
+		} else {
+			$this->t['p']->def('page_heading', JText::_('JGLOBAL_ARTICLES'));
+		}
+
+		
+		  // get page title
+          $title = $this->t['p']->get('page_title', '');
+          // if no title is set take the sitename only
+          if (empty($title)) {
+             $title = $app->getCfg('sitename');
+          }
+          // else add the title before or after the sitename
+          elseif ($app->getCfg('sitename_pagetitles', 0) == 1) {
+             $title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
+          }
+          elseif ($app->getCfg('sitename_pagetitles', 0) == 2) {
+             $title = JText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
+          }
+          $this->document->setTitle($title);
+
+		
+		$this->document->setDescription($this->t['p']->get('menu-meta_description', ''));
+		$this->document->setMetadata('keywords', $this->t['p']->get('menu-meta_keywords', ''));
+		
+
+		if ($app->getCfg('MetaTitle') == '1' && $this->t['p']->get('menupage_title', '')) {
+			$this->document->setMetaData('title', $this->t['p']->get('page_title', ''));
+		}
 	}
 }

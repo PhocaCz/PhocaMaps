@@ -156,8 +156,10 @@ class PhocaMapsCpModelPhocaMapsMarkers extends JModelList
 			$query->where('a.language = ' . $db->quote($language));
 		}
 	
-		$orderCol	= $this->state->get('list.ordering');
-		$orderDirn	= $this->state->get('list.direction');
+		//$orderCol	= $this->state->get('list.ordering');
+		//$orderDirn	= $this->state->get('list.direction');
+		$orderCol	= $this->state->get('list.ordering', 'title');
+		$orderDirn	= $this->state->get('list.direction', 'asc');
 		if ($orderCol == 'a.ordering' || $orderCol == 'map_title') {
 			$orderCol = 'map_title '.$orderDirn.', a.ordering';
 		}

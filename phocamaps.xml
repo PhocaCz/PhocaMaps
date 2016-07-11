@@ -2,12 +2,12 @@
 <extension method="upgrade" type="component" version="3">
 	<name>com_phocamaps</name>
 	<author>Jan Pavelka (www.phoca.cz)</author>
-	<creationDate>24/02/2014</creationDate>
+	<creationDate>10/07/2016</creationDate>
 	<authorEmail></authorEmail>
 	<authorUrl>www.phoca.cz</authorUrl>
 	<copyright>Jan Pavelka</copyright>
 	<license>GNU/GPL</license>
-	<version>3.0.1</version>
+	<version>3.0.4</version>
 	<description>Phoca Maps</description>
 	<scriptfile>install/script.php</scriptfile>
 
@@ -24,7 +24,9 @@
 	</uninstall>
 
 	<update>
-		<schemas/>
+		<schemas>
+			<schemapath type="mysql">update/sql/mysql</schemapath>
+		</schemas>
 	</update>
 
 	<files folder="site">
@@ -73,6 +75,7 @@
 			<folder>install</folder>
 			<folder>models</folder>
 			<folder>tables</folder>
+			<folder>update</folder>
 			<folder>views</folder>
 		</files>
 

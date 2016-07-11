@@ -42,7 +42,7 @@ if ($layout == 'edit') {
 class phocaMapsCpController extends JControllerLegacy
 {
 	function display($cachable = false, $urlparams = array()) {
-		parent::display($cachable = false, $urlparams = array());
+		parent::display($cachable, $urlparams);
 	}
 }
 ?>

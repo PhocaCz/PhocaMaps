@@ -88,7 +88,11 @@
 
 
 
-<field name="kmlfile" type="phocatext" class="inputbox" size="40" label="COM_PHOCAMAPS_KML_FILE_LABEL" description="COM_PHOCAMAPS_KML_FILE_DESC"  />
+<field name="kmlfile" type="text" class="inputbox" size="40" label="COM_PHOCAMAPS_KML_FILE_LABEL" description="COM_PHOCAMAPS_KML_FILE_DESC"  />
+<field name="custom_options" type="text" class="inputbox" size="40" label="COM_PHOCAMAPS_CUSTOM_OPTIONS_LABEL" description="COM_PHOCAMAPS_CUSTOM_OPTIONS_DESC"  />
+
+<field name="map_styles" type="textarea" class="inputbox" rows="5" label="COM_PHOCAMAPS_MAP_STYLES_LABEL" description="COM_PHOCAMAPS_MAP_STYLES_DESC"  />
+ 
 
 
 	</fieldset>

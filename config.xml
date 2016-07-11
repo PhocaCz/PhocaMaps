@@ -24,10 +24,12 @@
 	<option value="0">COM_PHOCAMAPS_NO</option>
 </field>
 
-<field name="load_api_ssl" type="list" default="0" label="COM_PHOCAMAPS_FIELD_LOAD_API_SSL_LABEL" description="COM_PHOCAMAPS_FIELD_LOAD_API_SSL_DESC">
+<field name="load_api_ssl" type="list" default="1" label="COM_PHOCAMAPS_FIELD_LOAD_API_SSL_LABEL" description="COM_PHOCAMAPS_FIELD_LOAD_API_SSL_DESC">
 	<option value="1">COM_PHOCAMAPS_YES</option>
 	<option value="0">COM_PHOCAMAPS_NO</option>
 </field>
+
+<field name="maps_api_key" default=""  type="text" label="COM_PHOCAMAPS_FIELD_MAPS_API_KEY_LABEL" description="COM_PHOCAMAPS_FIELD_MAPS_API_KEY_DESC"/>
 
 
 </fieldset>

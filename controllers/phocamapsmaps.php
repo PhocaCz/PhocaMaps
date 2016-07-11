@@ -12,10 +12,8 @@ jimport('joomla.application.component.controlleradmin');
 class PhocaMapsCpControllerPhocaMapsMaps extends JControllerAdmin
 {
 	protected	$option 		= 'com_phocamaps';
-	
-	
-	
-	public function &getModel($name = 'PhocaMapsMap', $prefix = 'PhocaMapsCpModel')
+
+	public function &getModel($name = 'PhocaMapsMap', $prefix = 'PhocaMapsCpModel', $config = array())
 	{
 		$model = parent::getModel($name, $prefix, array('ignore_request' => true));
 		return $model;
