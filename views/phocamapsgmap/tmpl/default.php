@@ -1,4 +1,11 @@
 <?php
+/* @package Joomla
+ * @copyright Copyright (C) Open Source Matters. All rights reserved.
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+ * @extension Phoca Extension
+ * @copyright Copyright (C) Jan Pavelka www.phoca.cz
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ */
 defined('_JEXEC') or die('Restricted access');
 
 echo '<div id="phocamaps" style="margin:0;padding:0;">';
@@ -9,7 +16,7 @@ if ($this->type == 'marker') {
 }
 //$map->loadAPI();
 echo '<div align="center" style="margin:0;padding:0">';
-echo '<div id="phocaMap'.$id.'" style="margin:0;padding:0;width:750px;height:480px"></div></div>';
+echo '<div id="phocaMap'.$id.'" style="width: 100%;height: 85vh;"></div></div>';
 
 echo $map->startJScData();
 

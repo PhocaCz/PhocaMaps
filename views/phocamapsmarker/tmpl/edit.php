@@ -1,4 +1,12 @@
-<?php defined('_JEXEC') or die;
+<?php
+/* @package Joomla
+ * @copyright Copyright (C) Open Source Matters. All rights reserved.
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+ * @extension Phoca Extension
+ * @copyright Copyright (C) Jan Pavelka www.phoca.cz
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ */
+ defined('_JEXEC') or die;
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
 JHtml::_('behavior.keepalive');
@@ -26,7 +34,8 @@ echo '<div class="span10 form-horizontal">';
 $tabs = array (
 'general' 		=> JText::_($this->t['l'].'_GENERAL_OPTIONS'),
 'publishing' 	=> JText::_($this->t['l'].'_PUBLISHING_OPTIONS'),
-'design'		=> JText::_($this->t['l'].'_DESIGN_SETTINGS')
+'design'		=> JText::_($this->t['l'].'_DESIGN_SETTINGS_GOOGLE_MAPS'),
+'osm_design'		=> JText::_($this->t['l'].'_DESIGN_SETTINGS_OPENSTREETMAP')
 );
 echo $r->navigation($tabs);
 
@@ -53,6 +62,11 @@ echo '</div>';
 				
 echo '<div class="tab-pane" id="design">'."\n"; 
 $formArray = array ('icon', 'iconext');
+echo $r->group($this->form, $formArray);
+echo '</div>'. "\n";
+
+echo '<div class="tab-pane" id="osm_design">'."\n"; 
+$formArray = array ('osm_icon', 'osm_marker_color', 'osm_icon_color', 'osm_icon_prefix', 'osm_icon_spin', 'osm_icon_class');
 echo $r->group($this->form, $formArray);
 echo '</div>'. "\n";
 

@@ -1,4 +1,12 @@
-<?php defined('_JEXEC') or die('Restricted access');
+<?php
+/* @package Joomla
+ * @copyright Copyright (C) Open Source Matters. All rights reserved.
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+ * @extension Phoca Extension
+ * @copyright Copyright (C) Jan Pavelka www.phoca.cz
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ */
+  defined('_JEXEC') or die('Restricted access');
 echo '<div id="phocamapsprintroute">';
 $id		= '';
 $map	= new PhocaMapsMap();
@@ -6,7 +14,7 @@ $map	= new PhocaMapsMap();
 echo $map->getIconPrintScreen();
 
 //$map->loadAPI();
-$map->loadAPI();
+//$map->loadAPI();
 
 echo $map->startJScData();
 echo $map->addAjaxAPI('maps', '3.x', $this->t['params']);

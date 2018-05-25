@@ -200,7 +200,7 @@ class PhocaMapsRenderAdminViews
 		.'</th>'. "\n";
 	}
 	
-	public function tdOrder($canChange, $saveOrder, $orderkey){
+	public function tdOrder($canChange, $saveOrder, $orderkey, $ordering = 0){
 	
 		$o = '<td class="order nowrap center hidden-phone">'. "\n";
 		if ($canChange) {
@@ -214,7 +214,7 @@ class PhocaMapsRenderAdminViews
 		} else {
 			$o .= '<span class="sortable-handler inactive"><i class="icon-menu"></i></span>'."\n";
 		}
-		$orderkeyPlus = $orderkey + 1;
+		$orderkeyPlus = $ordering;//$orderkey + 1;
 		$o .= '<input type="text" style="display:none" name="order[]" size="5" value="'.$orderkeyPlus.'" />'. "\n"
 		.'</td>'. "\n"; 
 		return $o;

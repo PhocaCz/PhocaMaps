@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<view title="COM_PHOCAMAPS_MAPS_GROUP">
+	<view title="_COM_PHOCAMAPS_MAPS_GROUP">
 		<message>
 			<![CDATA[COM_PHOCAMAPS_MAPS_GROUP_DESC]]>
 		</message>

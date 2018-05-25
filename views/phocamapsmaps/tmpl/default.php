@@ -35,7 +35,7 @@ echo $r->endFilter();
 
 echo $r->startMainContainer();
 
-if ($this->t['maps_api_key'] == '') {
+if ($this->t['maps_api_key'] == '' && $this->t['map_type'] == 1) {
 	echo '<div class="alert alert-error alert-danger">' . JText::_('COM_PHOCACART_MAPS_API_KEY_NOT_SET') .'</div>';
 }
 
@@ -93,7 +93,7 @@ $iD = $i % 2;
 echo "\n\n";
 echo '<tr class="row'.$iD.'" sortable-group-id="0" item-id="'.$item->id.'" parents="0" level="0">'. "\n";
 
-echo $r->tdOrder($canChange, $saveOrder, $orderkey);
+echo $r->tdOrder($canChange, $saveOrder, $orderkey, $item->ordering);
 echo $r->td(JHtml::_('grid.id', $i, $item->id), "small hidden-phone");						
 $checkO = '';
 if ($item->checked_out) {

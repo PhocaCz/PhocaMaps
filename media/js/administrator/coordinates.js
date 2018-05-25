@@ -1,3 +1,4 @@
+
 function setPMGPSLongitude(inputValue) {
 	longitudeValue = convertPMGPS(inputValue, 'longitude');
 	window.top.document.forms.adminForm.elements.gpslongitude.value = longitudeValue;

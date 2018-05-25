@@ -8,7 +8,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License version 2 or later;
  */
 defined( '_JEXEC' ) or die( 'Restricted access' );
-if(!defined('DS')) define('DS', DIRECTORY_SEPARATOR);
+
 jimport( 'joomla.filesystem.folder' );
 
 class com_phocamapsInstallerScript
@@ -17,8 +17,8 @@ class com_phocamapsInstallerScript
 		//echo '<p>' . JText::_('COM_PHOCAMAPS_INSTALL_TEXT') . '</p>';
 		
 		
-		$folder[0][0]	=	'phocamapskml' . DS ;
-		$folder[0][1]	= 	JPATH_ROOT . DS .  $folder[0][0];
+		$folder[0][0]	=	'phocamapskml/';
+		$folder[0][1]	= 	JPATH_ROOT . '/' .  $folder[0][0];
 		
 		$message = '';
 		$error	 = array();
@@ -30,7 +30,7 @@ class com_phocamapsInstallerScript
 				{
 					
 					$data = "<html>\n<body bgcolor=\"#FFFFFF\">\n</body>\n</html>";
-					JFile::write($value[1].DS."index.html", $data);
+					JFile::write($value[1]."/index.html", $data);
 					$message .= '<div><b><span style="color:#009933">Folder</span> ' . $value[0] 
 							   .' <span style="color:#009933">created!</span></b></div>';
 					$error[] = 0;
@@ -61,8 +61,8 @@ class com_phocamapsInstallerScript
 	function update($parent) {
 		//echo '<p>' . JText::sprintf('COM_PHOCAMAPS_UPDATE_TEXT', $parent->get('manifest')->version) . '</p>';
 		
-		$folder[0][0]	=	'phocamapskml' . DS ;
-		$folder[0][1]	= 	JPATH_ROOT . DS .  $folder[0][0];
+		$folder[0][0]	=	'phocamapskml/' ;
+		$folder[0][1]	= 	JPATH_ROOT . '/' .  $folder[0][0];
 		
 		$message = '';
 		$error	 = array();
@@ -74,7 +74,7 @@ class com_phocamapsInstallerScript
 				{
 					
 					$data = "<html>\n<body bgcolor=\"#FFFFFF\">\n</body>\n</html>";
-					JFile::write($value[1].DS."index.html", $data);
+					JFile::write($value[1]."/index.html", $data);
 					$message .= '<div><b><span style="color:#009933">Folder</span> ' . $value[0] 
 							   .' <span style="color:#009933">created!</span></b></div>';
 					$error[] = 0;

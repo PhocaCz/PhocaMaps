@@ -1,6 +1,6 @@
 <?php
 /*
- * @package Joomla 1.5
+ * @package Joomla 3.8
  * @copyright Copyright (C) 2005 Open Source Matters. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  *
@@ -27,15 +27,15 @@ class PhocaMapsRenderAdmin
 		switch ($option) {
 			
 			case 'com_phocamaps':
-				$links[]	= array('Phoca Maps site', 'http://www.phoca.cz/phocamaps');
-				$links[]	= array('Phoca Maps documentation site', 'http://www.phoca.cz/documentation/category/53-phoca-maps-component');
-				$links[]	= array('Phoca Maps download site', 'http://www.phoca.cz/download/category/81-phoca-maps');
+				$links[]	= array('Phoca Maps site', 'https://www.phoca.cz/phocamaps');
+				$links[]	= array('Phoca Maps documentation site', 'https://www.phoca.cz/documentation/category/53-phoca-maps-component');
+				$links[]	= array('Phoca Maps download site', 'https://www.phoca.cz/download/category/81-phoca-maps');
 			break;
 		
 		}
 		
-		$links[]	= array('Phoca News', 'http://www.phoca.cz/news');
-		$links[]	= array('Phoca Forum', 'http://www.phoca.cz/forum');
+		$links[]	= array('Phoca News', 'https://www.phoca.cz/news');
+		$links[]	= array('Phoca Forum', 'https://www.phoca.cz/forum');
 		
 		$components 	= array();
 		$components[]	= array('Phoca Gallery','phocagallery', 'pg');
@@ -57,6 +57,7 @@ class PhocaMapsRenderAdmin
 		
 		$banners	= array();
 		$banners[]	= array('Phoca Restaurant Menu','phocamenu', 'prm');
+		$banners[]	= array('Phoca Cart','phocacart', 'pc');
 		
 		$o = '';
 		$o .= '<p>&nbsp;</p>';
@@ -72,15 +73,15 @@ class PhocaMapsRenderAdmin
 		$o .= '<h4 style="margin-bottom:5px;">'.JText::_($oT.'_USEFUL_TIPS'). '</h4>';
 		
 		$m = mt_rand(0, 10);
-		if ((int)$m > 0) {
+		if ((int)$m > 3) {
 			$o .= '<div>';
 			$num = range(0,(count($components) - 1 )); 
 			shuffle($num);
 			for ($i = 0; $i<3; $i++) {
 				$numO = $num[$i];
 				$o .= '<div style="float:left;width:33%;margin:0 auto;">';
-				$o .= '<div><a style="text-decoration:underline;" href="http://www.phoca.cz/'.$components[$numO][1].'" target="_blank">'.JHTML::_('image',  'media/'.$option.'/images/administrator/icon-box-'.$components[$numO][2].'.png', ''). '</a></div>';
-				$o .= '<div style="margin-top:-10px;"><small><a style="text-decoration:underline;" href="http://www.phoca.cz/'.$components[$numO][1].'" target="_blank">'.$components[$numO][0].'</a></small></div>';
+				$o .= '<div><a style="text-decoration:underline;" href="https://www.phoca.cz/'.$components[$numO][1].'" target="_blank">'.JHTML::_('image',  'media/'.$option.'/images/administrator/icon-box-'.$components[$numO][2].'.png', ''). '</a></div>';
+				$o .= '<div style="margin-top:-10px;"><small><a style="text-decoration:underline;" href="https://www.phoca.cz/'.$components[$numO][1].'" target="_blank">'.$components[$numO][0].'</a></small></div>';
 				$o .= '</div>';
 			}
 			$o .= '<div style="clear:both"></div>';
@@ -89,13 +90,13 @@ class PhocaMapsRenderAdmin
 			$num = range(0,(count($banners) - 1 )); 
 			shuffle($num);
 			$numO = $num[0];
-			$o .= '<div><a href="http://www.phoca.cz/'.$banners[$numO][1].'" target="_blank">'.JHTML::_('image',  'media/'.$option.'/images/administrator/b-'.$banners[$numO][2].'.png', ''). '</a></div>';
+			$o .= '<div><a href="https://www.phoca.cz/'.$banners[$numO][1].'" target="_blank">'.JHTML::_('image',  'media/'.$option.'/images/administrator/b-'.$banners[$numO][2].'.png', ''). '</a></div>';
 
 		}
 		
 		$o .= '<p>&nbsp;</p>';
 		$o .= '<h4 style="margin-bottom:5px;">'.JText::_($oT.'_PLEASE_READ'). '</h4>';
-		$o .= '<div><a style="text-decoration:underline" href="http://www.phoca.cz/phoca-needs-your-help/" target="_blank">'.JText::_($oT.'_PHOCA_NEEDS_YOUR_HELP'). '</a></div>';
+		$o .= '<div><a style="text-decoration:underline" href="https://www.phoca.cz/phoca-needs-your-help/" target="_blank">'.JText::_($oT.'_PHOCA_NEEDS_YOUR_HELP'). '</a></div>';
 		
 		$o .= '</div>';
 		return $o;

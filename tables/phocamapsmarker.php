@@ -1,4 +1,11 @@
 <?php
+/* @package Joomla
+ * @copyright Copyright (C) Open Source Matters. All rights reserved.
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+ * @extension Phoca Extension
+ * @copyright Copyright (C) Jan Pavelka www.phoca.cz
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ */
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
 class TablePhocaMapsMarker extends JTable
@@ -10,19 +17,19 @@ class TablePhocaMapsMarker extends JTable
 	function check(){
 		
 		if (trim( $this->catid ) == '') {
-			$this->setError( JText::_( 'COM_PHOCAMAPS_ERROR_MAP_NOT_SELECTED') );
+			throw new Exception( JText::_( 'COM_PHOCAMAPS_ERROR_MAP_NOT_SELECTED'), 500 );
 			return false;
 		}
 		
 		if (trim( $this->title ) == '') {
-			$this->setError( JText::_( 'COM_PHOCAMAPS_ERROR_TITLE_NOT_SET') );
+			throw new Exception( JText::_( 'COM_PHOCAMAPS_ERROR_TITLE_NOT_SET'), 500 );
 			return false;
 		}
 
 		if (empty($this->alias)) {
 			$this->alias = $this->title;
 		}
-		$this->alias = JApplication::stringURLSafe($this->alias);
+		$this->alias = JApplicationHelper::stringURLSafe($this->alias);
 		if (trim(str_replace('-', '', $this->alias)) == '') {
 			$this->alias = JFactory::getDate()->format("Y-m-d-H-i-s");
 		}

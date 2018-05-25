@@ -1,6 +1,6 @@
 <?php
 /*
- * @package Joomla 1.5
+ * @package Joomla 3.8
  * @copyright Copyright (C) 2005 Open Source Matters. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  *
@@ -9,16 +9,16 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined( '_JEXEC' ) or die( 'Restricted access' );
-if(!defined('DS')) define('DS', DIRECTORY_SEPARATOR);
-require_once( JPATH_COMPONENT.DS.'controller.php' );
-require_once( JPATH_COMPONENT.DS.'helpers'.DS.'route.php' );
-require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_phocamaps'.DS.'helpers'.DS.'phocamapspath.php' );
-require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_phocamaps'.DS.'helpers'.DS.'phocamaps.php' );
-require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_phocamaps'.DS.'helpers'.DS.'phocamapsmap.php' );
+require_once( JPATH_COMPONENT.'/controller.php' );
+require_once( JPATH_COMPONENT.'/helpers/route.php' );
+require_once( JPATH_ADMINISTRATOR.'/components/com_phocamaps/helpers/phocamapspath.php' );
+require_once( JPATH_ADMINISTRATOR.'/components/com_phocamaps/helpers/phocamaps.php' );
+require_once( JPATH_ADMINISTRATOR.'/components/com_phocamaps/helpers/phocamapsmap.php' );
+require_once( JPATH_ADMINISTRATOR.'/components/com_phocamaps/helpers/phocamapsmaposm.php' );
 
 // Require specific controller if requested
-if($controller = JRequest::getWord('controller')) {
-    $path = JPATH_COMPONENT.DS.'controllers'.DS.$controller.'.php';
+if($controller = JFactory::getApplication()->input->get( 'controller')) {
+    $path = JPATH_COMPONENT.'/controllers/'.$controller.'.php';
     if (file_exists($path)) {
         require_once $path;
     } else {

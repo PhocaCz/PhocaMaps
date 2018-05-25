@@ -25,6 +25,7 @@ class PhocaMapsCpViewPhocaMapsMaps extends JViewLegacy
 		
 		$paramsC 					= JComponentHelper::getParams('com_phocamaps');
 		$this->t['maps_api_key']	= $paramsC->get( 'maps_api_key', '' );
+		$this->t['map_type']		= $paramsC->get( 'map_type', 2 );
 		//$this->t['load_api_ssl'] 	= $paramsC->get( 'load_api_ssl', 1 );
 		
 		// Preprocess the list of items to find ordering divisions.
@@ -36,7 +37,7 @@ class PhocaMapsCpViewPhocaMapsMaps extends JViewLegacy
 		JHTML::stylesheet( $this->t['css'] . 'icomoon/icomoon.css' );
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
-			JError::raiseError(500, implode("\n", $errors));
+			throw new Exception(implode("\n", $errors), 500);
 			return false;
 		}
 		
@@ -51,32 +52,32 @@ class PhocaMapsCpViewPhocaMapsMaps extends JViewLegacy
 		$state	= $this->get('State');
 		$canDo	= PhocaMapsMapsHelper::getActions($this->t, $state->get('filter.map_id'));
 		$user  	= JFactory::getUser();
-		$bar 	= JToolBar::getInstance('toolbar');
+		$bar 	= JToolbar::getInstance('toolbar');
 	
-		JToolBarHelper::title( JText::_( 'COM_PHOCAMAPS_MAPS' ), 'ph-earth' );
+		JToolbarHelper::title( JText::_( 'COM_PHOCAMAPS_MAPS' ), 'ph-earth' );
 	
 		if ($canDo->get('core.create')) {
-			JToolBarHelper::addNew('phocamapsmap.add','JTOOLBAR_NEW');
+			JToolbarHelper::addNew('phocamapsmap.add','JTOOLBAR_NEW');
 		}
 	
 		if ($canDo->get('core.edit')) {
-			JToolBarHelper::editList('phocamapsmap.edit','JTOOLBAR_EDIT');
+			JToolbarHelper::editList('phocamapsmap.edit','JTOOLBAR_EDIT');
 		}
 		if ($canDo->get('core.edit.state')) {
 
-			JToolBarHelper::divider();
-			JToolBarHelper::custom('phocamapsmaps.publish', 'publish.png', 'publish_f2.png','JTOOLBAR_PUBLISH', true);
-			JToolBarHelper::custom('phocamapsmaps.unpublish', 'unpublish.png', 'unpublish_f2.png', 'JTOOLBAR_UNPUBLISH', true);
+			JToolbarHelper::divider();
+			JToolbarHelper::custom('phocamapsmaps.publish', 'publish.png', 'publish_f2.png','JTOOLBAR_PUBLISH', true);
+			JToolbarHelper::custom('phocamapsmaps.unpublish', 'unpublish.png', 'unpublish_f2.png', 'JTOOLBAR_UNPUBLISH', true);
 		}
 	
 		if ($canDo->get('core.delete')) {
-			JToolBarHelper::deleteList( 'COM_PHOCAMAPS_WARNING_DELETE_ITEMS' , 'phocamapsmaps.delete', 'COM_PHOCAMAPS_DELETE');
+			JToolbarHelper::deleteList( 'COM_PHOCAMAPS_WARNING_DELETE_ITEMS' , 'phocamapsmaps.delete', 'COM_PHOCAMAPS_DELETE');
 		}
 		
 		// Add a batch button
 		if ($user->authorise('core.edit'))
 		{
-			JHtml::_('bootstrap.modal', 'collapseModal');
+			JHtml::_('bootstrap.renderModal', 'collapseModal');
 			$title = JText::_('JTOOLBAR_BATCH');
 			$dhtml = "<button data-toggle=\"modal\" data-target=\"#collapseModal\" class=\"btn btn-small\">
 						<i class=\"icon-checkbox-partial\" title=\"$title\"></i>
@@ -84,8 +85,8 @@ class PhocaMapsCpViewPhocaMapsMaps extends JViewLegacy
 			$bar->appendButton('Custom', $dhtml, 'batch');
 		}
 		
-		JToolBarHelper::divider();
-		JToolBarHelper::help( 'screen.phocamaps', true );
+		JToolbarHelper::divider();
+		JToolbarHelper::help( 'screen.phocamaps', true );
 	}
 	
 	protected function getSortFields() {

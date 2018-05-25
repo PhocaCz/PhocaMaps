@@ -21,9 +21,10 @@ class PhocaMapsViewMap extends JViewLegacy
 		$this->t['p']	= $app->getParams();
 		
 		// PLUGIN WINDOW - we get information from plugin
-		$get			= '';
+		$get			= array();
 		$get['tmpl']	= $app->input->get( 'tmpl', '', 'string' );
 		
+		JHtml::_('jquery.framework', false);
 		JHTML::stylesheet('media/com_phocamaps/css/phocamaps.css' );
 		if (JFile::exists(JPATH_SITE.'/media/com_phocamaps/css/custom.css')) {
 			JHTML::stylesheet('media/com_phocamaps/css/custom.css' );
@@ -32,6 +33,7 @@ class PhocaMapsViewMap extends JViewLegacy
 		$this->t['display_print_route']		= $this->t['p']->get( 'display_print_route', 1 );
 		$this->t['close_opened_window']		= $this->t['p']->get( 'close_opened_window', 0 );
 		$this->t['load_api_ssl']			= (int)$this->t['p']->get( 'load_api_ssl', 0 );
+		$this->t['map_type']				= (int)$this->t['p']->get( 'map_type', 2 );
 		// Moved to marker table
 		//$this->t['width_marker_content']	= $this->t['p']->get( 'width_marker_content', '' );
 		//$this->t['height_marker_content']	= $this->t['p']->get( 'height_marker_content', '' );
@@ -195,7 +197,12 @@ class PhocaMapsViewMap extends JViewLegacy
 		}
 		
 		$this->_prepareDocument();
-		parent::display($tpl);
+
+		if ($this->t['map_type'] == 2) {
+			parent::display('osm');
+		} else {
+			parent::display($tpl);
+		}
 	}
 	
 	protected function _prepareDocument() {
@@ -219,14 +226,14 @@ class PhocaMapsViewMap extends JViewLegacy
           $title = $this->t['p']->get('page_title', '');
           // if no title is set take the sitename only
           if (empty($title)) {
-             $title = $app->getCfg('sitename');
+             $title = $app->get('sitename');
           }
           // else add the title before or after the sitename
-          elseif ($app->getCfg('sitename_pagetitles', 0) == 1) {
-             $title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
+          elseif ($app->get('sitename_pagetitles', 0) == 1) {
+             $title = JText::sprintf('JPAGETITLE', $app->get('sitename'), $title);
           }
-          elseif ($app->getCfg('sitename_pagetitles', 0) == 2) {
-             $title = JText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
+          elseif ($app->get('sitename_pagetitles', 0) == 2) {
+             $title = JText::sprintf('JPAGETITLE', $title, $app->get('sitename'));
           }
           $this->document->setTitle($title);
 
@@ -235,7 +242,7 @@ class PhocaMapsViewMap extends JViewLegacy
 		$this->document->setMetadata('keywords', $this->t['p']->get('menu-meta_keywords', ''));
 		
 
-		if ($app->getCfg('MetaTitle') == '1' && $this->t['p']->get('menupage_title', '')) {
+		if ($app->get('MetaTitle') == '1' && $this->t['p']->get('menupage_title', '')) {
 			$this->document->setMetaData('title', $this->t['p']->get('page_title', ''));
 		}
 	}

@@ -42,7 +42,7 @@ class PhocaMapsCpControllerPhocaMapsMarker extends JControllerForm
 	}
 	
 	public function batch($model) {
-		JRequest::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		// Set the model
 		$model	= $this->getModel('phocamapsmarker', '', array());

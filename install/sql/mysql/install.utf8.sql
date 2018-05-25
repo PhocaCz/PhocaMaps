@@ -1,13 +1,13 @@
 -- -------------------------------------------------------------------- --
 -- Phoca Maps Download manual installation                                   --
 -- -------------------------------------------------------------------- --
--- See documentation on http://www.phoca.cz/                            --
+-- See documentation on https://www.phoca.cz/                            --
 --                                                                      --
 -- Change all prefixes #__ to prefix which is set in your Joomla! site  --
 -- (e.g. from #__phocamaps to jos_phocamaps)                    --
 -- Run this SQL queries in your database tool, e.g. in phpMyAdmin       --
 -- If you have questions, just ask in Phoca Forum                       --
--- http://www.phoca.cz/forum/                                           --
+-- https://www.phoca.cz/forum/                                           --
 -- -------------------------------------------------------------------- --
 
 CREATE TABLE IF NOT EXISTS `#__phocamaps_map` (
@@ -64,6 +64,14 @@ CREATE TABLE IF NOT EXISTS `#__phocamaps_marker` (
   `icon` tinyint(1) NOT NULL default '0',
   `iconext` int(11) NOT NULL default '0',
   `description` text NOT NULL,
+  
+  `osm_icon` varchar(100) NOT NULL default '',
+  `osm_marker_color` varchar(20) NOT NULL default '',
+  `osm_icon_color` varchar(20) NOT NULL default '',
+  `osm_icon_prefix` varchar(20) NOT NULL default '',
+  `osm_icon_spin` tinyint(1) NOT NULL default '0',
+  `osm_icon_class` text NOT NULL,
+  
   `contentwidth` varchar(8) NOT NULL default '',
   `contentheight` varchar(8) NOT NULL default '',
   `markerwindow` tinyint(1) NOT NULL default '0',
@@ -109,4 +117,4 @@ INSERT INTO `#__phocamaps_icon` (`id`, `title`, `alias`, `url`, `urls`, `object`
 (6, 'Snack Bar', 'snack-bar', 'http://maps.google.com/mapfiles/ms/icons/snack_bar.png', 'http://maps.google.com/mapfiles/ms/icons/snack_bar.shadow.png', '', '59,32;0,0;16,34', 'rect;0,0,32,30', 1, 0, '0000-00-00 00:00:00', 6, 1, 0, '', '');
 
 
--- UTF-8 test: ä,ö,ü
+-- UTF-8 test: ï¿½,ï¿½,ï¿½

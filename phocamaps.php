@@ -9,21 +9,22 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License version 2 or later;
  */
 defined('_JEXEC') or die;
-if(!defined('DS')) define('DS', DIRECTORY_SEPARATOR);
 if (!JFactory::getUser()->authorise('core.manage', 'com_phocamaps')) {
-	return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+	throw new Exception(JText::_('COM_PHOCAMAPS_ERROR_ALERTNOAUTHOR'), 404);
+	return false;
 }
 jimport('joomla.filesystem.folder');
 jimport('joomla.filesystem.file');
-require_once( JPATH_COMPONENT.DS.'controller.php' );
-require_once( JPATH_COMPONENT.DS.'helpers'.DS.'phocamaps.php' );
-require_once( JPATH_COMPONENT.DS.'helpers'.DS.'phocamapsmap.php' );
-require_once( JPATH_COMPONENT.DS.'helpers'.DS.'phocamapsutils.php' );
-require_once( JPATH_COMPONENT.DS.'helpers'.DS.'phocamapsrenderadmin.php' );
-require_once( JPATH_COMPONENT.DS.'helpers'.DS.'renderadminview.php' );
-require_once( JPATH_COMPONENT.DS.'helpers'.DS.'renderadminviews.php' );
-require_once( JPATH_COMPONENT.DS.'helpers'.DS.'html'.DS.'map.php' );
-require_once( JPATH_COMPONENT.DS.'helpers'.DS.'html'.DS.'batch.php' );
+require_once( JPATH_COMPONENT.'/controller.php' );
+require_once( JPATH_COMPONENT.'/helpers/phocamaps.php' );
+require_once( JPATH_COMPONENT.'/helpers/phocamapsmap.php' );
+require_once( JPATH_COMPONENT.'/helpers/phocamapsmaposm.php' );
+require_once( JPATH_COMPONENT.'/helpers/phocamapsutils.php' );
+require_once( JPATH_COMPONENT.'/helpers/phocamapsrenderadmin.php' );
+require_once( JPATH_COMPONENT.'/helpers/renderadminview.php' );
+require_once( JPATH_COMPONENT.'/helpers/renderadminviews.php' );
+require_once( JPATH_COMPONENT.'/helpers/html/map.php' );
+require_once( JPATH_COMPONENT.'/helpers/html/batch.php' );
 
 jimport('joomla.application.component.controller');
 $controller	= JControllerLegacy::getInstance('PhocaMapsCp');

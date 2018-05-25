@@ -30,8 +30,8 @@ class phocaMapsCpViewPhocaMapsMap extends JViewLegacy
 	
 	protected function addToolbar() {
 		
-		require_once JPATH_COMPONENT.DS.'helpers'.DS.'phocamapsmaps.php';
-		JRequest::setVar('hidemainmenu', true);
+		require_once JPATH_COMPONENT.'/helpers/phocamapsmaps.php';
+		JFactory::getApplication()->input->set('hidemainmenu', true);
 
 		$user		= JFactory::getUser();
 		$isNew		= ($this->item->id == 0);
@@ -43,24 +43,24 @@ class phocaMapsCpViewPhocaMapsMap extends JViewLegacy
 		
 
 		$text = $isNew ? JText::_( 'COM_PHOCAMAPS_NEW' ) : JText::_('COM_PHOCAMAPS_EDIT');
-		JToolBarHelper::title(   JText::_( 'COM_PHOCAMAPS_MAP' ).': <small><small>[ ' . $text.' ]</small></small>' , 'ph-earth');
+		JToolbarHelper::title(   JText::_( 'COM_PHOCAMAPS_MAP' ).': <small><small>[ ' . $text.' ]</small></small>' , 'ph-earth');
 
 		// If not checked out, can save the item.
 		if (!$checkedOut && $canDo->get('core.edit')){
-			JToolBarHelper::apply('phocamapsmap.apply', 'JTOOLBAR_APPLY');
-			JToolBarHelper::save('phocamapsmap.save', 'JTOOLBAR_SAVE');
-			JToolBarHelper::addNew('phocamapsmap.save2new', 'JTOOLBAR_SAVE_AND_NEW');
+			JToolbarHelper::apply('phocamapsmap.apply', 'JTOOLBAR_APPLY');
+			JToolbarHelper::save('phocamapsmap.save', 'JTOOLBAR_SAVE');
+			JToolbarHelper::addNew('phocamapsmap.save2new', 'JTOOLBAR_SAVE_AND_NEW');
 		}
 	
 		if (empty($this->item->id))  {
-			JToolBarHelper::cancel('phocamapsmap.cancel', 'JTOOLBAR_CANCEL');
+			JToolbarHelper::cancel('phocamapsmap.cancel', 'JTOOLBAR_CANCEL');
 		}
 		else {
-			JToolBarHelper::cancel('phocamapsmap.cancel', 'JTOOLBAR_CLOSE');
+			JToolbarHelper::cancel('phocamapsmap.cancel', 'JTOOLBAR_CLOSE');
 		}
 
-		JToolBarHelper::divider();
-		JToolBarHelper::help( 'screen.phocamaps', true );
+		JToolbarHelper::divider();
+		JToolbarHelper::help( 'screen.phocamaps', true );
 	}
 }
 ?>

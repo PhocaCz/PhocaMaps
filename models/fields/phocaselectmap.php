@@ -51,6 +51,8 @@ class JFormFieldPhocaSelectMap extends JFormField
 		$onchange = (string) $this->element['onchange'];
 		$onchangeOutput = ' onChange="'.(string) $this->element['onchange'].'"';
 
+		$idA	= 'pgselectmap';
+		
 		// Build the script.
 		$script = array();
 		$script[] = '	function phocaSelectMap_'.$this->id.'(title) {';
@@ -58,19 +60,58 @@ class JFormFieldPhocaSelectMap extends JFormField
 		$script[] = '		'.$onchange;
 		//$script[] = '		SqueezeBox.close();';
 		$script[] = '	}';
+		
+		
+		// Hide Info box on start
+		if ($this->id == 'jform_latitude') {
+			$script[] = ' jQuery(document).ready(function() {';
+			$script[] = '    jQuery(\'#'.$idA.'\').on(\'shown.bs.modal\', function () {';
+			$script[] = '	    jQuery(\'#phmPopupInfo\').html(\'\');';
+			$script[] = '	  })';
+			$script[] = ' })';
+		}
+		
 
 		// Add the script to the document head.
 		JFactory::getDocument()->addScriptDeclaration(implode("\n", $script));
 		
 		if ($this->id == 'jform_latitude') {
-			$html[] = '<div class="input-append">';
+			/*$html[] = '<div class="input-append">';
 			$html[] = '<input type="text" id="'.$this->id.'_id" name="'.$this->name.'" value="'. $this->value.'"' .
 					' '.$class.$size.$disabled.$readonly.$onchangeOutput.$maxLength.' />';
 			$html[] = '<a class="modal_'.$this->id.' btn" title="'.JText::_('COM_PHOCAMAPS_FORM_SELECT_COORDINATES').'"'
 					.' href="'.($this->element['readonly'] ? '' : $link).'"'
 					.' rel="{handler: \'iframe\', size: {x: 780, y: 580}}">'
 					. JText::_('COM_PHOCAMAPS_FORM_SELECT_COORDINATES').'</a>';
-			$html[] = '</div>'. "\n";
+			$html[] = '</div>'. "\n";*/
+			
+			$html[] = '<div class="input-append">';
+			$html[] = '<span class="input-append"><input type="text" id="' . $this->id . '_id" name="' . $this->name . '"'
+				. ' value="' . $this->value . '" '.$class.$size.$disabled.$readonly.$onchangeOutput.$maxLength.' />';
+			$html[] = '<a href="#'.$idA.'" role="button" class="btn " data-toggle="modal" title="' . JText::_('COM_PHOCAMAPS_FORM_SELECT_COORDINATES') . '">'
+				. '<span class="icon-list icon-white"></span> '
+				. JText::_('COM_PHOCAMAPS_FORM_SELECT_COORDINATES') . '</a></span>';
+			$html[] = '</div>'. "\n";		
+			
+			$html[] = JHtml::_(
+				'bootstrap.renderModal',
+				$idA,
+				array(
+					'url'    => $link,
+					'title'  => JText::_('COM_PHOCAMAPS_FORM_SELECT_COORDINATES'),
+					'width'  => '780px',
+					'height' => '580px',
+					'modalWidth' => '50',
+					'bodyHeight' => '70',
+					'footer' => '<div id="phmPopupInfo" class="ph-info-modal"></div><button type="button" class="btn" data-dismiss="modal" aria-hidden="true">'
+						. JText::_('COM_PHOCAMAPS_CLOSE') . '</button>'
+				)
+			);
+			
+			
+			
+			
+			
 		} else {
 			$html[] = '<div class="fltlft">';
 			$html[] = '	<input type="text" id="'.$this->id.'_id" name="'.$this->name.'" value="'. $this->value.'"' .

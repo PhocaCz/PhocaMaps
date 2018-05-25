@@ -31,7 +31,7 @@ class PhocaMapsCpViewPhocaMapsIcons extends JViewLegacy
 		
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
-			JError::raiseError(500, implode("\n", $errors));
+			throw new Exception(implode("\n", $errors), 500);
 			return false;
 		}
 		
@@ -47,27 +47,27 @@ class PhocaMapsCpViewPhocaMapsIcons extends JViewLegacy
 		$state	= $this->get('State');
 		$canDo	= PhocaMapsIconsHelper::getActions($this->t, $state->get('filter.icon_id'));
 	
-		JToolBarHelper::title( JText::_( 'COM_PHOCAMAPS_ICONS_EXT' ), 'pin' );
+		JToolbarHelper::title( JText::_( 'COM_PHOCAMAPS_ICONS_EXT' ), 'pin' );
 	
 		if ($canDo->get('core.create')) {
-			JToolBarHelper::addNew('phocamapsicon.add','JTOOLBAR_NEW');
+			JToolbarHelper::addNew('phocamapsicon.add','JTOOLBAR_NEW');
 		}
 	
 		if ($canDo->get('core.edit')) {
-			JToolBarHelper::editList('phocamapsicon.edit','JTOOLBAR_EDIT');
+			JToolbarHelper::editList('phocamapsicon.edit','JTOOLBAR_EDIT');
 		}
 		if ($canDo->get('core.edit.state')) {
 
-			JToolBarHelper::divider();
-			JToolBarHelper::custom('phocamapsicons.publish', 'publish.png', 'publish_f2.png','JTOOLBAR_PUBLISH', true);
-			JToolBarHelper::custom('phocamapsicons.unpublish', 'unpublish.png', 'unpublish_f2.png', 'JTOOLBAR_UNPUBLISH', true);
+			JToolbarHelper::divider();
+			JToolbarHelper::custom('phocamapsicons.publish', 'publish.png', 'publish_f2.png','JTOOLBAR_PUBLISH', true);
+			JToolbarHelper::custom('phocamapsicons.unpublish', 'unpublish.png', 'unpublish_f2.png', 'JTOOLBAR_UNPUBLISH', true);
 		}
 	
 		if ($canDo->get('core.delete')) {
-			JToolBarHelper::deleteList( 'COM_PHOCAMAPS_WARNING_DELETE_ITEMS' , 'phocamapsicons.delete', 'COM_PHOCAMAPS_DELETE');
+			JToolbarHelper::deleteList( 'COM_PHOCAMAPS_WARNING_DELETE_ITEMS' , 'phocamapsicons.delete', 'COM_PHOCAMAPS_DELETE');
 		}
-		JToolBarHelper::divider();
-		JToolBarHelper::help( 'screen.phocamaps', true );
+		JToolbarHelper::divider();
+		JToolbarHelper::help( 'screen.phocamaps', true );
 	}
 	
 		protected function getSortFields() {

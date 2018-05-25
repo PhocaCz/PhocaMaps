@@ -63,10 +63,10 @@ class PhocaMapsCpModelPhocaMapsMarker extends JModelAdmin
 		$user = JFactory::getUser();
 
 		$table->title		= htmlspecialchars_decode($table->title, ENT_QUOTES);
-		$table->alias		= JApplication::stringURLSafe($table->alias);
+		$table->alias		= JApplicationHelper::stringURLSafe($table->alias);
 
 		if (empty($table->alias)) {
-			$table->alias = JApplication::stringURLSafe($table->title);
+			$table->alias = JApplicationHelper::stringURLSafe($table->title);
 		}
 
 		if (empty($table->id)) {
@@ -99,7 +99,7 @@ class PhocaMapsCpModelPhocaMapsMarker extends JModelAdmin
 	protected function batchCopy($value, $pks, $contexts)
 	{
 		$categoryId	= (int) $value;
-		
+		$app = JFactory::getApplication();
 
 		$table	= $this->getTable();
 		$db		= $this->getDbo();
@@ -112,11 +112,11 @@ class PhocaMapsCpModelPhocaMapsMarker extends JModelAdmin
 			if (!$categoryTable->load($categoryId)) {
 				if ($error = $categoryTable->getError()) {
 					// Fatal error
-					$this->setError($error);
+					throw new Exception($error, 500);
 					return false;
 				}
 				else {
-					$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_MOVE_CATEGORY_NOT_FOUND'));
+					throw new Exception(JText::_('JLIB_APPLICATION_ERROR_BATCH_MOVE_CATEGORY_NOT_FOUND'), 500);
 					return false;
 				}
 			}
@@ -124,15 +124,15 @@ class PhocaMapsCpModelPhocaMapsMarker extends JModelAdmin
 
 		//if (empty($categoryId)) {
 		if (!isset($categoryId)) {
-			$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_MOVE_CATEGORY_NOT_FOUND'));
+			throw new Exception(JText::_('JLIB_APPLICATION_ERROR_BATCH_MOVE_CATEGORY_NOT_FOUND'), 500);
 			return false;
 		}
 
 		// Check that the user has create permission for the component
-		$extension	= JRequest::getCmd('option');
+		$extension	= JFactory::getApplication()->input->getCmd('option');
 		$user		= JFactory::getUser();
 		if (!$user->authorise('core.create', $extension)) {
-			$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_CREATE'));
+			throw new Exception(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_CREATE'), 500);
 			return false;
 		}
 
@@ -148,12 +148,13 @@ class PhocaMapsCpModelPhocaMapsMarker extends JModelAdmin
 			if (!$table->load($pk)) {
 				if ($error = $table->getError()) {
 					// Fatal error
-					$this->setError($error);
+					throw new Exception($error, 500);
 					return false;
 				}
 				else {
 					// Not fatal error
-					$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
+					//throw new Exception(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk), 500);
+					$app->enqueueMessage(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk), 'error');	
 					continue;
 				}
 			}
@@ -176,13 +177,13 @@ class PhocaMapsCpModelPhocaMapsMarker extends JModelAdmin
 
 			// Check the row.
 			if (!$table->check()) {
-				$this->setError($table->getError());
+				throw new Exception($table->getError(), 500);
 				return false;
 			}
 
 			// Store the row.
 			if (!$table->store()) {
-				$this->setError($table->getError());
+				throw new Exception($table->getError(), 500);
 				return false;
 			}
 			
@@ -190,7 +191,7 @@ class PhocaMapsCpModelPhocaMapsMarker extends JModelAdmin
 			$newId = $table->get('id');
 
 			// Add the new ID to the array
-			$newIds[$i]	= $newId;
+			$newIds[$pk]	= $newId;
 			$i++;
 		}
 
@@ -203,6 +204,7 @@ class PhocaMapsCpModelPhocaMapsMarker extends JModelAdmin
 	protected function batchMove($value, $pks, $contexts)
 	{
 		$categoryId	= (int) $value;
+		$app = JFactory::getApplication();
 
 		$table	= $this->getTable();
 		//$db		= $this->getDbo();
@@ -213,11 +215,11 @@ class PhocaMapsCpModelPhocaMapsMarker extends JModelAdmin
 			if (!$categoryTable->load($categoryId)) {
 				if ($error = $categoryTable->getError()) {
 					// Fatal error
-					$this->setError($error);
+					throw new Exception($error, 500);
 					return false;
 				}
 				else {
-					$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_MOVE_CATEGORY_NOT_FOUND'));
+					throw new Exception(JText::_('JLIB_APPLICATION_ERROR_BATCH_MOVE_CATEGORY_NOT_FOUND'), 500);
 					return false;
 				}
 			}
@@ -225,20 +227,20 @@ class PhocaMapsCpModelPhocaMapsMarker extends JModelAdmin
 
 		//if (empty($categoryId)) {
 		if (!isset($categoryId)) {
-			$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_MOVE_CATEGORY_NOT_FOUND'));
+			throw new Exception(JText::_('JLIB_APPLICATION_ERROR_BATCH_MOVE_CATEGORY_NOT_FOUND'), 500);
 			return false;
 		}
 
 		// Check that user has create and edit permission for the component
-		$extension	= JRequest::getCmd('option');
+		$extension	= JFactory::getApplication()->input->getCmd('option');
 		$user		= JFactory::getUser();
 		if (!$user->authorise('core.create', $extension)) {
-			$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_CREATE'));
+			throw new Exception(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_CREATE'), 500);
 			return false;
 		}
 
 		if (!$user->authorise('core.edit', $extension)) {
-			$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_EDIT'));
+			throw new Exception(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_EDIT'), 500);
 			return false;
 		}
 
@@ -249,12 +251,13 @@ class PhocaMapsCpModelPhocaMapsMarker extends JModelAdmin
 			if (!$table->load($pk)) {
 				if ($error = $table->getError()) {
 					// Fatal error
-					$this->setError($error);
+					throw new Exception($error, 500);
 					return false;
 				}
 				else {
 					// Not fatal error
-					$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
+					//throw new Exception(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
+					$app->enqueueMessage(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk), 'error');
 					continue;
 				}
 			}
@@ -264,13 +267,13 @@ class PhocaMapsCpModelPhocaMapsMarker extends JModelAdmin
 
 			// Check the row.
 			if (!$table->check()) {
-				$this->setError($table->getError());
+				throw new Exception($table->getError(), 500);
 				return false;
 			}
 
 			// Store the row.
 			if (!$table->store()) {
-				$this->setError($table->getError());
+				throw new Exception($table->getError(), 500);
 				return false;
 			}
 		}

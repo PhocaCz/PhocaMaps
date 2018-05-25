@@ -8,7 +8,7 @@
  * @copyright Copyright (C) Jan Pavelka www.phoca.cz
  * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License version 2 or later;
  */
- 
+ defined('_JEXEC') or die;
 class PhocaMapsSelectMap
 {
 	public static function options()

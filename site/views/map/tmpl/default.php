@@ -1,5 +1,12 @@
-<?php defined('_JEXEC') or die('Restricted access');
-
+<?php
+/* @package Joomla
+ * @copyright Copyright (C) Open Source Matters. All rights reserved.
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+ * @extension Phoca Extension
+ * @copyright Copyright (C) Jan Pavelka www.phoca.cz
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ */
+defined('_JEXEC') or die('Restricted access');
 $app				= JFactory::getApplication();
 if ($app->input->get( 'print', '', 'int' ) == 1 || $app->input->get( 'tmpl', '', 'string' ) == 'component') {
 
@@ -38,13 +45,14 @@ if ((!isset($this->map->longitude))
 		}
 		echo '</div>';
 	} else {
-		echo '<div id="phocamaps-box"><div class="pmbox'.$this->t['border'].'" '. $this->t['stylesitewidth'].'><div><div><div>';
+		echo '<div class="phocamaps-box phocamaps-box-border'.$this->t['border'].'" align="center" style="'.$this->t['stylesite'].'">';
 		if ($this->t['fullwidth'] == 1) {
-			echo '<div id="phocaMap'.$id.'" style="width:100%;height:'.$this->map->height.'px"></div>';
+			echo '<div id="phocaMap'.$id.'" class="phocamaps-map" style="width:100%;height:'.$this->map->height.'px"></div>';
 		} else {
-			echo '<div id="phocaMap'.$id.'" style="width:'.$this->map->width.'px;height:'.$this->map->height.'px"></div>';
+			echo '<div id="phocaMap'.$id.'" class="phocamaps-map" style="width:'.$this->map->width.'px;height:'.$this->map->height.'px"></div>';
 		}
-		echo '</div></div></div></div></div>';
+		echo '</div>';
+		//echo '</div></div></div></div></div>';
 	}
 
 	// Direction
@@ -112,9 +120,15 @@ if ((!isset($this->map->longitude))
 		echo $map->setMapOption('disableDoubleClickZoom', $this->map->disabledoubleclickzoom).','."\n";
 	//	echo $map->setMapOption('googleBar', $this->map->googlebar).','."\n";// Not ready yet
 	//	echo $map->setMapOption('continuousZoom', $this->map->continuouszoom).','."\n";// Not ready yet
-		echo $map->setMapOption('styles', $this->map->map_styles).','."\n";
+		if (isset($this->map->map_styles)) {
+			echo $map->setMapOption('styles', $this->map->map_styles).','."\n";
+		}
 		echo $map->setMapTypeOpt($this->map->typeid)."\n";
-		echo $map->endMapOptions($this->map->custom_options);
+		if (isset($this->map->custom_options)) {
+			echo $map->endMapOptions($this->map->custom_options);
+		} else {
+			echo $map->endMapOptions();
+		}
 		if ($this->t['close_opened_window'] == 1) {
 			echo $map->setCloseOpenedWindow();
 		}

@@ -22,7 +22,7 @@ class PhocaMapsViewRoute extends JViewLegacy
 			JHTML::stylesheet('media/com_phocamaps/css/custom.css' );
 		}
 		
-		//$this->t['printview'] 	= JRequest::getVar('print', 0, 'get', 'int');
+		//$this->t['printview'] 	= $app->input->get('print', 0, 'get', 'int');
 		$this->t['id'] 			= $app->input->get('id', '', 'int');
 		$this->t['from'] 		= $app->input->get('from', '', 'string');
 		$this->t['to'] 			= $app->input->get('to', '', 'string');

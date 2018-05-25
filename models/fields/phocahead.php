@@ -15,47 +15,33 @@ jimport('joomla.form.formfield');
 class JFormFieldPhocaHead extends JFormField
 {
 	protected $type = 'PhocaHead';
+	protected function getLabel() { return '';}
 	
 	protected function getInput() {
-		return '';
-	}
 	
-	protected function getLabel() {
-	
-		// Temporary solution
-		JHTML::stylesheet( 'administrator/components/com_phocamaps/assets/phocamapsoptions.css' );
-		
-		echo '<div class="clearfix"></div>';
-		
+		JHTML::stylesheet( 'media/com_phocamaps/css/administrator/phocamapsoptions.css' );
+		echo '<div style="clear:both;"></div>';
 		$phocaImage	= ( (string)$this->element['phocaimage'] ? $this->element['phocaimage'] : '' );
-		
 		$image 		= '';
-		$style		= 'background: #CCE6FF; color: #0069CC;padding:5px;margin:5px 0;';
 		
 		if ($phocaImage != ''){
-			$image 	= JHTML::_('image', 'administrator/components/com_phocamaps/assets/images/'. $phocaImage, '' );
+			$image 	= JHTML::_('image', 'media/com_phocamaps/images/administrator/'. $phocaImage, '' );
 		}
 		
 		if ($this->element['default']) {
-		
 			if ($image != '') {
-				return '<div style="'.$style.'">'
-				.'<table border="0"><tr>'
-				.'<td valign="middle" align="center">'. $image.'</td>'
-				.'<td valign="middle" align="center">'
-				.'<strong>'. JText::_($this->element['default']) . '</strong></td>'
-				.'</tr></table>'
+				return '<div class="ph-options-head">'
+				.'<div>'. $image.' <strong>'. JText::_($this->element['default']) . '</strong></div>'
 				.'</div>';
 			} else {
-				return '<div style="'.$style.'">'
+				return '<div class="ph-options-head">'
 				.'<strong>'. JText::_($this->element['default']) . '</strong>'
 				.'</div>';
 			}
 		} else {
 			return parent::getLabel();
 		}
-		echo '<div class="clearfix"></div>';
+		echo '<div style="clear:both;"></div>';
 	}
-
 }
 ?>

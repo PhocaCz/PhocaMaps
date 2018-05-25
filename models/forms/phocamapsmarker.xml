@@ -44,7 +44,7 @@
 <field name="ordering" type="PhocaMapsOrdering" table="map" class="inputbox" label="COM_PHOCAMAPS_FIELD_ORDERING_LABEL" description="COM_PHOCAMAPS_FIELD_ORDERING_DESC" />
 
 
-<field name="description" type="editor" buttons="true" hide="pagebreak,readmore" class="inputbox" label="COM_PHOCAMAPS_FIELD_DESC_LABEL" description="COM_PHOCAMAPS_FIELD_DESC_DESC" filter="safehtml" />
+<field name="description" type="editor" buttons="true" hide="pagebreak,readmore" class="inputbox" label="COM_PHOCAMAPS_FIELD_DESC_LABEL" description="COM_PHOCAMAPS_FIELD_DESC_DESC" filter="JComponentHelper::filterText" />
 
 
 
@@ -63,6 +63,30 @@
 </field>
 
 <field name="iconext" type="phocaselecticon" label="COM_PHOCAMAPS_FIELD_MARKER_ICON_EXT_LABEL" description="COM_PHOCAMAPS_FIELD_MARKER_ICON_EXT_DESC" class="inputbox" size="1" default="0"  />
+
+
+<field name="osm_icon" type="text" default="circle" class="inputbox" size="40" label="COM_PHOCAMAPS_MARKER_ICON_OSM_LABEL" description="COM_PHOCAMAPS_MARKER_ICON_OSM_DESC" />
+
+<field name="osm_marker_color" type="list" label="COM_PHOCAMAPS_FIELD_MARKER_COLOR_OSM_LABEL" description="COM_PHOCAMAPS_FIELD_MARKER_COLOR_OSM_DESC" class="inputbox" size="1" default="blue" >
+	<option	value="red">red</option>
+	<option	value="darkred">darkred</option>
+	<option	value="orange">orange</option>
+	<option	value="green">green</option>
+	<option	value="darkgreen">darkgreen</option>
+	<option	value="blue">blue</option>
+	<option	value="purple">purple</option>
+	<option	value="darkpurple">darkpurple</option>
+	<option	value="cadetblue">cadetblue</option>
+</field>
+<field name="osm_icon_color" type="text" default="#ffffff" class="inputbox" size="40" label="COM_PHOCAMAPS_ICON_COLOR_OSM_LABEL" description="COM_PHOCAMAPS_ICON_COLOR_OSM_DESC" />
+
+<field name="osm_icon_prefix" type="text" default="fa" class="inputbox" size="40" label="COM_PHOCAMAPS_ICON_PREFIX_OSM_LABEL" description="COM_PHOCAMAPS_ICON_PREFIX_OSM_DESC" />
+<field name="osm_icon_spin" type="list" label="COM_PHOCAMAPS_FIELD_ICON_SPIN_OSM_LABEL" description="COM_PHOCAMAPS_FIELD_ICON_SPIN_OSM_DESC" class="inputbox" size="1" default="0" >
+	<option	value="0">COM_PHOCAMAPS_NO</option>
+	<option	value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+<field name="osm_icon_class" type="textarea" default="" class="inputbox" size="40" label="COM_PHOCAMAPS_ICON_CLASS_OSM_LABEL" description="COM_PHOCAMAPS_ICON_CLASS_OSM_DESC" />
 
 
 

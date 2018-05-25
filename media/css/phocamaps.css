@@ -1,4 +1,9 @@
 /*grey wb*/
+.phocamaps-box-border-greywb .phocamaps-map{
+	border: 3px solid #fff;
+	box-shadow: 0px 0px 3px 3px rgba(0,0,0,0.35);
+}
+/*
 #phocamaps-box div.pmbox-greywb {
 	float: 			left;
 	clear: 			both;
@@ -23,11 +28,15 @@
 	margin: 	0;
 	padding: 	0;
 	float: 		none;
-	/* width: 99% */
+	/* width: 99% *//*
 	background: none;
-}
+}*/
 
 /*grey*/
+.phocamaps-box-border-grey .phocamaps-map{
+	box-shadow: 0px 0px 3px 3px rgba(0,0,0,0.35);
+}
+/*
 #phocamaps-box div.pmbox-grey {
 	float: 			left;
 	clear: 			both;
@@ -52,11 +61,16 @@
 	margin: 	0;
 	padding: 	0;
 	float: 		none;
-	/*width: 		99%;*/
+	/*width: 		99%;*//*
 	background: none;
-}
+}*/
 
 /*grey rc*/
+.phocamaps-box-border-greyrc .phocamaps-map{
+	border: 3px solid #fff;
+	box-shadow: 0px 0px 3px 3px rgba(0,0,0,0.35);
+	border-radius: 5px;
+}/*
 #phocamaps-box div.pmbox-greyrc {
 	float: 			left;
 	clear: 			both;
@@ -81,11 +95,16 @@
 	margin: 	0;
 	padding: 	0;
 	float: 		none;
-	/* width: 99% */
+	/* width: 99% *//*
 	background: none;
 }
-
+*/
 /*black*/
+.phocamaps-box-border-black .phocamaps-map{
+	border: 3px solid #fff;
+	box-shadow: 0px 0px 3px 3px rgba(0,0,0,1);
+}
+/*
 #phocamaps-box div.pmbox-black {
 	float: 			left;
 	clear: 			both;
@@ -110,9 +129,13 @@
 	margin: 	0;
 	padding: 	0;
 	float: 		none;
-	/* width: 99% */
+	/* width: 99% *//*
 	background: none;
 }
+*/
+
+
+
 
 #phocamaps .pmroute,
 .pmroute {

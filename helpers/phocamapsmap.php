@@ -7,7 +7,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined( '_JEXEC' ) or die( 'Restricted access' );
-require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_phocamaps'.DS.'helpers'.DS.'phocamapsicon.php' );
+require_once( JPATH_ADMINISTRATOR.'/components/com_phocamaps/helpers/phocamapsicon.php' );
 /* Google Maps Version 3 */
 class PhocaMapsMap
 {
@@ -62,7 +62,7 @@ class PhocaMapsMap
 	/*
 	 * Loaded only one time per site (addScript)
 	 */
-	function loadAPI( $articleIdOfPlugin = '') {
+	function loadAPI( $id = '') {
 		$document	= JFactory::getDocument();
 		
 		$paramsC 	= JComponentHelper::getParams('com_phocamaps');
@@ -87,11 +87,9 @@ class PhocaMapsMap
 			$scriptLink	= 'http://www.google.com/'.$src;
 		}*/
 		
-		if ($articleIdOfPlugin != '') {
-			$initMaps = 'initMaps' . (int)$articleIdOfPlugin;
-		} else {
-			$initMaps = 'initMaps';
-		}
+
+		$initMaps = 'initMaps' . $id;
+		
 		
 		$s = '<script async defer src="'.$h.'maps.googleapis.com/maps/api/js?callback='.$initMaps.$k.'" type="text/javascript"></script>';
 
@@ -1069,7 +1067,7 @@ class PhocaMapsMap
 		//$js = ' var kmlLayer'.$this->_id.' = new google.maps.KmlLayer(\''.$kmlFile.'\');'."\n"
 		//		.' kmlLayer'.$this->_id.'.setMap('.$this->_map.');'."\n";
 
-		$js = ' var kmlLayer'.$this->_id.' = new google.maps.KmlLayer({ url: \''.$kmlFile.'\', suppressInfoWindows: true, preserveViewport: false, map: '.$this->_map.'});'."\n";
+		$js = ' var kmlLayer'.$this->_id.' = new google.maps.KmlLayer({ url: \''.$kmlFile.'\', suppressInfoWindows: true, preserveViewport: true, map: '.$this->_map.'});'."\n";
 				//.' kmlLayer'.$this->_id.'.setMap('.$this->_map.');'."\n";
 		return $js;
 	}

@@ -1,6 +1,6 @@
 <?php
 /*
- * @package Joomla 1.5
+ * @package Joomla 3.8
  * @copyright Copyright (C) 2005 Open Source Matters. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  *
@@ -26,12 +26,12 @@ class PhocaMapsHelper
 
 	public static function getPhocaVersion($component = 'com_phocamaps') {
 		$component = 'com_phocamaps';
-		$folder = JPATH_ADMINISTRATOR .DS. 'components'.DS.$component;
+		$folder = JPATH_ADMINISTRATOR . '/components/'.$component;
 		
 		if (JFolder::exists($folder)) {
 			$xmlFilesInDir = JFolder::files($folder, '.xml$');
 		} else {
-			$folder = JPATH_SITE .DS. 'components'.DS.$component;
+			$folder = JPATH_SITE . '/components/'.$component;
 			if (JFolder::exists($folder)) {
 				$xmlFilesInDir = JFolder::files($folder, '.xml$');
 			} else {
@@ -39,12 +39,12 @@ class PhocaMapsHelper
 			}
 		}
 
-		$xml_items = '';
+		$xml_items = array();
 		if (count($xmlFilesInDir))
 		{
 			foreach ($xmlFilesInDir as $xmlfile)
 			{
-				if ($data = JApplicationHelper::parseXMLInstallFile($folder.DS.$xmlfile)) {
+				if ($data = \JInstaller::parseXMLInstallFile($folder.'/'.$xmlfile)) {
 					foreach($data as $key => $value) {
 						$xml_items[$key] = $value;
 					}
@@ -60,7 +60,7 @@ class PhocaMapsHelper
 	}
 	
 	public static function getInfo() {
-		return '<div style="text-align: right; color: rgb(211, 211, 211); clear: both; margin-top: 10px;margin-bottom:10px;">Powered by <a href="http://www.phoca.cz" style="text-decoration: none;" target="_blank" title="Phoca.cz">Phoca</a> <a href="http://www.phoca.cz/phocamaps" style="text-decoration: none;" target="_blank" title="Phoca Maps">Maps</a></div>';	
+		return '<div style="text-align: right; color: rgb(211, 211, 211); clear: both; margin-top: 10px;margin-bottom:10px;">Powered by <a href="https://www.phoca.cz" style="text-decoration: none;" target="_blank" title="Phoca.cz">Phoca</a> <a href="https://www.phoca.cz/phocamaps" style="text-decoration: none;" target="_blank" title="Phoca Maps">Maps</a></div>';	
 	}
 	
 	public static function getAliasName($name) {

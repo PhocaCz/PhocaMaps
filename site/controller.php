@@ -15,7 +15,7 @@ class PhocaMapsController extends JControllerLegacy
 	{
 		
 		if ( ! JFactory::getApplication()->input->get('view') ) {
-			JRequest::setVar('view', 'map' );
+			JFactory::getApplication()->input->set('view', 'map' );
 		}
 		
 		$paramsC 	= JComponentHelper::getParams('com_phocamaps');

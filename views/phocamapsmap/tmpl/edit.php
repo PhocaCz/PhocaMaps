@@ -1,4 +1,13 @@
-<?php defined('_JEXEC') or die;
+<?php
+/* @package Joomla
+ * @copyright Copyright (C) Open Source Matters. All rights reserved.
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+ * @extension Phoca Extension
+ * @copyright Copyright (C) Jan Pavelka www.phoca.cz
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ */
+
+defined('_JEXEC') or die;
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
 JHtml::_('behavior.keepalive');
@@ -24,7 +33,8 @@ $tabs = array (
 'general' 		=> JText::_($this->t['l'].'_GENERAL_OPTIONS'),
 'publishing' 	=> JText::_($this->t['l'].'_PUBLISHING_OPTIONS'),
 'design'		=> JText::_($this->t['l'].'_DESIGN_SETTINGS'),
-'advanced'		=> JText::_($this->t['l'].'_ADVANCED_SETTINGS'),
+'advanced'		=> JText::_($this->t['l'].'_ADVANCED_SETTINGS_GOOGLE_MAPS'),
+/*'osm_advanced'		=> JText::_($this->t['l'].'_ADVANCED_SETTINGS_OPENSTREETMAP'),*/
 );
 echo $r->navigation($tabs);
 

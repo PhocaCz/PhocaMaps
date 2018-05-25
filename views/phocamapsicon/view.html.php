@@ -30,8 +30,8 @@ class phocaMapsCpViewPhocaMapsIcon extends JViewLegacy
 	
 	protected function addToolbar() {
 		
-		require_once JPATH_COMPONENT.DS.'helpers'.DS.'phocamapsicons.php';
-		JRequest::setVar('hidemainmenu', true);
+		require_once JPATH_COMPONENT.'/helpers/phocamapsicons.php';
+		JFactory::getApplication()->input->set('hidemainmenu', true);
 
 		$user		= JFactory::getUser();
 		$isNew		= ($this->item->id == 0);
@@ -39,24 +39,24 @@ class phocaMapsCpViewPhocaMapsIcon extends JViewLegacy
 		$canDo		= PhocamapsIconsHelper::getActions($this->t, $this->state->get('filter.icon_id'));
 
 		$text = $isNew ? JText::_( 'COM_PHOCAMAPS_NEW' ) : JText::_('COM_PHOCAMAPS_EDIT');
-		JToolBarHelper::title(   JText::_( 'COM_PHOCAMAPS_ICON_EXT' ).': <small><small>[ ' . $text.' ]</small></small>' , 'pin');
+		JToolbarHelper::title(   JText::_( 'COM_PHOCAMAPS_ICON_EXT' ).': <small><small>[ ' . $text.' ]</small></small>' , 'pin');
 
 		// If not checked out, can save the item.
 		if (!$checkedOut && $canDo->get('core.edit')){
-			JToolBarHelper::apply('phocamapsicon.apply', 'JTOOLBAR_APPLY');
-			JToolBarHelper::save('phocamapsicon.save', 'JTOOLBAR_SAVE');
-			JToolBarHelper::addNew('phocamapsicon.save2new', 'JTOOLBAR_SAVE_AND_NEW');
+			JToolbarHelper::apply('phocamapsicon.apply', 'JTOOLBAR_APPLY');
+			JToolbarHelper::save('phocamapsicon.save', 'JTOOLBAR_SAVE');
+			JToolbarHelper::addNew('phocamapsicon.save2new', 'JTOOLBAR_SAVE_AND_NEW');
 		}
 	
 		if (empty($this->item->id))  {
-			JToolBarHelper::cancel('phocamapsicon.cancel', 'JTOOLBAR_CANCEL');
+			JToolbarHelper::cancel('phocamapsicon.cancel', 'JTOOLBAR_CANCEL');
 		}
 		else {
-			JToolBarHelper::cancel('phocamapsicon.cancel', 'JTOOLBAR_CLOSE');
+			JToolbarHelper::cancel('phocamapsicon.cancel', 'JTOOLBAR_CLOSE');
 		}
 
-		JToolBarHelper::divider();
-		JToolBarHelper::help( 'screen.phocamaps', true );
+		JToolbarHelper::divider();
+		JToolbarHelper::help( 'screen.phocamaps', true );
 	}
 }
 ?>
