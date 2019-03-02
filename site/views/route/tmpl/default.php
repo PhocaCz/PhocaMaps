@@ -23,7 +23,7 @@ echo $map->setDirectionFunction();
 echo $map->directionInitializeFunctionSpecificMap($this->t['from'], $this->t['to']);
 echo $map->directionInitializeFunction();
 echo $map->endJScData();
-echo $map->loadAPI();// must be loaded as last
+echo $map->loadAPI('', $this->t['lang']);// must be loaded as last
 
 echo '<div id="directionsPanel'.$id.'" ></div>';
 echo PhocaMapsHelper::getInfo();

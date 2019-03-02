@@ -1,0 +1,63 @@
+{
+	"author": "Jan Pavelka (www.phoca.cz)",
+	"authorUrl": "https://www.phoca.cz",
+	"copyright": "Jan Pavelka",
+	"license": "GNU/GPL",
+	"projectName": "PhocaMaps",
+	"extensionName": "Phoca Maps",
+	"projectInitials" : "PM",				  
+	"description": "Phoca Maps is Joomla! CMS component. It displays maps on your site rendered with help of Google Maps API or OpenStreetMap API.",
+	"projectUrl": "https://www.phoca.cz/phocamaps",
+	"projectDocumentationUrl": "https://www.phoca.cz/documentation/category/53-phoca-maps-component",
+	"projectMainComponent": "Phoca Maps",
+	"projectMainComponentInfoUrl": "https://www.phoca.cz/project/phocamaps-joomla-maps",
+	"projectDemo" : {
+		"Joomla! 3 Demo": "https://www.phoca.cz/joomla3demo/phoca-maps-demo",
+		"Joomla! 2.5 Demo": "https://www.phoca.cz/joomlademo/phoca-maps",
+		"Joomla! 1.5 Demo": "https://www.phoca.cz/demo/phoca-maps-demo-component"
+
+	},
+	"projectColor": "#669966",												
+	"menu": {
+		"main":{
+			"0" : {
+				"image": "icon-16-pmap-menu.png",
+				"view": "",
+				"link": "option=com_phocamaps",
+				"title": "COM_PHOCAMAPS"
+			}
+		},
+		"submenu": {
+			"0" : {
+				"image": "icon-16-pmap-menu-cp.png",
+				"view": "phocamapscp",
+				"link": "option=com_phocamaps",
+				"title": "COM_PHOCAMAPS_CONTROLPANEL"
+			},
+			"1" : {
+				"image": "icon-16-pmap-menu-map.png",
+				"view": "phocamapsmaps",
+				"link": "option=com_phocamaps&amp;view=phocamapsmaps",
+				"title": "COM_PHOCAMAPS_MAPS"
+			},
+			"2" : {
+				"image": "icon-16-pmap-menu-marker.png",
+				"view": "phocamapsmarkers",
+				"link": "option=com_phocamaps&amp;view=phocamapsmarkers",
+				"title": "COM_PHOCAMAPS_MARKERS"
+			},
+			"3" : {
+				"image": "icon-16-pmap-menu-icon.png",
+				"view": "phocamapsicons",
+				"link": "option=com_phocamaps&amp;view=phocamapsicons",
+				"title": "COM_PHOCAMAPS_ICONS"
+			},
+			"4" : {
+				"image": "icon-16-pmap-menu-info.png",
+				"view": "phocamapsinfo",
+				"link": "option=com_phocamaps&amp;view=phocamapsinfo",
+				"title": "COM_PHOCAMAPS_INFO"
+			}
+		}
+	}
+}
