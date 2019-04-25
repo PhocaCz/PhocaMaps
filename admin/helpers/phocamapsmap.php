@@ -76,13 +76,13 @@ class PhocaMapsMap
 			$h = 'http://';
 		}
 		if ($key) {
-			$k = '&key='.strip_tags($key);
+			$k = '&key='.PhocaMapsHelper::filterValue($key, 'text');
 		} else {
 			$k = '';
 		}
 
 		if ($lang != '') {
-		    $l = '&language='.strip_tags($lang);
+		    $l = '&language='.PhocaMapsHelper::filterValue($lang, 'text');
 
         } else {
 		    $l = '';
@@ -220,7 +220,7 @@ class PhocaMapsMap
 
 
 	function setLatLng($latitude, $longitude) {
-		return ' var '.$this->_latlng.' = new google.maps.LatLng('.$latitude .', '. $longitude .');'."\n";
+		return ' var '.$this->_latlng.' = new google.maps.LatLng('.PhocaMapsHelper::filterValue($latitude, 'number') .', '. PhocaMapsHelper::filterValue($longitude, 'number') .');'."\n";
 	}
 
 
@@ -401,10 +401,10 @@ class PhocaMapsMap
 		if ($text == '') {
 			if ($title != ''){
 				$hStyle = 'font-size:120%;margin: 5px 0px;font-weight:bold;';
-				$text .= '<div style="'.$hStyle.'">' . addslashes($title) . '</div>';
+				$text .= '<div style="'.$hStyle.'">' . PhocaMapsHelper::filterValue($title, 'text') . '</div>';
 			}
 			if ($description != '') {
-				$text .=  '<div>'.PhocaMapsHelper::strTrimAll(addslashes($description)).'</div>';
+				$text .=  '<div>'.PhocaMapsHelper::strTrimAll(PhocaMapsHelper::filterValue($description, 'text')).'</div>';
 			}
 		}
 
@@ -412,13 +412,13 @@ class PhocaMapsMap
 			$text = '<div style="'.$style.'">' . $text . '</div>';
 		}
 
-		$output .= ' var phocaPoint'.$name.$this->_id.' = new google.maps.LatLng('. $latitude.', ' .$longitude.');'."\n";
+		$output .= ' var phocaPoint'.$name.$this->_id.' = new google.maps.LatLng('. PhocaMapsHelper::filterValue($latitude, 'number').', ' .PhocaMapsHelper::filterValue($longitude, 'number').');'."\n";
 
 		// Global Marker is defined, don't define var here - the marker markerPhocaMarkerGlobal is defined in the beginning
 		if ($name == 'Global') {
-			$output .= ' markerPhocaMarker'.$name.$this->_id.' = new google.maps.Marker({title:"'.addslashes($title).'"'."\n";
+			$output .= ' markerPhocaMarker'.$name.$this->_id.' = new google.maps.Marker({title:"'.PhocaMapsHelper::filterValue($title, 'text').'"'."\n";
 		} else {
-			$output .= ' var markerPhocaMarker'.$name.$this->_id.' = new google.maps.Marker({' ."\n" . ' title:"'.addslashes($title).'"';
+			$output .= ' var markerPhocaMarker'.$name.$this->_id.' = new google.maps.Marker({' ."\n" . ' title:"'.PhocaMapsHelper::filterValue($title, 'text').'"';
 		}
 
 		if ($icon == 1) {
@@ -730,7 +730,7 @@ class PhocaMapsMap
 
 	function exportMarker($name, $type, $latitude, $longitude, $valueLat = '', $valueLng = '', $jFormLat = '', $jFormLng = '', $jFormLatGPS = '', $jFormLngGPS = '') {
 
-		$js = ' var phocaPoint'.$name.$this->_id.' = new google.maps.LatLng('. $latitude.', ' .$longitude.');'."\n";
+		$js = ' var phocaPoint'.$name.$this->_id.' = new google.maps.LatLng('. PhocaMapsHelper::filterValue($latitude, 'number').', ' .PhocaMapsHelper::filterValue($longitude, 'number').');'."\n";
 
 		if ($name == 'Global') {
 			$js .= ' markerPhocaMarker'.$name.$this->_id.' = new google.maps.Marker({'."\n";
@@ -904,17 +904,17 @@ class PhocaMapsMap
 		.'            infoPhocaWindow'.$name.$this->_id.'.open('.$this->_map.', markerPhocaMarker'.$name.$this->_id.' );'."\n";
 
 		if ($valueLat != '') {
-			$js .= '            '.$valueLat.'.value = phocaLocation'.$this->_id.'.lat();'."\n";// valueLat has no id (used in admin)
+			$js .= '            '.PhocaMapsHelper::filterValue($valueLat).'.value = phocaLocation'.$this->_id.'.lat();'."\n";// valueLat has no id (used in admin)
 		}
 		if ($valueLng != '') {
-			$js .= '            '.$valueLat.'.value = phocaLocation'.$this->_id.'.lng();'."\n";// valueLat has no id (used in admin)
+			$js .= '            '.PhocaMapsHelper::filterValue($valueLat).'.value = phocaLocation'.$this->_id.'.lng();'."\n";// valueLat has no id (used in admin)
 		}
 
 		if ($jFormLat != '') {
-			$js .= '            if (window.parent) window.parent.'.$jFormLat.'(phocaLocation'.$this->_id.'.lat());'."\n";
+			$js .= '            if (window.parent) window.parent.'.PhocaMapsHelper::filterValue($jFormLat).'(phocaLocation'.$this->_id.'.lat());'."\n";
 		}
 		if ($jFormLng != '') {
-			$js .= '            if (window.parent) window.parent.'.$jFormLng.'(phocaLocation'.$this->_id.'.lng());'."\n";
+			$js .= '            if (window.parent) window.parent.'.PhocaMapsHelper::filterValue($jFormLng).'(phocaLocation'.$this->_id.'.lng());'."\n";
 		}
 
 
