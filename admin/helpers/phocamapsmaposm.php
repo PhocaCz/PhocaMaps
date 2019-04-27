@@ -135,7 +135,7 @@ class PhocaMapsMapOsm
 
 		$o 	= array();
 
-		$o[]= 'var map'.$this->name.$this->id.' = L.map("'.$this->name.$this->id.'", '.$options.').setView(['.PhocaMapsHelper::filterValue($lat, 'number').', '.PhocaMapsHelper::filterValue($lng, 'number').'], '.(int)$zoom.');';
+		$o[]= 'var map'.$this->name.$this->id.' = L.map("'.$this->name.$this->id.'", '.$options.').setView(['.PhocaMapsHelper::filterValue($lat, 'number2').', '.PhocaMapsHelper::filterValue($lng, 'number2').'], '.(int)$zoom.');';
 
 
 		$this->output[] = implode("\n", $o);
@@ -255,7 +255,7 @@ class PhocaMapsMapOsm
 
 
 		if($open != 2){
-			$o[]= 'var marker'.$markerId.' = L.marker(['.PhocaMapsHelper::filterValue($lat, 'number').', '.PhocaMapsHelper::filterValue($lng, 'number').']).addTo(map'.$this->name.$this->id.');';
+			$o[]= 'var marker'.$markerId.' = L.marker(['.PhocaMapsHelper::filterValue($lat, 'number2').', '.PhocaMapsHelper::filterValue($lng, 'number2').']).addTo(map'.$this->name.$this->id.');';
 		}
 
 		jimport('joomla.filter.output');
@@ -505,12 +505,12 @@ class PhocaMapsMapOsm
 		} else if ($latFrom == 0 && $lngFrom == 0) {
 			$o[] = '      L.latLng(\'\'),';
 		} else {
-			$o[] = '      L.latLng('.PhocaMapsHelper::filterValue($latFrom, 'number').', '.PhocaMapsHelper::filterValue($lngFrom, 'number').'),';
+			$o[] = '      L.latLng('.PhocaMapsHelper::filterValue($latFrom, 'number2').', '.PhocaMapsHelper::filterValue($lngFrom, 'number2').'),';
 		}
 	    if ($latTo == 0 && $lngTo == 0) {
 	    	$o[] = '      L.latLng(\'\'),';
 	    } else {
-	    	$o[] = '      L.latLng('.PhocaMapsHelper::filterValue($latTo, 'number').', '.PhocaMapsHelper::filterValue($lngTo, 'number').')';
+	    	$o[] = '      L.latLng('.PhocaMapsHelper::filterValue($latTo, 'number2').', '.PhocaMapsHelper::filterValue($lngTo, 'number2').')';
 	    }
 	    $o[] = '   ],';
 	    if ($language != '') {
@@ -527,8 +527,8 @@ class PhocaMapsMapOsm
 	    	if ($latTo != 0 && $lngTo != 0) {
 	    		$o[] = '   createMarker: function(i,wp, n) {';
 
-	    		$o[] = '      var latToMarker = '.PhocaMapsHelper::filterValue($latTo, 'number').';';
-	    		$o[] = '      var lngToMarker = '.PhocaMapsHelper::filterValue($lngTo, 'number').';';
+	    		$o[] = '      var latToMarker = '.PhocaMapsHelper::filterValue($latTo, 'number2').';';
+	    		$o[] = '      var lngToMarker = '.PhocaMapsHelper::filterValue($lngTo, 'number2').';';
 
 	    		$o[] = '      if (wp.latLng.lat == latToMarker && wp.latLng.lng == lngToMarker) {';
 	    		$o[] = '         return false;';

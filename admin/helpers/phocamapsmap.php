@@ -220,7 +220,7 @@ class PhocaMapsMap
 
 
 	function setLatLng($latitude, $longitude) {
-		return ' var '.$this->_latlng.' = new google.maps.LatLng('.PhocaMapsHelper::filterValue($latitude, 'number') .', '. PhocaMapsHelper::filterValue($longitude, 'number') .');'."\n";
+		return ' var '.$this->_latlng.' = new google.maps.LatLng('.PhocaMapsHelper::filterValue($latitude, 'number2') .', '. PhocaMapsHelper::filterValue($longitude, 'number2') .');'."\n";
 	}
 
 
@@ -412,7 +412,7 @@ class PhocaMapsMap
 			$text = '<div style="'.$style.'">' . $text . '</div>';
 		}
 
-		$output .= ' var phocaPoint'.$name.$this->_id.' = new google.maps.LatLng('. PhocaMapsHelper::filterValue($latitude, 'number').', ' .PhocaMapsHelper::filterValue($longitude, 'number').');'."\n";
+		$output .= ' var phocaPoint'.$name.$this->_id.' = new google.maps.LatLng('. PhocaMapsHelper::filterValue($latitude, 'number2').', ' .PhocaMapsHelper::filterValue($longitude, 'number2').');'."\n";
 
 		// Global Marker is defined, don't define var here - the marker markerPhocaMarkerGlobal is defined in the beginning
 		if ($name == 'Global') {
@@ -730,7 +730,7 @@ class PhocaMapsMap
 
 	function exportMarker($name, $type, $latitude, $longitude, $valueLat = '', $valueLng = '', $jFormLat = '', $jFormLng = '', $jFormLatGPS = '', $jFormLngGPS = '') {
 
-		$js = ' var phocaPoint'.$name.$this->_id.' = new google.maps.LatLng('. PhocaMapsHelper::filterValue($latitude, 'number').', ' .PhocaMapsHelper::filterValue($longitude, 'number').');'."\n";
+		$js = ' var phocaPoint'.$name.$this->_id.' = new google.maps.LatLng('. PhocaMapsHelper::filterValue($latitude, 'number2').', ' .PhocaMapsHelper::filterValue($longitude, 'number2').');'."\n";
 
 		if ($name == 'Global') {
 			$js .= ' markerPhocaMarker'.$name.$this->_id.' = new google.maps.Marker({'."\n";
