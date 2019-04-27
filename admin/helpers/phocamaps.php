@@ -102,8 +102,8 @@ class PhocaMapsHelper
 				break;
 
 			case 'number2':
-				//return preg_replace( '/[^0-9\.\,+-]/', '', $string );
-				return preg_replace( '/[^0-9\.\,-]/', '', $string );
+				//return preg_replace( '/[^0-9\.,+-]/', '', $string );
+				return preg_replace( '/[^0-9\.,-]/', '', $string );
 				break;
 
 			case 'alphanumeric':
