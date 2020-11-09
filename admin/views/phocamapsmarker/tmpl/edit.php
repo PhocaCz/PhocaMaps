@@ -6,49 +6,43 @@
  * @copyright Copyright (C) Jan Pavelka www.phoca.cz
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
- defined('_JEXEC') or die;
-JHtml::_('behavior.tooltip');
-JHtml::_('behavior.formvalidation');
-JHtml::_('behavior.keepalive');
-JHtml::_('formbehavior.chosen', 'select');
+$r = $this->r;
 
-$class		= $this->t['n'] . 'RenderAdminView';
-$r 			=  new $class();
-?>
-<script type="text/javascript">
-Joomla.submitbutton = function(task)
-{
-	if (task != '<?php echo $this->t['task'] ?>.cancel' && document.id('jform_catid').value == '') {
-		alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED')) . ' - '. $this->escape(JText::_('COM_PHOCAMAPS_ERROR_MAP_NOT_SELECTED'));?>');
-	} else if (task == '<?php echo $this->t['task'] ?>.cancel' || document.formvalidator.isValid(document.getElementById('adminForm'))) {
-		Joomla.submitform(task, document.getElementById('adminForm'));
+JFactory::getDocument()->addScriptDeclaration(
+
+'Joomla.submitbutton = function(task) {
+	if (task != \''. $this->t['task'].'.cancel\' && document.getElementById(\'jform_catid\').value == \'\') {
+		alert(\''.$this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED')) . ' - '. $this->escape(JText::_('COM_PHOCAMAPS_ERROR_MAP_NOT_SELECTED')).'\');
+	} else if (task == "'. $this->t['task'].'.cancel" || document.formvalidator.isValid(document.getElementById("adminForm"))) {
+		Joomla.submitform(task, document.getElementById("adminForm"));
+	} else {
+        Joomla.renderMessages({"error": ["'. JText::_('JGLOBAL_VALIDATION_FORM_FAILED', true).'"]});
 	}
-	else {
-		alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
-	}
-}
-</script><?php
+}'
+
+);
+
 echo $r->startForm($this->t['o'], $this->t['task'], $this->item->id, 'adminForm', 'adminForm');
 // First Column
-echo '<div class="span10 form-horizontal">';
+echo '<div class="span12 form-horizontal">';
 $tabs = array (
 'general' 		=> JText::_($this->t['l'].'_GENERAL_OPTIONS'),
 'publishing' 	=> JText::_($this->t['l'].'_PUBLISHING_OPTIONS'),
 'design'		=> JText::_($this->t['l'].'_DESIGN_SETTINGS_GOOGLE_MAPS'),
-'osm_design'		=> JText::_($this->t['l'].'_DESIGN_SETTINGS_OPENSTREETMAP')
+'osm_design'	=> JText::_($this->t['l'].'_DESIGN_SETTINGS_OPENSTREETMAP')
 );
 echo $r->navigation($tabs);
 
-echo '<div class="tab-content">'. "\n";
+echo $r->startTabs();
 
-echo '<div class="tab-pane active" id="general">'."\n";
+echo $r->startTab('general', $tabs['general'], 'active');
 $formArray = array ('title', 'alias','latitude','longitude', 'gpslatitude', 'gpslongitude', 'catid', 'ordering', 'markerwindow', 'contentwidth', 'contentheight', 'displaygps');
 echo $r->group($this->form, $formArray);
 $formArray = array('description');
 echo $r->group($this->form, $formArray, 1);
-echo '</div>'. "\n";
+echo $r->endTab();
 
-echo '<div class="tab-pane" id="publishing">'."\n";
+echo $r->startTab('publishing', $tabs['publishing']);
 foreach($this->form->getFieldset('publish') as $field) {
 	echo '<div class="control-group">';
 	if (!$field->hidden) {
@@ -58,24 +52,23 @@ foreach($this->form->getFieldset('publish') as $field) {
 	echo $field->input;
 	echo '</div></div>';
 }
-echo '</div>';
+echo $r->endTab();
 
-echo '<div class="tab-pane" id="design">'."\n";
+echo $r->startTab('design', $tabs['design']);
 $formArray = array ('icon', 'iconext');
 echo $r->group($this->form, $formArray);
-echo '</div>'. "\n";
+echo $r->endTab();
 
-echo '<div class="tab-pane" id="osm_design">'."\n";
+echo $r->startTab('osm_design', $tabs['osm_design']);
 $formArray = array ('osm_icon', 'osm_marker_color', 'osm_icon_color', 'osm_icon_prefix', 'osm_icon_spin', 'osm_icon_class');
 echo $r->group($this->form, $formArray);
-echo '</div>'. "\n";
+echo $r->endTab();
 
 
 
 echo '</div>';//end tab content
 echo '</div>';//end span10
-// Second Column
-echo '<div class="span2"></div>';//end span2
+
 echo $r->formInputs();
 echo $r->endForm();
 ?>

@@ -2,7 +2,7 @@
 
 
 
-![Phoca Maps](https://github.com/PhocaCz/PhocaMaps/blob/master/phocamaps.png)
+![Phoca Maps](https://github.com/PhocaCz/PhocaMaps/blob/master/phocamaps.png?raw=true)
 
 # Phoca Maps
 
@@ -23,6 +23,8 @@ Phoca Maps is Joomla! CMS component. It displays maps on your site rendered with
 ## Documentation
 
 [Documentation](https://www.phoca.cz/documentation/category/53-phoca-maps-component)
+
+
 
 
 
@@ -56,7 +58,7 @@ Phoca Maps is Joomla! CMS component. It displays maps on your site rendered with
 
 ## Version
 
-3.0.8
+3.0.9
 
 
 

@@ -12,10 +12,13 @@ jimport( 'joomla.application.component.view' );
 class PhocaMapsCpViewPhocaMapsInfo extends JViewLegacy
 {
 	protected $t;
+	protected $r;		  
 	
 	public function display($tpl = null) {
-		$this->t	= PhocaMapsUtils::setVars();
-		JHTML::stylesheet( $this->t['s'] );
+		$this->t	= PhocaMapsUtils::setVars('info');
+		$this->r	= new PhocaMapsRenderAdminview();
+		$this->t['component_head'] 	= 'COM_PHOCAMAPS_PHOCA_MAPS';
+		$this->t['component_links']	= $this->r->getLinks(1);
 		$this->t['version'] = PhocaMapsHelper::getPhocaVersion('com_phocamaps');
 		$this->addToolbar();
 		parent::display($tpl);

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="component" method="upgrade" version="3">
+<extension type="component" method="upgrade" version="3.9">
 	<name>com_phocamaps</name>
 	<author>Jan Pavelka (www.phoca.cz)</author>
-	<creationDate>27/04/2019</creationDate>
+	<creationDate>09/11/2020</creationDate>
 	<authorEmail></authorEmail>
 	<authorUrl>https://www.phoca.cz</authorUrl>
 	<copyright>Jan Pavelka</copyright>
 	<license>GNU/GPL</license>
-	<version>3.0.8</version>
+	<version>3.0.9</version>
 	<description>COM_PHOCAMAPS_XML_DESCRIPTION</description>
 	<scriptfile>script.php</scriptfile>
 	<projectName>PhocaMaps</projectName>
@@ -42,6 +42,7 @@
 
 	<media destination="com_phocamaps" folder="media">
 		<folder>css</folder>
+		<folder>duotone</folder>
 		<folder>images</folder>
 		<folder>js</folder>
 		<filename>index.html</filename>

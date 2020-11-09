@@ -29,7 +29,8 @@ class JFormFieldPhocaMapsMap extends JFormField
 		
 		$attr = '';
 		$attr .= $this->required ? ' required aria-required="true"' : '';
-		$attr .= ' class="inputbox"';
+		$attr .= $this->element['onchange'] ? ' onchange="'.(string) $this->element['onchange'].'"' : '';
+		
 	
 		
 		array_unshift($items, JHTML::_('select.option', '', '- '.JText::_('COM_PHOCAMAPS_SELECT_MAP').' -', 'value', 'text'));

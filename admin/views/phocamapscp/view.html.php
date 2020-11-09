@@ -12,19 +12,22 @@ jimport( 'joomla.application.component.view' );
 class PhocaMapsCpViewPhocaMapsCp extends JViewLegacy
 {
 	protected $t;
+	protected $r;
+	protected $view;
 	
 	function display($tpl = null) {
-		
-		$this->t	= PhocaMapsUtils::setVars();
+
+		$this->t	= PhocaMapsUtils::setVars('cp');
+		$this->r	= new PhocaMapsRenderAdminview();
+		$i = ' icon-';
+		$d = 'duotone ';
+
 		$this->views= array(
-		'maps'		=> $this->t['l'] . '_MAPS',
-		'markers'	=> $this->t['l'] . '_MARKERS',
-		'icons'		=> $this->t['l'] . '_ICONS',
-		'info'		=> $this->t['l'] . '_INFO'
+		'maps'		=> array($this->t['l'] . '_MAPS', $i.'global', '#01868B'),
+		'markers'		=> array($this->t['l'] . '_MARKERS', $d.$i.'location', '#D75348'),
+		'icons'		=> array($this->t['l'] . '_ICONS', $d.$i.'flag', '#5CA4CD'),
+		'info'		=> array($this->t['l'] . '_INFO', $d.$i.'info-circle', '#3378cc')
 		);
-		
-		JHTML::stylesheet( $this->t['s'] );
-		JHTML::_('behavior.tooltip');
 		$this->t['version'] = PhocaMapsHelper::getPhocaVersion('com_phocamaps');
 
 		$this->addToolbar();

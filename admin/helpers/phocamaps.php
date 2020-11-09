@@ -59,17 +59,6 @@ class PhocaMapsHelper
 		}
 	}
 
-	public static function getInfo() {
-
-        JPluginHelper::importPlugin('phocatools');
-        $results = \JFactory::getApplication()->triggerEvent('PhocatoolsOnDisplayInfo', array('NjI5NTcyMjc3MTE3'));
-        if (isset($results[0]) && $results[0] === true) {
-            return '';
-        }
-
-		return '<div style="text-align: right; color: rgb(211, 211, 211); clear: both; margin-top: 10px;margin-bottom:10px;">Powered by <a href="https://www.phoca.cz" style="text-decoration: none;" target="_blank" title="Phoca.cz">Phoca</a> <a href="https://www.phoca.cz/phocamaps" style="text-decoration: none;" target="_blank" title="Phoca Maps">Maps</a></div>';
-	}
-
 	public static function getAliasName($name) {
 
 	}
@@ -141,6 +130,17 @@ class PhocaMapsHelper
 
 		}
 
+	}
+
+	public static function getExtInfo() {
+
+        JPluginHelper::importPlugin('phocatools');
+        $results = \JFactory::getApplication()->triggerEvent('PhocatoolsOnDisplayInfo', array('NjI5NTcyMjc3MTE3'));
+        if (isset($results[0]) && $results[0] === true) {
+            return '';
+        }
+
+		return '<div style="text-align: right; color: rgb(211, 211, 211); clear: both; margin-top: 10px;margin-bottom:10px;">Powered by <a href="https://www.phoca.cz" style="text-decoration: none;" target="_blank" title="Phoca.cz">Phoca</a> <a href="https://www.phoca.cz/phocamaps" style="text-decoration: none;" target="_blank" title="Phoca Maps">Maps</a></div>';
 	}
 }
 ?>

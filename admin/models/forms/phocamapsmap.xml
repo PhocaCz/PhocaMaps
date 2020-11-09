@@ -25,7 +25,7 @@
 <field name="description" type="editor" buttons="true" hide="pagebreak,readmore" class="inputbox" label="COM_PHOCAMAPS_FIELD_DESC_LABEL" description="COM_PHOCAMAPS_FIELD_DESC_DESC" filter="JComponentHelper::filterText"  />
 
 
-<field name="border" type="phocamapsradio" label="COM_PHOCAMAPS_FIELD_BORDER_LABEL" description="COM_PHOCAMAPS_FIELD_BORDER_DESC" class="inputbox" size="1" default="1" typedesign="1" >
+<field name="border" type="list" label="COM_PHOCAMAPS_FIELD_BORDER_LABEL" description="COM_PHOCAMAPS_FIELD_BORDER_DESC" class="inputbox" size="1" default="1" typedesign="1" >
 	<option value="0">COM_PHOCAMAPS_NONE</option>
 	<option	value="1">COM_PHOCAMAPS_GREY</option>
 	<option	value="2">COM_PHOCAMAPS_GREYWB</option>

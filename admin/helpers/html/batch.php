@@ -13,7 +13,7 @@ defined('JPATH_PLATFORM') or die;
 
 abstract class PhocaMapsBatch
 {
-	
+
 	public static function item($published, $category = 0)
 	{
 		// Create the copy/move options.
@@ -21,30 +21,30 @@ abstract class PhocaMapsBatch
 			JHtml::_('select.option', 'c', JText::_('JLIB_HTML_BATCH_COPY')),
 			JHtml::_('select.option', 'm', JText::_('JLIB_HTML_BATCH_MOVE'))
 		);
-		
+
 		$db = JFactory::getDBO();
-		
+
 		if ($category == 1) {
 			$data = array();
 			array_unshift($data, JHTML::_('select.option', 0, JText::_('JLIB_HTML_ADD_TO_ROOT'), 'value', 'text'));
 		} else {
-			
+
 		   //build the list of categories
 			$query = 'SELECT a.title AS text, a.id AS value, 0 as catid'
 			. ' FROM #__phocamaps_map AS a'
-			// TODO. ' WHERE a.published = '.(int)$published
+			// TO DO. ' WHERE a.published = '.(int)$published
 			. ' ORDER BY a.ordering';
 			$db->setQuery( $query );
 			$data = $db->loadObjectList();
-		
+
 			//$tree = array();
 			//$text = '';
 			//$catId= -1;
 			//$tree = PhocaGalleryRenderAdmin::CategoryTreeOption($data, $tree, 0, $text, $catId);
 		}
-		
 
-		
+
+
 		// Create the batch selector to change select the category by which to move or copy.
 		$lines = array(
 			'<label id="batch-choose-action-lbl" for="batch-choose-action">',

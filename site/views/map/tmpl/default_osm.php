@@ -17,7 +17,7 @@ if ($app->input->get( 'print', '', 'int' ) == 1 || $app->input->get( 'tmpl', '',
 	if ( $this->t['p']->def( 'show_page_heading', 1 ) ) {
 		echo '<h1>'. $this->t['p']->get('page_heading') . '</h1>';
 	}
-	$foutput = PhocaMapsHelper::getInfo();
+	$foutput = PhocaMapsHelper::getExtInfo();
 }
 
 

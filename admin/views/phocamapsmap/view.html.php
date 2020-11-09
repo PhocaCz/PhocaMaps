@@ -15,21 +15,21 @@ class phocaMapsCpViewPhocaMapsMap extends JViewLegacy
 	protected $item;
 	protected $form;
 	protected $t;
+	protected $r;
 
 	public function display($tpl = null) {
-		
+
 		$this->t		= PhocaMapsUtils::setVars('map');
+		$this->r		= new PhocaMapsRenderAdminview();
 		$this->state	= $this->get('State');
 		$this->form		= $this->get('Form');
 		$this->item		= $this->get('Item');
-		JHTML::stylesheet( $this->t['s'] );
-		JHTML::stylesheet( $this->t['css'] . 'icomoon/icomoon.css' );
 		$this->addToolbar();
 		parent::display($tpl);
 	}
-	
+
 	protected function addToolbar() {
-		
+
 		require_once JPATH_COMPONENT.'/helpers/phocamapsmaps.php';
 		JFactory::getApplication()->input->set('hidemainmenu', true);
 
@@ -40,7 +40,7 @@ class phocaMapsCpViewPhocaMapsMap extends JViewLegacy
 		$canDo 		= PhocamapsMapsHelper::getActions($this->t, $this->state->get('filter.map_id'));
 		//$paramsC 	= JComponentHelper::getParams('COM_PHOCAMAPS');
 
-		
+
 
 		$text = $isNew ? JText::_( 'COM_PHOCAMAPS_NEW' ) : JText::_('COM_PHOCAMAPS_EDIT');
 		JToolbarHelper::title(   JText::_( 'COM_PHOCAMAPS_MAP' ).': <small><small>[ ' . $text.' ]</small></small>' , 'ph-earth');
@@ -51,7 +51,7 @@ class phocaMapsCpViewPhocaMapsMap extends JViewLegacy
 			JToolbarHelper::save('phocamapsmap.save', 'JTOOLBAR_SAVE');
 			JToolbarHelper::addNew('phocamapsmap.save2new', 'JTOOLBAR_SAVE_AND_NEW');
 		}
-	
+
 		if (empty($this->item->id))  {
 			JToolbarHelper::cancel('phocamapsmap.cancel', 'JTOOLBAR_CANCEL');
 		}

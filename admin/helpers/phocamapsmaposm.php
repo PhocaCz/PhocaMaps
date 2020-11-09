@@ -131,12 +131,20 @@ class PhocaMapsMapOsm
 			$opt[] = 'zoomControl: false,';
 		}
 
+		//if ($this->zoomcontrol == 0) {
+			$opt[] = 'zoomControl: false,';
+		//}
+
 		$options = '{' . implode("\n", $opt) . '}';
 
 		$o 	= array();
 
 		$o[]= 'var map'.$this->name.$this->id.' = L.map("'.$this->name.$this->id.'", '.$options.').setView(['.PhocaMapsHelper::filterValue($lat, 'number2').', '.PhocaMapsHelper::filterValue($lng, 'number2').'], '.(int)$zoom.');';
 
+
+		if ($this->zoomcontrol == 1) {
+			$o[] = 'new L.Control.Zoom({ zoomInTitle: \''.JText::_('COM_PHOCACART_ZOOM_IN_TITLE').'\', zoomOutTitle: \''.JText::_('COM_PHOCACART_ZOOM_OUT_TITLE').'\' }).addTo(map'.$this->name.$this->id.');';
+		}
 
 		$this->output[] = implode("\n", $o);
 		return true;
@@ -393,6 +401,12 @@ class PhocaMapsMapOsm
 		$o[] = '	autoType: false,';
 		$o[] = '	minLength: 3,';
 		$o[] = '	position: \''.$position.'\',';
+
+
+		$o[] = '	textErr: \''.JText::_('COM_PHOCAMAPS_SEARCH_LOCATION_NOT_FOUND').'\',';
+		$o[] = '	textCancel: \''.JText::_('COM_PHOCAMAPS_SEARCH_CANCEL').'\',';
+		$o[] = '	textPlaceholder: \''.JText::_('COM_PHOCAMAPS_SEARCH_SEARCH').'\',';
+
 		if ($markerId != '') {
 			$o[] = '	moveToLocation: function(latlng, title, map) {';
 			$o[] = '		phmInputMarker(latlng.lat, latlng.lng);';
@@ -571,13 +585,31 @@ class PhocaMapsMapOsm
 	    $o[] = '   show: false,';
 
 
+/*
 	    if ($this->routerserviceurl == 'https://api.mapbox.com/directions/v5') {
 	    	// DEBUG DEMO - default address of leaflet-routing-machine to debug
-
 	    } else if ($this->routerserviceurl != '') {
 	    	$o[] = '   routerserviceurl: \''.$this->routerserviceurl.'\',';
 	    } else if ($this->osm_map_type == 'mapbox' && $this->maprouterapikey != '') {
 	    	$o[] = '   router: L.Routing.mapbox(\''.PhocaMapsHelper::filterValue($this->maprouterapikey).'\'),';
+	    } else {
+			$o[] = array();
+			$o[] = 'console.log(\'Routing Error: No router or service url set\')';
+			$this->output[] = implode("\n", $o);
+			return true;
+		}*/
+
+
+	    if ($this->routerserviceurl == 'https://api.mapbox.com/directions/v5') {
+	    	// DEBUG DEMO - default address of leaflet-routing-machine to debug
+	    } else if ($this->osm_map_type == 'mapbox' && $this->maprouterapikey != '' && $this->routerserviceurl != '') {
+			$o[] = '   routerserviceurl: \''.$this->routerserviceurl.'\',';
+	    	//$o[] = '   router: L.Routing.mapbox(\''.PhocaMapsHelper::filterValue($this->maprouterapikey).'\'),';
+	    	$o[] = '   router: L.Routing.mapbox(\''.PhocaMapsHelper::filterValue($this->maprouterapikey).'\',{language: \''.PhocaMapsHelper::filterValue($language, 'text').'\'}),';
+	    } else if ($this->osm_map_type == 'mapbox' && $this->maprouterapikey != '') {
+	    	$o[] = '   router: L.Routing.mapbox(\''.PhocaMapsHelper::filterValue($this->maprouterapikey).'\'),';
+	    } else if ($this->routerserviceurl != '') {
+	    	$o[] = '   routerserviceurl: \''.$this->routerserviceurl.'\',';
 	    } else {
 			$o[] = array();
 			$o[] = 'console.log(\'Routing Error: No router or service url set\')';

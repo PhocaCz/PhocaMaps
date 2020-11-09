@@ -6,26 +6,32 @@
  * @copyright Copyright (C) Jan Pavelka www.phoca.cz
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
- defined('_JEXEC') or die;
+defined('_JEXEC') or die;
 
-echo '<form action="index.php" method="post" name="adminForm" id="'.$this->t['c'].'info-form">';
-echo '<div id="j-sidebar-container" class="span2">'.JHtmlSidebar::render().'</div>';
-echo '<div id="j-main-container" class="span10">'
-	.'<div style="float:right;margin:10px;">'
-	. JHTML::_('image', $this->t['i'] . 'logo-phoca.png', 'Phoca.cz' )
-	.'</div>';
+$r = $this->r;
+echo $r->startCp();
 
-        echo '<div class="ph-cpanel-logo">'.JHtml::_('image', 'media/com_phocamaps/images/administrator/logo-phoca-maps.png', 'Phoca.cz') . '</div>';
-	echo '<h3>'.JText::_($this->t['l'].'_PHOCA_MAPS').' - '. JText::_($this->t['l'].'_INFORMATION').'</h3>'
+echo '<div class="ph-box-info">';
+																					
+												 
+										  
+																   
+		   
+
+echo '<div style="float:right;margin:10px;">' . Joomla\CMS\HTML\HTMLHelper::_('image', $this->t['i'] . 'logo-phoca.png', 'Phoca.cz' ) .'</div>'
+	. '<div class="ph-cpanel-logo">'.Joomla\CMS\HTML\HTMLHelper::_('image', $this->t['i'] . 'logo-'.str_replace('phoca', 'phoca-', $this->t['c']).'.png', 'Phoca.cz') . '</div>'
+	.'<h3>'.JText::_($this->t['component_head']).' - '. JText::_($this->t['l'].'_INFORMATION').'</h3>'
 	.'<div style="clear:both;"></div>';
 
 echo '<h3>'.  JText::_($this->t['l'].'_HELP').'</h3>';
 
-echo '<p>'
-.'<a href="https://www.phoca.cz/phocamaps/" target="_blank">Phoca Maps Main Site</a><br />'
-.'<a href="https://www.phoca.cz/documentation/" target="_blank">Phoca Maps User Manual</a><br />'
-.'<a href="https://www.phoca.cz/forum/" target="_blank">Phoca Maps Forum</a><br />'
-.'</p>';
+echo '<div>';
+if (!empty($this->t['component_links'])) {
+	foreach ($this->t['component_links'] as $k => $v) {
+	    echo '<div><a href="'.$v[1].'" target="_blank">'.$v[0].'</a></div>';
+	}
+}
+echo '</div>';
 
 echo '<h3>'.  JText::_($this->t['l'] . '_VERSION').'</h3>'
 .'<p>'.  $this->t['version'] .'</p>';
@@ -41,20 +47,20 @@ echo '<h3>'.  JText::_($this->t['l'] . '_TRANSLATION').': '. JText::_($this->t['
         .'<p>© 2007 - '.  date("Y"). ' '. JText::_($this->t['l'] . '_TRANSLATER'). '</p>'
         .'<p>'.JText::_($this->t['l'] . '_TRANSLATION_SUPPORT_URL').'</p>';
 
-?>
-<p>Maps are created by OpenStreetmap<br />or by Google Maps™<br />
-<p>Google™ is a trademark of <a href="http://www.google.com" target="_blank">Google Inc.</a><br />Google Maps™ is a trademark of <a href="http://www.google.com" target="_blank">Google Inc.</a></p>
-<?php
+?><p>Maps are created by OpenStreetmap<br />or by Google Maps™<br />
+<p>Google™ is a trademark of <a href="http://www.google.com" target="_blank">Google Inc.</a><br />Google Maps™ is a trademark of <a href="http://www.google.com" target="_blank">Google Inc.</a></p><?php																	
 
 echo '<input type="hidden" name="task" value="" />'
 .'<input type="hidden" name="option" value="'.$this->t['o'].'" />'
 .'<input type="hidden" name="controller" value="'.$this->t['c'].'info" />';
 
-echo  JHTML::_('image', $this->t['i'] . 'logo.png', 'Phoca.cz');
+echo Joomla\CMS\HTML\HTMLHelper::_('image', $this->t['i'] . 'logo.png', 'Phoca.cz');
+
+																
 echo '<p>&nbsp;</p>';
 
-echo '<div style="border-top:1px solid #eee"></div><p>&nbsp;</p>'
-.'<div class="btn-group">
+echo '<div style="border-top:1px solid #eee"></div><p>&nbsp;</p>'.'<div class="btn-group">
+						 
 <a class="btn btn-large btn-primary" href="https://www.phoca.cz/version/index.php?'.$this->t['c'].'='.  $this->t['version'] .'" target="_blank"><i class="icon-loop icon-white"></i>&nbsp;&nbsp;'.  JText::_($this->t['l'].'_CHECK_FOR_UPDATE') .'</a></div>';
 
 echo '<div style="margin-top:30px;height:39px;background: url(\''.JURI::root(true).'/media/com_'.$this->t['c'].'/images/administrator/line.png\') 100% 0 no-repeat;">&nbsp;</div>';
@@ -63,5 +69,5 @@ echo '</div>';
 
 
 echo '</div>';
-echo '</form>';
-?>
+echo $r->endCp();
+  

@@ -8,14 +8,14 @@
  * @copyright Copyright (C) Jan Pavelka www.phoca.cz
  * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License version 2 or later;
  */
- 
+
 defined( '_JEXEC' ) or die();
 jimport('joomla.application.component.modellist');
 
 class PhocaMapsCpModelPhocaMapsIcons extends JModelList
 {
 	protected	$option 		= 'com_phocamaps';
-	
+
 	public function __construct($config = array())
 	{
 		if (empty($config['filter_fields'])) {
@@ -37,7 +37,7 @@ class PhocaMapsCpModelPhocaMapsIcons extends JModelList
 
 		parent::__construct($config);
 	}
-	
+
 	protected function populateState($ordering = NULL, $direction = NULL)
 	{
 		// Initialise variables.
@@ -50,8 +50,8 @@ class PhocaMapsCpModelPhocaMapsIcons extends JModelList
 /*		$accessId = $app->getUserStateFromRequest($this->context.'.filter.access', 'filter_access', null, 'int');
 		$this->setState('filter.access', $accessId);*/
 
-		$state = $app->getUserStateFromRequest($this->context.'.filter.state', 'filter_published', '', 'string');
-		$this->setState('filter.state', $state);
+		$state = $app->getUserStateFromRequest($this->context.'.filter.published', 'filter_published', '', 'string');
+		$this->setState('filter.published', $state);
 
 		$language = $app->getUserStateFromRequest($this->context.'.filter.language', 'filter_language', '');
 		$this->setState('filter.language', $language);
@@ -63,21 +63,21 @@ class PhocaMapsCpModelPhocaMapsIcons extends JModelList
 		// List state information.
 		parent::populateState('a.title', 'asc');
 	}
-	
+
 	protected function getStoreId($id = '')
 	{
 		// Compile the store id.
 		$id	.= ':'.$this->getState('filter.search');
 		//$id	.= ':'.$this->getState('filter.access');
-		$id	.= ':'.$this->getState('filter.state');
+		$id	.= ':'.$this->getState('filter.published');
 		$id	.= ':'.$this->getState('filter.icon_id');
 
 		return parent::getStoreId($id);
 	}
-	
+
 	protected function getListQuery()
 	{
-		
+
 		// Create a new query object.
 		$db		= $this->getDbo();
 		$query	= $db->getQuery(true);
@@ -98,7 +98,7 @@ class PhocaMapsCpModelPhocaMapsIcons extends JModelList
 		// Join over the users for the checked out user.
 		$query->select('uc.name AS editor');
 		$query->join('LEFT', '#__users AS uc ON uc.id=a.checked_out');
-		
+
 
 		// Filter by access level.
 /*		if ($access = $this->getState('filter.access')) {
@@ -106,7 +106,7 @@ class PhocaMapsCpModelPhocaMapsIcons extends JModelList
 		}*/
 
 		// Filter by published state.
-		$published = $this->getState('filter.state');
+		$published = $this->getState('filter.published');
 		if (is_numeric($published)) {
 			$query->where('a.published = '.(int) $published);
 		}
@@ -128,22 +128,22 @@ class PhocaMapsCpModelPhocaMapsIcons extends JModelList
 				$query->where('( a.title LIKE '.$search.' OR a.alias LIKE '.$search.')');
 			}
 		}
-	
+
 		// Add the list ordering clause.
 		//$orderCol	= $this->state->get('list.ordering');
 		//$orderDirn	= $this->state->get('list.direction');
 		$orderCol	= $this->state->get('list.ordering', 'title');
-		$orderDirn	= $this->state->get('list.direction', 'asc');				
+		$orderDirn	= $this->state->get('list.direction', 'asc');
 		if ($orderCol != 'a.ordering') {
 			$orderCol = 'a.ordering';
 		}
 		$query->order($db->escape($orderCol.' '.$orderDirn));
 
 		//echo nl2br(str_replace('#__', 'jos_', $query->__toString()));
-		
-		
+
+
 		return $query;
 	}
-	
+
 }
 ?>

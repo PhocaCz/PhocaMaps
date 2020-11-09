@@ -16,31 +16,33 @@ class PhocaMapsCpViewPhocaMapsGMap extends JViewLegacy
 	protected $zoom;
 	protected $type;
 	protected $t;
+	protected $r;
 	protected $p;
-	
+
 	public function display($tpl = null) {
 
 		$paramsC			= JComponentHelper::getParams('com_phocamaps') ;
 		$app 				= JFactory::getApplication();
-		
-		$this->t	= PhocaMapsUtils::setVars();
-		JHTML::stylesheet( $this->t['s'] );
+
+		$this->t	    = PhocaMapsUtils::setVars();
+		$this->r		= new PhocaMapsRenderAdminview();
+
 		$this->latitude			= $app->input->get( 'lat', '50', 'get', 'string' );
 		$this->longitude		= $app->input->get( 'lng', '-30', 'get', 'string' );
 		$this->zoom				= $app->input->get( 'zoom', '2', 'get', 'string' );
 		$this->type				= $app->input->get( 'type', 'map', 'get', 'string' );
-		
+
 		$this->p['enable_ssl'] 	= $paramsC->get('load_api_ssl', 0);
 		$this->p['map_type']	= $paramsC->get( 'map_type', 2 );
-		
+
 		$document	= JFactory::getDocument();
-		$document->addCustomTag( "<style type=\"text/css\"> \n" 
-			." html,body, .contentpane{overflow:hidden;background:#ffffff;} \n" 
+		$document->addCustomTag( "<style type=\"text/css\"> \n"
+			." html,body, .contentpane{overflow:hidden;background:#ffffff;} \n"
 			." </style> \n");
-		
-		
-		
-		
+
+
+
+
 		if ($this->p['map_type'] == 2) {
 			parent::display('osm');
 		} else {

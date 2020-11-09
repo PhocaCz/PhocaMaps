@@ -15,21 +15,23 @@ class phocaMapsCpViewPhocaMapsIcon extends JViewLegacy
 	protected $item;
 	protected $form;
 	protected $t;
+	protected $r;
 
 	public function display($tpl = null) {
-		
+
 		$this->t		= PhocaMapsUtils::setVars('icon');
+		$this->r		= new PhocaMapsRenderAdminview();
 		$this->state	= $this->get('State');
 		$this->form		= $this->get('Form');
 		$this->item		= $this->get('Item');
-		JHTML::stylesheet( $this->t['s'] );
+
 
 		$this->addToolbar();
 		parent::display($tpl);
 	}
-	
+
 	protected function addToolbar() {
-		
+
 		require_once JPATH_COMPONENT.'/helpers/phocamapsicons.php';
 		JFactory::getApplication()->input->set('hidemainmenu', true);
 
@@ -47,7 +49,7 @@ class phocaMapsCpViewPhocaMapsIcon extends JViewLegacy
 			JToolbarHelper::save('phocamapsicon.save', 'JTOOLBAR_SAVE');
 			JToolbarHelper::addNew('phocamapsicon.save2new', 'JTOOLBAR_SAVE_AND_NEW');
 		}
-	
+
 		if (empty($this->item->id))  {
 			JToolbarHelper::cancel('phocamapsicon.cancel', 'JTOOLBAR_CANCEL');
 		}

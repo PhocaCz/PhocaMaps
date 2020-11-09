@@ -7,28 +7,23 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
-defined('_JEXEC') or die;
-JHtml::_('behavior.tooltip');
-JHtml::_('behavior.formvalidation');
-JHtml::_('behavior.keepalive');
-JHtml::_('formbehavior.chosen', 'select');
+$r = $this->r;
 
-$class		= $this->t['n'] . 'RenderAdminView';
-$r 			=  new $class();
-?>
-<script type="text/javascript">
-Joomla.submitbutton = function(task) {
-	if (task == '<?php echo $this->t['task'] ?>.cancel' || document.formvalidator.isValid(document.getElementById('adminForm'))) {
-		Joomla.submitform(task, document.getElementById('adminForm'));
+JFactory::getDocument()->addScriptDeclaration(
+
+'Joomla.submitbutton = function(task) {
+	if (task == "'. $this->t['task'].'.cancel" || document.formvalidator.isValid(document.getElementById("adminForm"))) {
+		Joomla.submitform(task, document.getElementById("adminForm"));
+	} else {
+        Joomla.renderMessages({"error": ["'. JText::_('JGLOBAL_VALIDATION_FORM_FAILED', true).'"]});
 	}
-	else {
-		alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
-	}
-}
-</script><?php
+}'
+
+);
+
 echo $r->startForm($this->t['o'], $this->t['task'], $this->item->id, 'adminForm', 'adminForm');
 // First Column
-echo '<div class="span10 form-horizontal">';
+echo '<div class="span12 form-horizontal">';
 $tabs = array (
 'general' 		=> JText::_($this->t['l'].'_GENERAL_OPTIONS'),
 'publishing' 	=> JText::_($this->t['l'].'_PUBLISHING_OPTIONS'),
@@ -38,16 +33,16 @@ $tabs = array (
 );
 echo $r->navigation($tabs);
 
-echo '<div class="tab-content">'. "\n";
+echo $r->startTabs();
 
-echo '<div class="tab-pane active" id="general">'."\n";
+echo $r->startTab('general', $tabs['general'], 'active');
 $formArray = array ('title', 'alias','latitude','longitude', 'zoom', 'width', 'height', 'lang','ordering');
 echo $r->group($this->form, $formArray);
 $formArray = array('description');
 echo $r->group($this->form, $formArray, 1);
-echo '</div>'. "\n";
+echo $r->endTab();
 
-echo '<div class="tab-pane" id="publishing">'."\n";
+echo $r->startTab('publishing', $tabs['publishing']);
 foreach($this->form->getFieldset('publish') as $field) {
 	echo '<div class="control-group">';
 	if (!$field->hidden) {
@@ -57,24 +52,23 @@ foreach($this->form->getFieldset('publish') as $field) {
 	echo $field->input;
 	echo '</div></div>';
 }
-echo '</div>';
+echo $r->endTab();
 
-echo '<div class="tab-pane" id="design">'."\n";
+echo $r->startTab('design', $tabs['design']);
 $formArray = array ('border');
 echo $r->group($this->form, $formArray);
-echo '</div>'. "\n";
+echo $r->endTab();
 
 
-echo '<div class="tab-pane" id="advanced">'."\n";
+echo $r->startTab('advanced', $tabs['advanced']);
 $formArray = array ('typeid', 'typecontrol', 'typecontrolposition', 'doubleclickzoom', 'scrollwheelzoom', 'zoomcontrol', 'scalecontrol', 'displayroute', 'kmlfile', 'custom_options', 'map_styles');
 echo $r->group($this->form, $formArray);
-echo '</div>'. "\n";
+echo $r->endTab();
 
 
 echo '</div>';//end tab content
 echo '</div>';//end span10
-// Second Column
-echo '<div class="span2"></div>';//end span2
+
 echo $r->formInputs();
 echo $r->endForm();
 ?>

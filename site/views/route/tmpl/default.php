@@ -26,7 +26,7 @@ echo $map->endJScData();
 echo $map->loadAPI('', $this->t['lang']);// must be loaded as last
 
 echo '<div id="directionsPanel'.$id.'" ></div>';
-echo PhocaMapsHelper::getInfo();
+echo PhocaMapsHelper::getExtInfo();
 echo '</div>';
 
 

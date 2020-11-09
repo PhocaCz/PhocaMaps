@@ -15,25 +15,27 @@ class phocaMapsCpViewPhocaMapsMarker extends JViewLegacy
 	protected $item;
 	protected $form;
 	protected $t;
+	protected $r;
 
 	public function display($tpl = null) {
-		
+
 		$this->t		= PhocaMapsUtils::setVars('marker');
+		$this->r		= new PhocaMapsRenderAdminview();
 		$this->state	= $this->get('State');
 		$this->form		= $this->get('Form');
 		$this->item		= $this->get('Item');
-		
-		$document= JFactory::getDocument();		
+
+		$document= JFactory::getDocument();
 		$document->addScript(JURI::root(true).'/'. $this->t['ja']  .'coordinates.js');
 
-		JHTML::stylesheet( $this->t['s'] );
+
 
 		$this->addToolbar();
 		parent::display($tpl);
 	}
-	
+
 	protected function addToolbar() {
-		
+
 		require_once JPATH_COMPONENT.'/helpers/phocamapsmarkers.php';
 		JFactory::getApplication()->input->set('hidemainmenu', true);
 
@@ -43,7 +45,7 @@ class phocaMapsCpViewPhocaMapsMarker extends JViewLegacy
 		$canDo		= PhocamapsMarkersHelper::getActions($this->t, $this->state->get('filter.marker_id'));
 		//$paramsC 	= JComponentHelper::getParams('COM_PHOCAMAPS');
 
-		
+
 
 		$text = $isNew ? JText::_( 'COM_PHOCAMAPS_NEW' ) : JText::_('COM_PHOCAMAPS_EDIT');
 		JToolbarHelper::title(   JText::_( 'COM_PHOCAMAPS_MARKER' ).': <small><small>[ ' . $text.' ]</small></small>' , 'location');
@@ -54,7 +56,7 @@ class phocaMapsCpViewPhocaMapsMarker extends JViewLegacy
 			JToolbarHelper::save('phocamapsmarker.save', 'JTOOLBAR_SAVE');
 			JToolbarHelper::addNew('phocamapsmarker.save2new', 'JTOOLBAR_SAVE_AND_NEW');
 		}
-	
+
 		if (empty($this->item->id))  {
 			JToolbarHelper::cancel('phocamapsmarker.cancel', 'JTOOLBAR_CANCEL');
 		}
