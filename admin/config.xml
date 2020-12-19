@@ -8,33 +8,37 @@
 	<option value="1">COM_PHOCAMAPS_GOOGLE_MAPS</option>
 	<option value="2">COM_PHOCAMAPS_OPENSTREETMAP</option>
 </field>
-		
+
+<field name="marker_clustering" type="radio" class="btn-group btn-group-yesno" default="0" label="COM_PHOCAMAPS_FIELD_MARKER_CLUSTERING_LABEL" description="COM_PHOCAMAPS_FIELD_MARKER_CLUSTERING_DESC">
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option value="1">COM_PHOCAMAPS_YES</option>
+</field>		
 		</fieldset>
 		
 		<fieldset name="googlemaps" label="COM_PHOCAMAPS_CONFIG_HEAD_GOOGLE_MAPS_LABEL">
 	
-	<field name="enable_kml" type="list" default="0" label="COM_PHOCAMAPS_FIELD_ENABLE_KML_FILE_LOADING_LABEL" description="COM_PHOCAMAPS_FIELD_ENABLE_KML_FILE_LOADING_DESC">
+	<field name="enable_kml" type="radio" class="btn-group btn-group-yesno" default="0" label="COM_PHOCAMAPS_FIELD_ENABLE_KML_FILE_LOADING_LABEL" description="COM_PHOCAMAPS_FIELD_ENABLE_KML_FILE_LOADING_DESC">
 	<option value="0">COM_PHOCAMAPS_NO</option>
 	<option value="1">COM_PHOCAMAPS_YES</option>
 </field>
 
 	
-	<field name="display_print_route" type="list" default="1" label="COM_PHOCAMAPS_FIELD_DISPLAY_PRINT_ROUTE_LABEL" description="COM_PHOCAMAPS_FIELD_DISPLAY_PRINT_ROUTE_DESC">
+	<field name="display_print_route" type="radio" class="btn-group btn-group-yesno" default="1" label="COM_PHOCAMAPS_FIELD_DISPLAY_PRINT_ROUTE_LABEL" description="COM_PHOCAMAPS_FIELD_DISPLAY_PRINT_ROUTE_DESC">
 	<option value="0">COM_PHOCAMAPS_NO</option>
 	<option value="1">COM_PHOCAMAPS_YES</option>
 </field>
 
-<field name="enable_cache" type="list" default="0" label="COM_PHOCAMAPS_FIELD_ENABLE_CACHE_LABEL" description="COM_PHOCAMAPS_FIELD_ENABLE_CACHE_DESC">
+<field name="enable_cache" type="radio" class="btn-group btn-group-yesno" default="0" label="COM_PHOCAMAPS_FIELD_ENABLE_CACHE_LABEL" description="COM_PHOCAMAPS_FIELD_ENABLE_CACHE_DESC">
 	<option value="1">COM_PHOCAMAPS_YES</option>
 	<option value="0">COM_PHOCAMAPS_NO</option>
 </field>
 
-<field name="close_opened_window" type="list" default="0" label="COM_PHOCAMAPS_FIELD_CLOSE_OPENED_WINDOW_LABEL" description="COM_PHOCAMAPS_FIELD_CLOSE_OPENED_WINDOW_DESC">
+<field name="close_opened_window" type="radio" class="btn-group btn-group-yesno" default="0" label="COM_PHOCAMAPS_FIELD_CLOSE_OPENED_WINDOW_LABEL" description="COM_PHOCAMAPS_FIELD_CLOSE_OPENED_WINDOW_DESC">
 	<option value="1">COM_PHOCAMAPS_YES</option>
 	<option value="0">COM_PHOCAMAPS_NO</option>
 </field>
 
-<field name="load_api_ssl" type="list" default="1" label="COM_PHOCAMAPS_FIELD_LOAD_API_SSL_LABEL" description="COM_PHOCAMAPS_FIELD_LOAD_API_SSL_DESC">
+<field name="load_api_ssl" type="radio" class="btn-group btn-group-yesno" default="1" label="COM_PHOCAMAPS_FIELD_LOAD_API_SSL_LABEL" description="COM_PHOCAMAPS_FIELD_LOAD_API_SSL_DESC">
 	<option value="1">COM_PHOCAMAPS_YES</option>
 	<option value="0">COM_PHOCAMAPS_NO</option>
 </field>
@@ -70,7 +74,7 @@
 	<option value="0">COM_PHOCAMAPS_NO</option>
 </field>
 
-<field name="osm_zoom_wheel" type="radio"  class="btn-group btn-group-yesno" default="1" label="COM_PHOCAMAPS_FIELD_ENABLE_MOUSE_WHEEL_ZOOM_LABEL" description="COM_PHOCAMAPS_FIELD_ENABLE_MOUSE_WHEEL_ZOOM_DESC">
+<field name="osm_zoom_wheel" type="radio" class="btn-group btn-group-yesno" default="1" label="COM_PHOCAMAPS_FIELD_ENABLE_MOUSE_WHEEL_ZOOM_LABEL" description="COM_PHOCAMAPS_FIELD_ENABLE_MOUSE_WHEEL_ZOOM_DESC">
 	<option value="1">COM_PHOCAMAPS_YES</option>
 	<option value="0">COM_PHOCAMAPS_NO</option>
 </field>
@@ -108,7 +112,11 @@
 
 <field name="osm_map_router_api_key" default=""  type="text" label="COM_PHOCAMAPS_FIELD_MAP_ROUTER_API_KEY_OSM_LABEL" description="COM_PHOCAMAPS_FIELD_MAP_ROUTER_API_KEY_OSM_DESC"/>
 		
-
+<field name="osm_map_router_type" type="list" default="" label="COM_PHOCAMAPS_FIELD_OSM_MAP_ROUTER_TYPE_OSM_LABEL" description="COM_PHOCAMAPS_FIELD_OSM_MAP_ROUTER_TYPE_OSM_DESC">
+	<option value="">COM_PHOCAMAPS_NONE</option>
+	<option value="mapbox">COM_PHOCAMAPS_MAPBOX_API_KEY_NEEDED</option>
+	
+</field>
 
 		</fieldset>
 

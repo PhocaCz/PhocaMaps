@@ -63,11 +63,12 @@ class PhocaMapsMap
 	 * Loaded only one time per site (addScript)
 	 */
 	function loadAPI( $id = '', $lang = '') {
-		$document	= JFactory::getDocument();
+		$document = JFactory::getDocument();
 
-		$paramsC 	= JComponentHelper::getParams('com_phocamaps');
-		$key 		= $paramsC->get( 'maps_api_key', '' );
-		$ssl 		= $paramsC->get( 'load_api_ssl', 1 );
+		$paramsC           = JComponentHelper::getParams('com_phocamaps');
+		$key               = $paramsC->get('maps_api_key', '');
+		$ssl               = $paramsC->get('load_api_ssl', 1);
+		$marker_clustering = $paramsC->get('marker_clustering', 0);
 
 
 		if ($ssl) {
@@ -76,17 +77,17 @@ class PhocaMapsMap
 			$h = 'http://';
 		}
 		if ($key) {
-			$k = '&key='.PhocaMapsHelper::filterValue($key, 'text');
+			$k = '&key=' . PhocaMapsHelper::filterValue($key, 'text');
 		} else {
 			$k = '';
 		}
 
 		if ($lang != '') {
-		    $l = '&language='.PhocaMapsHelper::filterValue($lang, 'text');
+			$l = '&language=' . PhocaMapsHelper::filterValue($lang, 'text');
 
-        } else {
-		    $l = '';
-        }
+		} else {
+			$l = '';
+		}
 
 
 		/*if ($ssl == 1) {
@@ -99,8 +100,11 @@ class PhocaMapsMap
 		$initMaps = 'initMaps' . $id;
 
 
-		$s = '<script async defer src="'.$h.'maps.googleapis.com/maps/api/js?callback='.$initMaps.$k.$l.'" type="text/javascript"></script>';
+		$s = '<script async defer src="' . $h . 'maps.googleapis.com/maps/api/js?callback=' . $initMaps . $k . $l . '" type="text/javascript"></script>';
 
+		if ($marker_clustering == 1) {
+			$s .= '<script async defer src="' . JURI::root(true) . '/media/com_phocamaps/js/gm/markerclustererplus.min.js"></script>';
+		}
 		//$document->addCustomTag($s);// must be loaded as last in the html, cannot be in header
 		return $s;
 
@@ -156,11 +160,13 @@ class PhocaMapsMap
 		$this->_options = $options . $this->_id;
 		$this->_tst 	= $tst . $this->_id;
 		$this->_tstint 	= $tstint . $this->_id;
+		$this->_markers = 'markers'. $map . $this->_id;
 
 		$js = "\n" . ' var '.$this->_tst .' = document.getElementById(\''.$this->_name .'\');'."\n";
 
 		$js .=' var '.$this->_tstint.';'."\n"
-			 .' var '.$this->_map.';'."\n";
+			 .' var '.$this->_map.';'."\n"
+			 .' var '.$this->_markers.' = [];'."\n";
 
 		if ($geocoder) {
 			$this->_geocoder	= 'phocaGeoCoder'. $this->_id;
@@ -385,6 +391,9 @@ class PhocaMapsMap
 
 	function setMarker($name, $title, $description, $latitude, $longitude, $icon = 0, $iconId = '', $text = '', $width = '', $height = '', $open = 0, $iconShadow = 0, $iconShape = 0, $closeOpenedWindow = 0) {
 		jimport('joomla.filter.output');
+
+		$paramsC 	= JComponentHelper::getParams('com_phocamaps');
+		$marker_clustering 		= $paramsC->get( 'marker_clustering', 0 );
 		//phocagalleryimport('phocagallery.text.text');
 
 		$style = '';
@@ -434,6 +443,11 @@ class PhocaMapsMap
 		$output .= ', '."\n".'   position: phocaPoint'.$name . $this->_id;
 		$output .= ', '."\n".'   map: '.$this->_map."\n";
 		$output .= ' });'."\n";
+
+		// Push all markers to one array (because of possible clustering)
+		if ($marker_clustering == 1) {
+			$output .= $this->_markers . '.push(markerPhocaMarker' . $name . $this->_id . ');' . "\n";
+		}
 
 
 	/*	if ($name == 'Global') {
@@ -602,6 +616,30 @@ class PhocaMapsMap
 			}
 		}
 		return '';
+	}
+
+
+	function setMarkerClusterer() {
+
+		/*$js = ' var markerCluster'.$this->_id.'Styles = [
+    MarkerClusterer.withDefaultStyle({
+          url: "'.JURI::root(true).'/media/com_phocamaps/images/markerclusterer/m'.'",
+          width: 56,
+          height:56,
+          textSize:25,
+          textColor:"white",
+          anchorText: [-4, 0]
+    })];';
+		$js .= ' var markerCluster'.$this->_id.'Options = {styles: markerCluster'.$this->_id.'Styles, gridSize: 50, maxZoom: 14,imagePath: "'.JURI::root(true).'/media/com_phocamaps/images/markerclusterer/m'.'"};';*/
+
+		$paramsC 	= JComponentHelper::getParams('com_phocamaps');
+		$marker_clustering 		= $paramsC->get( 'marker_clustering', 0 );
+		$js = '';
+		if ($marker_clustering == 1) {
+			$js = ' var markerCluster' . $this->_id . 'Options = {averageCenter: true, gridSize: 50, maxZoom: 14, imagePath: "' . JURI::root(true) . '/media/com_phocamaps/images/markerclusterer/m' . '"};';
+			$js .= ' var markerCluster' . $this->_id . ' = new MarkerClusterer(' . $this->_map . ', ' . $this->_markers . ', markerCluster' . $this->_id . 'Options );' . "\n";
+		}
+		return $js;
 	}
 
 

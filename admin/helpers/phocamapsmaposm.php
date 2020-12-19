@@ -27,6 +27,7 @@ class PhocaMapsMapOsm
 	public $zoomwheel				= '';
 	public $zoomcontrol				= '';
 	public $easyprint				= '';
+	public $markerclustering		= 0;
 
 	/*var $_map			= 'mapPhocaMap';
 	var $_latlng		= 'phocaLatLng';
@@ -57,6 +58,8 @@ class PhocaMapsMapOsm
 		$this->zoomwheel			= $paramsC->get( 'osm_zoom_wheel', 1);
 		$this->zoomcontrol			= $paramsC->get( 'osm_zoom_control', 1 );
 		$this->easyprint			= $paramsC->get( 'osm_easyprint', 0 );
+
+		$this->markerclustering		= $paramsC->get( 'marker_clustering', 0 );
 
 
 
@@ -112,6 +115,12 @@ class PhocaMapsMapOsm
 
 		}
 
+		if ($this->markerclustering == 1) {
+			$document->addStyleSheet(JURI::root(true) . '/media/com_phocamaps/js/leaflet-markercluster/MarkerCluster.css');
+			$document->addStyleSheet(JURI::root(true) . '/media/com_phocamaps/js/leaflet-markercluster/MarkerCluster.Default.css');
+			$document->addScript(JURI::root(true) . '/media/com_phocamaps/js/leaflet-markercluster/leaflet.markercluster.min.js');
+		}
+
 	}
 
 	function loadCoordinatesJS() {
@@ -144,6 +153,10 @@ class PhocaMapsMapOsm
 
 		if ($this->zoomcontrol == 1) {
 			$o[] = 'new L.Control.Zoom({ zoomInTitle: \''.JText::_('COM_PHOCACART_ZOOM_IN_TITLE').'\', zoomOutTitle: \''.JText::_('COM_PHOCACART_ZOOM_OUT_TITLE').'\' }).addTo(map'.$this->name.$this->id.');';
+		}
+
+		if ($this->markerclustering == 1) {
+			$o[] = 'var markers' . $this->name . $this->id . ' = L.markerClusterGroup();';
 		}
 
 		$this->output[] = implode("\n", $o);
@@ -263,7 +276,16 @@ class PhocaMapsMapOsm
 
 
 		if($open != 2){
-			$o[]= 'var marker'.$markerId.' = L.marker(['.PhocaMapsHelper::filterValue($lat, 'number2').', '.PhocaMapsHelper::filterValue($lng, 'number2').']).addTo(map'.$this->name.$this->id.');';
+			$o[]= 'var marker'.$markerId.' = L.marker(['.PhocaMapsHelper::filterValue($lat, 'number2').', '.PhocaMapsHelper::filterValue($lng, 'number2').'])';
+
+
+			if ($this->markerclustering == 1) {
+				// marker will be added to layer with cluster function
+			} else {
+				$o[] = '.addTo(map'.$this->name.$this->id.');';
+			}
+
+			$o[] = ';';
 		}
 
 		jimport('joomla.filter.output');
@@ -300,12 +322,22 @@ class PhocaMapsMapOsm
 			$o[]= 'marker'.$markerId.'.bindPopup(\''.$text.'\')'.$openO.';';
 		}
 
-
-
+		if ($this->markerclustering == 1) {
+			$o[] = 'markers' . $this->name . $this->id . '.addLayer(marker' . $markerId . ');';
+		}
 
 		$this->output[] = implode("\n", $o);
 		return true;
 
+	}
+
+	public function setMarkerClusterer() {
+
+		if ($this->markerclustering == 1) {
+			$o              = array();
+			$o[]            = 'map' . $this->name . $this->id . '.addLayer(markers' . $this->name . $this->id . ');';
+			$this->output[] = implode("\n", $o);
+		}
 	}
 
 	public function setMarkerIcon($markerId, $icon = 'circle', $markerColor = 'blue', $iconColor = '#ffffff', $prefix = 'fa', $spin = 'false', $extraClasses = '' ) {
@@ -600,6 +632,30 @@ class PhocaMapsMapOsm
 		}*/
 
 
+
+		if ($this->routerserviceurl == 'https://api.mapbox.com/directions/v5') {
+	    	// DEBUG DEMO - default address of leaflet-routing-machine to debug
+	    }  else if ($this->routerserviceurl != '' && $this->maprouterapikey != '' && $this->osm_map_router_type == 'mapbox'){
+	    	$o[] = '   routerserviceurl: \''.$this->routerserviceurl.'\',';
+	      	$o[] = '   router: L.Routing.mapbox(\''.PhocaMapsHelper::filterValue($this->maprouterapikey).'\',{language: \''.PhocaMapsHelper::filterValue($language, 'text').'\'}),';
+		} else if ($this->routerserviceurl != '') {
+	    	$o[] = '   routerserviceurl: \''.$this->routerserviceurl.'\',';
+	    }
+
+
+		/* else if ($this->osm_map_type == 'mapbox' && $this->maprouterapikey != '') {
+	    	$o[] = '   router: L.Routing.mapbox(\''.PhocaMapsHelper::filterValue($this->maprouterapikey).'\'),';
+	    }*/
+
+	    else {
+			$o[] = array();
+			$o[] = 'console.log(\'Routing Error: No router or service url set\')';
+			$this->output[] = implode("\n", $o);
+			return true;
+		}
+
+
+/*
 	    if ($this->routerserviceurl == 'https://api.mapbox.com/directions/v5') {
 	    	// DEBUG DEMO - default address of leaflet-routing-machine to debug
 	    } else if ($this->osm_map_type == 'mapbox' && $this->maprouterapikey != '' && $this->routerserviceurl != '') {
@@ -617,6 +673,7 @@ class PhocaMapsMapOsm
 			return true;
 
 		}
+*/
 
 
 	    if ($this->routerprofile != '') {

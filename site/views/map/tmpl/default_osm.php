@@ -202,6 +202,7 @@ if ((!isset($this->map->longitude))
 					$i++;
 				}
 			}
+			$map->setMarkerClusterer();
 		}
 
 		/*if ($this->t['load_kml']) {
