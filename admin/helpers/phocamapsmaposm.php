@@ -21,6 +21,7 @@ class PhocaMapsMapOsm
 	public $routerprofile 			= '';
 	public $thunderforestmaptype	= '';
 	public $osmmaptype				= '';
+	public $osmmaproutertype			= '';
 	public $currentposition			= '';
 	public $fullscreen				= '';
 	public $search					= '';
@@ -51,7 +52,7 @@ class PhocaMapsMapOsm
 		$this->routerprofile 		= $paramsC->get( 'osm_router_profile', '' );
 		$this->thunderforestmaptype	= $paramsC->get( 'thunderforest_map_type', '' );
 		$this->osmmaptype			= $paramsC->get( 'osm_map_type', '' );
-
+		$this->osmmaproutertype		= $paramsC->get( 'osm_map_router_type', '' );
 		$this->currentposition		= $paramsC->get( 'osm_current_position', 1 );
 		$this->fullscreen			= $paramsC->get( 'osm_full_screen',1 );
 		$this->search				= $paramsC->get( 'osm_search', 0 );
@@ -632,10 +633,9 @@ class PhocaMapsMapOsm
 		}*/
 
 
-
 		if ($this->routerserviceurl == 'https://api.mapbox.com/directions/v5') {
 	    	// DEBUG DEMO - default address of leaflet-routing-machine to debug
-	    }  else if ($this->routerserviceurl != '' && $this->maprouterapikey != '' && $this->osm_map_router_type == 'mapbox'){
+	    }  else if ($this->routerserviceurl != '' && $this->maprouterapikey != '' && $this->osmmaproutertype == 'mapbox'){
 	    	$o[] = '   routerserviceurl: \''.$this->routerserviceurl.'\',';
 	      	$o[] = '   router: L.Routing.mapbox(\''.PhocaMapsHelper::filterValue($this->maprouterapikey).'\',{language: \''.PhocaMapsHelper::filterValue($language, 'text').'\'}),';
 		} else if ($this->routerserviceurl != '') {
