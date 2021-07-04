@@ -68,6 +68,11 @@
 	<option	value="1">COM_PHOCAMAPS_YES</option>
 </field>
 
+<field name="gesturehandling" type="list" label="COM_PHOCAMAPS_FIELD_GESTURE_HANDLING_LABEL" description="COM_PHOCAMAPS_FIELD_GESTURE_HANDLING_DESC" class="inputbox" size="1" default=""  >
+	<option value="">COM_PHOCAMAPS_DISABLED</option>
+	<option	value="cooperative">COM_PHOCAMAPS_COOPERATIVE</option>
+</field>
+
 <field name="zoomcontrol" type="list" label="COM_PHOCAMAPS_FIELD_NAVIGATION_CONTROL_LABEL" description="COM_PHOCAMAPS_FIELD_NAVIGATION_CONTROL_DESC" class="inputbox" size="1" default="1"  >
 	<option value="0">COM_PHOCAMAPS_DISABLE</option>
 	<option	value="1">COM_PHOCAMAPS_default</option>
@@ -92,11 +97,20 @@
 <field name="custom_options" type="text" class="inputbox" size="40" label="COM_PHOCAMAPS_CUSTOM_OPTIONS_LABEL" description="COM_PHOCAMAPS_CUSTOM_OPTIONS_DESC"  />
 
 <field name="map_styles" type="textarea" class="inputbox" rows="5" label="COM_PHOCAMAPS_MAP_STYLES_LABEL" description="COM_PHOCAMAPS_MAP_STYLES_DESC"  />
- 
+
+
+<field name="trackfiles_osm" type="textarea" class="inputbox" rows="5" label="COM_PHOCAMAPS_FIELD_OSM_TRACK_LOG_FILES_LABEL" description="COM_PHOCAMAPS_FIELD_OSM_TRACK_LOG_FILES_DESC"  />
+
+<field name="trackcolors_osm" type="textarea" class="inputbox" rows="5" label="COM_PHOCAMAPS_FIELD_OSM_COLORS_FOR_TRACKS_LABEL" description="COM_PHOCAMAPS_FIELD_OSM_COLORS_FOR_TRACKS_DESC" />
+
+<field name="fitbounds_osm" type="list" label="COM_PHOCAMAPS_FIELD_OSM_FIT_MAP_TO_FIRST_TRACK_LABEL" description="COM_PHOCAMAPS_FIELD_OSM_FIT_MAP_TO_FIRST_TRACK_DESC" >
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option	value="1">COM_PHOCAMAPS_YES</option>
+</field>
 
 
 	</fieldset>
-	
+
 	<fieldset name="publish" label="COM_PHOCAMAPS_GROUP_LABEL_PUBLISHING_DETAILS" >
 
 <field name="published" type="list" label="COM_PHOCAMAPS_FIELD_PUBLISHED_LABEL" description="COM_PHOCAMAPS_FIELD_PUBLISHED_DESC" class="inputbox" size="1" default="1">
@@ -107,9 +121,9 @@
 <field name="language" type="contentlanguage" label="JFIELD_LANGUAGE_LABEL" description="COM_PHOCAMAPS_FIELD_LANGUAGE_MAP_DESC" class="inputbox">
 	<option value="*">JALL</option>
 </field>
-	
+
 	</fieldset>
 
 
-	
+
 </form>

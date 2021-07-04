@@ -6,7 +6,13 @@
  * @copyright Copyright (C) Jan Pavelka www.phoca.cz
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
- defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die('Restricted access');
+
+
+// Possible solution when the OSM is displayed in hidden part like in tabs:
+// Add to JS following:
+//$o[]= 'jQuery(\'.phTabs ul li a\').click(function(){ setTimeout(function() { map'.$this->name.$this->id.'.invalidateSize(); }, 0);});';
+
 $app	= JFactory::getApplication();
 if ($app->input->get( 'print', '', 'int' ) == 1 || $app->input->get( 'tmpl', '', 'string' ) == 'component') {
 
@@ -246,6 +252,19 @@ if ((!isset($this->map->longitude))
 		if (isset($firstMarker->markericonoptions)) {
 			$markerIconOptions = $firstMarker->markericonoptions;
 		}
+
+		if (!empty($this->t['tracks'])) {
+
+			foreach ($this->t['tracks'] as $ky=>$trk) {
+				$fitbounds = $ky==0 ? $this->t['fitbounds'] : false;
+
+				if (isset($trk['file'])) {
+					$map->renderTrack($trk['file'], $trk['color'], $fitbounds);
+				}
+			}
+		}
+
+
 		$map->renderRouting(0,0,$lat,$lng, $mId, $markerIconOptions, $this->map->lang);
 		$map->renderEasyPrint();
 		$map->renderMap();

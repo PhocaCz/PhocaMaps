@@ -13,17 +13,17 @@ class PhocaMapsViewMap extends JViewLegacy
 	protected $t;
 	protected $map;
 	protected $marker;
-	
+
 	function display($tpl = null) {
-		
-		$document		= JFactory::getDocument();		
+
+		$document		= JFactory::getDocument();
 		$app			= JFactory::getApplication();
 		$this->t['p']	= $app->getParams();
-		
+
 		// PLUGIN WINDOW - we get information from plugin
 		$get			= array();
 		$get['tmpl']	= $app->input->get( 'tmpl', '', 'string' );
-		
+
 		JHtml::_('jquery.framework', false);
 		JHTML::stylesheet('media/com_phocamaps/css/phocamaps.css' );
 		if (JFile::exists(JPATH_SITE.'/media/com_phocamaps/css/custom.css')) {
@@ -38,42 +38,42 @@ class PhocaMapsViewMap extends JViewLegacy
 		//$this->t['width_marker_content']	= $this->t['p']->get( 'width_marker_content', '' );
 		//$this->t['height_marker_content']	= $this->t['p']->get( 'height_marker_content', '' );
 		//$this->t['open_marker_window']		= $this->t['p']->get( 'open_marker_window', 0 );
-			
+
 		// MODEL
 		$model			= $this->getModel();
 		$item			= $model->getData();
 		$this->map		= $item['map'];
 		$this->marker	= $item['marker'];
-		
-		
-		
+
+
+
 		if( (!isset($this->map)) || (isset($this->map) && $this->map == null) ) {
 			echo '<div id="phocamaps"><div class="error">'.JText::_('COM_PHOCAMAPS_WARNING_SELECT_MAP').'</div></div>';
 			return true;
 		}
-		
+
 		// Plugin information
 		$this->t['pluginmap'] = 0;
 		if (isset($get['tmpl']) && $get['tmpl'] == 'component') {
 			$this->t['pluginmap'] = 1;
 			// NO SCROLLBAR if windows is called by plugin but if there is a route form, display it
 			if (isset($this->map->displayroute) && $this->map->displayroute == 1) {
-				$document->addCustomTag( "<style type=\"text/css\"> \n" 
-			." html,body, .contentpane{background:#ffffff;text-align:left;} \n" 
+				$document->addCustomTag( "<style type=\"text/css\"> \n"
+			." html,body, .contentpane{background:#ffffff;text-align:left;} \n"
 			." </style> \n");
 			} else {
-				$document->addCustomTag( "<style type=\"text/css\"> \n" 
-			." html,body, .contentpane{overflow:hidden;background:#ffffff;} \n" 
+				$document->addCustomTag( "<style type=\"text/css\"> \n"
+			." html,body, .contentpane{overflow:hidden;background:#ffffff;} \n"
 			." </style> \n");
 			}
 		}
-		
+
 		// Display Description
 		$this->t['description'] = '';
 		if (isset($this->map->description) && $this->map->description != '' && $this->t['pluginmap'] == 0) {
 			$this->t['description'] = '<div class="pm-desc">'.$this->map->description.'</div>';
 		}
-		
+
 		// Check Width and Height
 		$this->t['fullwidth'] = 0;
 		if (!isset($this->map->width)) {
@@ -88,10 +88,10 @@ class PhocaMapsViewMap extends JViewLegacy
 		if (!isset($this->map->zoom) || (isset($this->map->zoom) && (int)$this->map->zoom < 1)) {
 			$this->map->zoom = 2;
 		}
-		
+
 		// Map Langugage
-		
-		
+
+
 		$this->t['params'] = '';
 		if (!isset($this->map->lang) || (isset($this->map->lang) && $this->map->lang == '')) {
 			$this->t['params'] 		= '';
@@ -103,7 +103,7 @@ class PhocaMapsViewMap extends JViewLegacy
 			$this->t['paramssearch'] 	= '{"language":"'.$this->map->lang.'"}';
 			$this->t['lang']			= $this->map->lang;
 		}
-		
+
 		// Design
 		$this->t['border'] = '';
 		if (isset($this->map->border)) {
@@ -122,7 +122,7 @@ class PhocaMapsViewMap extends JViewLegacy
 				break;
 			}
 		}
-		
+
 		// Plugin - no border
 		if ($this->t['pluginmap'] == 1) {
 			$this->t['border'] 	= '';
@@ -130,53 +130,57 @@ class PhocaMapsViewMap extends JViewLegacy
 		} else {
 			$this->t['stylesite'] 	= 'margin:0;padding:0;margin-top:10px;';
 		}
-		
+
 		$this->t['stylesitewidth']	= '';
 		if ($this->t['fullwidth'] == 1) {
 			$this->t['stylesitewidth'] = 'style="width:100%"';
 		}
-		
+
 		// Parameters
 		if (isset($this->map->continuouszoom) && (int)$this->map->continuouszoom == 1) {
 			$this->map->continuouszoom = 1;
 		} else {
 			$this->map->continuouszoom = 0;
 		}
-		
+
 		if (isset($this->map->doubleclickzoom) && (int)$this->map->doubleclickzoom == 1) {
 			$this->map->disabledoubleclickzoom = 0;
 		} else {
 			$this->map->disabledoubleclickzoom = 1;
 		}
-		
+
+		if (isset($this->map->gesturehandling) && (int)$this->map->gesturehandling != '') {
+			$this->map->scrollwheelzoom = 0;
+		}
+
 		if (isset($this->map->scrollwheelzoom) && (int)$this->map->scrollwheelzoom == 1) {
 			$this->map->scrollwheelzoom = 1;
 		} else {
 			$this->map->scrollwheelzoom = 0;
 		}
-		
+
 		// Since 1.1.0 zoomcontrol is alias for navigationcontrol
 		if (empty($this->map->zoomcontrol)) {
 			$this->map->zoomcontrol = 0;
 		}
-		
+
 		if (empty($this->map->scalecontrol)) {
 			$this->map->scalecontrol = 0;
 		}
-		
+
 		if (empty($this->map->typecontrol)) {
 			$this->map->typecontrol = 0;
 		}
 		if (empty($this->map->typecontrolposition)) {
 			$this->map->typecontrolposition = 0;
 		}
-		
-		
+
+
 		if (empty($this->map->typeid)) {
 			$this->map->typeid = 0;
 		}
-		
-		
+
+
 		// Display Direction
 		$this->t['displaydir'] = 0;
 		if (isset($this->map->displayroute) && $this->map->displayroute == 1) {
@@ -184,18 +188,56 @@ class PhocaMapsViewMap extends JViewLegacy
 				$this->t['displaydir'] = 1;
 			}
 		}
-		
+
 		// KML Support
 		$this->t['load_kml'] = FALSE;
 		if($this->t['enable_kml'] == 1) {
-			jimport( 'joomla.filesystem.folder' ); 
+			jimport( 'joomla.filesystem.folder' );
 			jimport( 'joomla.filesystem.file' );
 			$path = PhocaMapsPath::getPath();
 			if (isset($this->map->kmlfile) && JFile::exists($path->kml_abs . $this->map->kmlfile)) {
 				$this->t['load_kml'] = $path->kml_rel_full . $this->map->kmlfile;
 			}
 		}
-		
+
+
+		//OSM tracks
+		if ($this->t['map_type'] == 2) {
+
+		    $this->t['fitbounds']   = $this->map->fitbounds_osm;
+			$textarea               = $this->map->trackfiles_osm;
+			$textarea               = str_replace(array("\r\n", "\n", "\r"),'',$textarea);
+			$tracks                 = explode(",",$textarea);
+
+			$textarea               = $this->map->trackcolors_osm;
+			$textarea               = str_replace(array("\r\n", "\n", "\r"),'',$textarea);
+			//$colors                 = explode(",",$textarea);
+			$colors                 = array_map('trim', explode(',', $textarea));
+
+			$tracksA = array();
+			foreach ($tracks as $k => $v) {
+				$v = trim($v);
+				$ext = pathinfo($v,PATHINFO_EXTENSION);
+
+				if (($ext != 'gpx') && ($ext != 'kml')) {
+					$v = '';
+				} else {
+					//if no path specified add default path (hardcoded to /phocamapskml for now)
+					if (strpos($v,'/') === false) {
+						$v = 'phocamapskml/'.$v;
+					}
+					$v = trim($v,'/');
+
+					$tracksA[$k] = array();
+					$tracksA[$k]['file'] = JFile::exists(JPATH_ROOT.'/'.$v) ? JURI::base().$v : '';
+					$tracksA[$k]['color'] = isset($colors[$k]) ? $colors[$k] : '';
+				}
+			}
+			$this->t['tracks'] = $tracksA;
+		} else {
+			$this->t['tracks'] = array();
+		}
+
 		$this->_prepareDocument();
 
 		if ($this->t['map_type'] == 2) {
@@ -204,24 +246,24 @@ class PhocaMapsViewMap extends JViewLegacy
 			parent::display($tpl);
 		}
 	}
-	
+
 	protected function _prepareDocument() {
-		
+
 		$app		= JFactory::getApplication();
 		$menus		= $app->getMenu();
 		$menu 		= $menus->getActive();
 		$pathway 	= $app->getPathway();
 		$title 		= null;
-		
-	
-	
+
+
+
 		if ($menu) {
 			$this->t['p']->def('page_heading', $this->t['p']->get('page_title', $menu->title));
 		} else {
 			$this->t['p']->def('page_heading', JText::_('JGLOBAL_ARTICLES'));
 		}
 
-		
+
 		  // get page title
           $title = $this->t['p']->get('page_title', '');
           // if no title is set take the sitename only
@@ -237,10 +279,10 @@ class PhocaMapsViewMap extends JViewLegacy
           }
           $this->document->setTitle($title);
 
-		
+
 		$this->document->setDescription($this->t['p']->get('menu-meta_description', ''));
 		$this->document->setMetadata('keywords', $this->t['p']->get('menu-meta_keywords', ''));
-		
+
 
 		if ($app->get('MetaTitle') == '1' && $this->t['p']->get('menupage_title', '')) {
 			$this->document->setMetaData('title', $this->t['p']->get('page_title', ''));

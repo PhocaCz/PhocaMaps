@@ -29,7 +29,7 @@ $tabs = array (
 'publishing' 	=> JText::_($this->t['l'].'_PUBLISHING_OPTIONS'),
 'design'		=> JText::_($this->t['l'].'_DESIGN_SETTINGS'),
 'advanced'		=> JText::_($this->t['l'].'_ADVANCED_SETTINGS_GOOGLE_MAPS'),
-/*'osm_advanced'		=> JText::_($this->t['l'].'_ADVANCED_SETTINGS_OPENSTREETMAP'),*/
+'osm_advanced'		=> JText::_($this->t['l'].'_ADVANCED_SETTINGS_OPENSTREETMAP')
 );
 echo $r->navigation($tabs);
 
@@ -61,7 +61,12 @@ echo $r->endTab();
 
 
 echo $r->startTab('advanced', $tabs['advanced']);
-$formArray = array ('typeid', 'typecontrol', 'typecontrolposition', 'doubleclickzoom', 'scrollwheelzoom', 'zoomcontrol', 'scalecontrol', 'displayroute', 'kmlfile', 'custom_options', 'map_styles');
+$formArray = array ('typeid', 'typecontrol', 'typecontrolposition', 'doubleclickzoom', 'scrollwheelzoom', 'gesturehandling', 'zoomcontrol', 'scalecontrol', 'displayroute', 'kmlfile', 'custom_options', 'map_styles');
+echo $r->group($this->form, $formArray);
+echo $r->endTab();
+
+echo $r->startTab('osm_advanced', $tabs['osm_advanced']);
+$formArray = array ('trackfiles_osm', 'trackcolors_osm', 'fitbounds_osm');
 echo $r->group($this->form, $formArray);
 echo $r->endTab();
 

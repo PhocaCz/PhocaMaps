@@ -116,7 +116,15 @@ if ((!isset($this->map->longitude))
 		echo $map->setTypeControlOpt($this->map->typecontrol, $this->map->typecontrolposition).','."\n";
 		echo $map->setNavigationControlOpt($this->map->zoomcontrol).','."\n";
 		echo $map->setMapOption('scaleControl', $this->map->scalecontrol, TRUE ).','."\n";
-		echo $map->setMapOption('scrollwheel', $this->map->scrollwheelzoom).','."\n";
+
+
+		if ($this->map->gestureHandling != '') {
+		   echo $map->setMapOption('gestureHandling', '"' . $this->map->gesturehandling . '"').','."\n";
+		} else {
+		   echo $map->setMapOption('scrollwheel', $this->map->scrollwheelzoom).','."\n";
+		}
+
+
 		echo $map->setMapOption('disableDoubleClickZoom', $this->map->disabledoubleclickzoom).','."\n";
 	//	echo $map->setMapOption('googleBar', $this->map->googlebar).','."\n";// Not ready yet
 	//	echo $map->setMapOption('continuousZoom', $this->map->continuouszoom).','."\n";// Not ready yet

@@ -691,6 +691,38 @@ class PhocaMapsMapOsm
 		return true;
 	}
 
+	/**
+	 * @param unknown $filename - url of gpx/kml file to load
+	 * @param string $color - optional hex colour value for track (default to blue)
+	 * @param boolean $fitbounds - if true adjust the map centre and zoom to fit the track
+	 * @return boolean
+	 * @desc renderTrack() adds a gpx or kml filename layer
+	 * @author RogerCO added 22/6/2021 for v3.0.12
+	 */
+	public function renderTrack($filename, $color = '', $fitbounds = false) {
+		$ext = parse_url($filename)['path'];
+		//check we have a gpx or kml file (mime type not defined for these so use extension)
+		$ext = substr($ext,strrpos($ext,'.'));
+		if (($ext != '.gpx') && ($ext != '.kml')) {
+			return false;
+		}
+		$mapname = 'map'.$this->name.$this->id;
+		// colour layer doesn't seem to work for kml files
+		if (($ext=='.gpx') && $color) {
+			$this->output[] = " var customLayer = L.geoJson(null, { style: function(feature) {return {color: '".$color."'}; } });";
+		} else {
+			$this->output[] = "var customLayer = null;";
+		}
+		if ($fitbounds) {
+			$this->output[] = "var runLayer = omnivore".$ext."('".$filename."', null, customLayer).on('ready', function() {
+                                ".$mapname.".fitBounds(runLayer.getBounds());
+                                }).addTo(".$mapname.")";
+		} else {
+			$this->output[] = "omnivore".$ext."('".$filename."', null, customLayer).addTo(".$mapname.")";
+		}
+		return true;
+	}
+
 	public function renderMap() {
 		$o = array();
 		$o[] = 'jQuery(document).ready(function() {';

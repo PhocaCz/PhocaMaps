@@ -2,12 +2,12 @@
 <extension type="component" method="upgrade" version="3.9">
 	<name>com_phocamaps</name>
 	<author>Jan Pavelka (www.phoca.cz)</author>
-	<creationDate>01/01/2021</creationDate>
+	<creationDate>04/07/2021</creationDate>
 	<authorEmail></authorEmail>
 	<authorUrl>https://www.phoca.cz</authorUrl>
 	<copyright>Jan Pavelka</copyright>
 	<license>GNU/GPL</license>
-	<version>3.0.11</version>
+	<version>3.0.12</version>
 	<description>COM_PHOCAMAPS_XML_DESCRIPTION</description>
 	<scriptfile>script.php</scriptfile>
 	<projectName>PhocaMaps</projectName>
