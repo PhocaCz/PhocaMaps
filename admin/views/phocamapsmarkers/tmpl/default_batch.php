@@ -7,13 +7,14 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 $published = $this->state->get('filter.published');
 ?>
 <div class="modal hide fade" id="collapseModal">
 	<div class="modal-header">
 		<button type="button" role="presentation" class="close" data-dismiss="modal">x</button>
-		<h3><?php echo JText::_($this->t['l'] . '_BATCH_OPTIONS_MARKERS');?></h3>
+		<h3><?php echo Text::_($this->t['l'] . '_BATCH_OPTIONS_MARKERS');?></h3>
 	</div>
 	<div class="modal-body">
 		<p><?php /* echo JText::_('COM_CONTENT_BATCH_TIP');*/ ?></p>
@@ -40,10 +41,10 @@ $published = $this->state->get('filter.published');
 	</div>
 	<div class="modal-footer">
 		<button class="btn" type="button" onclick="document.id('batch-category-id').value='';document.id('batch-access').value='';document.id('batch-language-id').value=''" data-dismiss="modal">
-			<?php echo JText::_('JCANCEL'); ?>
+			<?php echo Text::_('JCANCEL'); ?>
 		</button>
 		<button class="btn btn-primary" type="submit" onclick="Joomla.submitbutton('<?php echo $this->t['task'] ?>.batch');">
-			<?php echo JText::_('JGLOBAL_BATCH_PROCESS'); ?>
+			<?php echo Text::_('JGLOBAL_BATCH_PROCESS'); ?>
 		</button>
 	</div>
 </div>

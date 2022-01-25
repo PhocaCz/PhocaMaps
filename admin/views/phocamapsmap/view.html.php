@@ -7,9 +7,13 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die();
+use Joomla\CMS\MVC\View\HtmlView;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Toolbar\ToolbarHelper;
 jimport( 'joomla.application.component.view' );
 
-class phocaMapsCpViewPhocaMapsMap extends JViewLegacy
+class phocaMapsCpViewPhocaMapsMap extends HtmlView
 {
 	protected $state;
 	protected $item;
@@ -31,9 +35,9 @@ class phocaMapsCpViewPhocaMapsMap extends JViewLegacy
 	protected function addToolbar() {
 
 		require_once JPATH_COMPONENT.'/helpers/phocamapsmaps.php';
-		JFactory::getApplication()->input->set('hidemainmenu', true);
+		Factory::getApplication()->input->set('hidemainmenu', true);
 
-		$user		= JFactory::getUser();
+		$user		= Factory::getUser();
 		$isNew		= ($this->item->id == 0);
 		$checkedOut	= !($this->item->checked_out == 0 || $this->item->checked_out == $user->get('id'));
 		//$canDo		= PhocamapsMapsHelper::getActions($this->state->get('filter.map_id'), $this->item->id);
@@ -42,25 +46,25 @@ class phocaMapsCpViewPhocaMapsMap extends JViewLegacy
 
 
 
-		$text = $isNew ? JText::_( 'COM_PHOCAMAPS_NEW' ) : JText::_('COM_PHOCAMAPS_EDIT');
-		JToolbarHelper::title(   JText::_( 'COM_PHOCAMAPS_MAP' ).': <small><small>[ ' . $text.' ]</small></small>' , 'ph-earth');
+		$text = $isNew ? Text::_( 'COM_PHOCAMAPS_NEW' ) : Text::_('COM_PHOCAMAPS_EDIT');
+		ToolbarHelper::title(   Text::_( 'COM_PHOCAMAPS_MAP' ).': <small><small>[ ' . $text.' ]</small></small>' , 'ph-earth');
 
 		// If not checked out, can save the item.
 		if (!$checkedOut && $canDo->get('core.edit')){
-			JToolbarHelper::apply('phocamapsmap.apply', 'JTOOLBAR_APPLY');
-			JToolbarHelper::save('phocamapsmap.save', 'JTOOLBAR_SAVE');
-			JToolbarHelper::addNew('phocamapsmap.save2new', 'JTOOLBAR_SAVE_AND_NEW');
+			ToolbarHelper::apply('phocamapsmap.apply', 'JTOOLBAR_APPLY');
+			ToolbarHelper::save('phocamapsmap.save', 'JTOOLBAR_SAVE');
+			ToolbarHelper::addNew('phocamapsmap.save2new', 'JTOOLBAR_SAVE_AND_NEW');
 		}
 
 		if (empty($this->item->id))  {
-			JToolbarHelper::cancel('phocamapsmap.cancel', 'JTOOLBAR_CANCEL');
+			ToolbarHelper::cancel('phocamapsmap.cancel', 'JTOOLBAR_CANCEL');
 		}
 		else {
-			JToolbarHelper::cancel('phocamapsmap.cancel', 'JTOOLBAR_CLOSE');
+			ToolbarHelper::cancel('phocamapsmap.cancel', 'JTOOLBAR_CLOSE');
 		}
 
-		JToolbarHelper::divider();
-		JToolbarHelper::help( 'screen.phocamaps', true );
+		ToolbarHelper::divider();
+		ToolbarHelper::help( 'screen.phocamaps', true );
 	}
 }
 ?>

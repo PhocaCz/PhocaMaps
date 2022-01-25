@@ -9,9 +9,14 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License version 2 or later;
  */
 defined('_JEXEC') or die();
+use Joomla\CMS\MVC\Controller\FormController;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Session\Session;
+use Joomla\CMS\Router\Route;
 jimport('joomla.application.component.controllerform');
 
-class PhocaMapsCpControllerPhocaMapsMap extends JControllerForm
+class PhocaMapsCpControllerPhocaMapsMap extends FormController
 {
 
 	protected	$option 		= 'com_phocamaps';
@@ -21,7 +26,7 @@ class PhocaMapsCpControllerPhocaMapsMap extends JControllerForm
 	}
 
 	protected function allowAdd($data = array()) {
-		$user		= JFactory::getUser();
+		$user		= Factory::getUser();
 		$allow		= null;
 		$allow	= $user->authorise('core.create', 'com_phocamaps');
 		if ($allow === null) {
@@ -32,7 +37,7 @@ class PhocaMapsCpControllerPhocaMapsMap extends JControllerForm
 	}
 
 	protected function allowEdit($data = array(), $key = 'id') {
-		$user		= JFactory::getUser();
+		$user		= Factory::getUser();
 		$allow		= null;
 		$allow	= $user->authorise('core.edit', 'com_phocamaps');
 		if ($allow === null) {
@@ -43,13 +48,13 @@ class PhocaMapsCpControllerPhocaMapsMap extends JControllerForm
 	}
 
 	public function batch($model = null) {
-		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+		Session::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
 
 		// Set the model
 		$model	= $this->getModel('phocamapsmap', '', array());
 
 		// Preset the redirect
-		$this->setRedirect(JRoute::_('index.php?option=com_phocamaps&view=phocamapsmaps'.$this->getRedirectToListAppend(), false));
+		$this->setRedirect(Route::_('index.php?option=com_phocamaps&view=phocamapsmaps'.$this->getRedirectToListAppend(), false));
 
 		return parent::batch($model);
 	}

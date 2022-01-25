@@ -7,25 +7,28 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined( '_JEXEC' ) or die( 'Restricted access' );
+use Joomla\CMS\MVC\Controller\BaseController;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Component\ComponentHelper;
 jimport( 'joomla.application.component.controller' );
 
-class PhocaMapsController extends JControllerLegacy
+class PhocaMapsController extends BaseController
 {
 	public function display($cachable = false, $urlparams = false)
 	{
 		
-		if ( ! JFactory::getApplication()->input->get('view') ) {
-			JFactory::getApplication()->input->set('view', 'map' );
+		if ( ! Factory::getApplication()->input->get('view') ) {
+			Factory::getApplication()->input->set('view', 'map' );
 		}
 		
-		$paramsC 	= JComponentHelper::getParams('com_phocamaps');
+		$paramsC 	= ComponentHelper::getParams('com_phocamaps');
 		$cache 		= $paramsC->get( 'enable_cache', 0 );
 		$cachable 	= false;
 		if ($cache == 1) {
 			$cachable 	= true;
 		}
 		
-		$document 	= JFactory::getDocument();
+		$document 	= Factory::getDocument();
 
 		$safeurlparams = array('catid'=>'INT','id'=>'INT','cid'=>'ARRAY','year'=>'INT','month'=>'INT','limit'=>'INT','limitstart'=>'INT',
 			'showall'=>'INT','return'=>'BASE64','filter'=>'STRING','filter_order'=>'CMD','filter_order_Dir'=>'CMD','filter-search'=>'STRING','print'=>'BOOLEAN','lang'=>'CMD');

@@ -7,9 +7,12 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die();
+use Joomla\CMS\MVC\View\HtmlView;
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
 jimport( 'joomla.application.component.view');
 
-class PhocaMapsCpViewPhocaMapsGMap extends JViewLegacy
+class PhocaMapsCpViewPhocaMapsGMap extends HtmlView
 {
 	protected $latitude;
 	protected $longitude;
@@ -21,8 +24,8 @@ class PhocaMapsCpViewPhocaMapsGMap extends JViewLegacy
 
 	public function display($tpl = null) {
 
-		$paramsC			= JComponentHelper::getParams('com_phocamaps') ;
-		$app 				= JFactory::getApplication();
+		$paramsC			= ComponentHelper::getParams('com_phocamaps') ;
+		$app 				= Factory::getApplication();
 
 		$this->t	    = PhocaMapsUtils::setVars();
 		$this->r		= new PhocaMapsRenderAdminview();
@@ -35,7 +38,7 @@ class PhocaMapsCpViewPhocaMapsGMap extends JViewLegacy
 		$this->p['enable_ssl'] 	= $paramsC->get('load_api_ssl', 0);
 		$this->p['map_type']	= $paramsC->get( 'map_type', 2 );
 
-		$document	= JFactory::getDocument();
+		$document	= Factory::getDocument();
 		$document->addCustomTag( "<style type=\"text/css\"> \n"
 			." html,body, .contentpane{overflow:hidden;background:#ffffff;} \n"
 			." </style> \n");

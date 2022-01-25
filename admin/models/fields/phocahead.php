@@ -9,33 +9,36 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License version 2 or later;
  */
 defined('JPATH_BASE') or die;
+use Joomla\CMS\Form\FormField;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 jimport('joomla.html.html');
 jimport('joomla.form.formfield');
 
-class JFormFieldPhocaHead extends JFormField
+class JFormFieldPhocaHead extends FormField
 {
 	protected $type = 'PhocaHead';
 	protected function getLabel() { return '';}
 	
 	protected function getInput() {
 	
-		JHTML::stylesheet( 'media/com_phocamaps/css/administrator/phocamapsoptions.css' );
+		HTMLHelper::stylesheet( 'media/com_phocamaps/css/administrator/phocamapsoptions.css' );
 		echo '<div style="clear:both;"></div>';
 		$phocaImage	= ( (string)$this->element['phocaimage'] ? $this->element['phocaimage'] : '' );
 		$image 		= '';
 		
 		if ($phocaImage != ''){
-			$image 	= JHTML::_('image', 'media/com_phocamaps/images/administrator/'. $phocaImage, '' );
+			$image 	= HTMLHelper::_('image', 'media/com_phocamaps/images/administrator/'. $phocaImage, '' );
 		}
 		
 		if ($this->element['default']) {
 			if ($image != '') {
 				return '<div class="ph-options-head">'
-				.'<div>'. $image.' <strong>'. JText::_($this->element['default']) . '</strong></div>'
+				.'<div>'. $image.' <strong>'. Text::_($this->element['default']) . '</strong></div>'
 				.'</div>';
 			} else {
 				return '<div class="ph-options-head">'
-				.'<strong>'. JText::_($this->element['default']) . '</strong>'
+				.'<strong>'. Text::_($this->element['default']) . '</strong>'
 				.'</div>';
 			}
 		} else {

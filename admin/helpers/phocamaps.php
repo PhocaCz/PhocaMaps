@@ -9,6 +9,11 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die();
+use Joomla\CMS\Filesystem\Folder;
+use Joomla\CMS\Installer\Installer;
+use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Factory;
 class PhocaMapsHelper
 {
 	public static function strTrimAll($input) {
@@ -28,12 +33,12 @@ class PhocaMapsHelper
 		$component = 'com_phocamaps';
 		$folder = JPATH_ADMINISTRATOR . '/components/'.$component;
 
-		if (JFolder::exists($folder)) {
-			$xmlFilesInDir = JFolder::files($folder, '.xml$');
+		if (Folder::exists($folder)) {
+			$xmlFilesInDir = Folder::files($folder, '.xml$');
 		} else {
 			$folder = JPATH_SITE . '/components/'.$component;
-			if (JFolder::exists($folder)) {
-				$xmlFilesInDir = JFolder::files($folder, '.xml$');
+			if (Folder::exists($folder)) {
+				$xmlFilesInDir = Folder::files($folder, '.xml$');
 			} else {
 				$xmlFilesInDir = null;
 			}
@@ -44,7 +49,7 @@ class PhocaMapsHelper
 		{
 			foreach ($xmlFilesInDir as $xmlfile)
 			{
-				if ($data = \JInstaller::parseXMLInstallFile($folder.'/'.$xmlfile)) {
+				if ($data = JInstaller::parseXMLInstallFile($folder.'/'.$xmlfile)) {
 					foreach($data as $key => $value) {
 						$xml_items[$key] = $value;
 					}
@@ -66,14 +71,14 @@ class PhocaMapsHelper
 
 	public static function fixImagePath($description) {
 
-          $description = str_replace('<img src="'.JURI::root(true).'/', '', $description);// no double
-          $description = str_replace('<img src="', '<img src="'.JURI::root(true).'/', $description);
+          $description = str_replace('<img src="'.JUri::root(true).'/', '', $description);// no double
+          $description = str_replace('<img src="', '<img src="'.Uri::root(true).'/', $description);
 
           // correct possible problems with full paths
-          $description = str_replace('<img src="'.JURI::root(true).'/http://', '<img src="http://', $description);
+          $description = str_replace('<img src="'.JUri::root(true).'/http://', '<img src="http://', $description);
           $description = str_replace('<img src="/http://', '<img src="http://', $description);
 
-		  $description = str_replace('<img src="'.JURI::root(true).'/https://', '<img src="https://', $description);
+		  $description = str_replace('<img src="'.JUri::root(true).'/https://', '<img src="https://', $description);
           $description = str_replace('<img src="/https://', '<img src="https://', $description);
           return $description;
        }
@@ -134,8 +139,8 @@ class PhocaMapsHelper
 
 	public static function getExtInfo() {
 
-        JPluginHelper::importPlugin('phocatools');
-        $results = \JFactory::getApplication()->triggerEvent('PhocatoolsOnDisplayInfo', array('NjI5NTcyMjc3MTE3'));
+        PluginHelper::importPlugin('phocatools');
+        $results = Factory::getApplication()->triggerEvent('PhocatoolsOnDisplayInfo', array('NjI5NTcyMjc3MTE3'));
         if (isset($results[0]) && $results[0] === true) {
             return '';
         }

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="component" method="upgrade" version="3.9">
+<extension type="component" method="upgrade" version="4.0">
 	<name>com_phocamaps</name>
 	<author>Jan Pavelka (www.phoca.cz)</author>
-	<creationDate>04/07/2021</creationDate>
+	<creationDate>25/01/2022</creationDate>
 	<authorEmail></authorEmail>
 	<authorUrl>https://www.phoca.cz</authorUrl>
 	<copyright>Jan Pavelka</copyright>
 	<license>GNU/GPL</license>
-	<version>3.0.12</version>
+	<version>4.0.0Beta</version>
 	<description>COM_PHOCAMAPS_XML_DESCRIPTION</description>
 	<scriptfile>script.php</scriptfile>
 	<projectName>PhocaMaps</projectName>
@@ -32,19 +32,19 @@
 
 	<files folder="site">
 		<folder>helpers</folder>
-		<folder>models</folder>
 		<folder>views</folder>
-		<filename>controller.php</filename>
+		<folder>models</folder>
 		<filename>index.html</filename>
-		<filename>phocamaps.php</filename>
 		<filename>router.php</filename>
+		<filename>controller.php</filename>
+		<filename>phocamaps.php</filename>
 	</files>
 
 	<media destination="com_phocamaps" folder="media">
-		<folder>css</folder>
 		<folder>duotone</folder>
-		<folder>images</folder>
+		<folder>css</folder>
 		<folder>js</folder>
+		<folder>images</folder>
 		<filename>index.html</filename>
 	</media>
 
@@ -66,19 +66,20 @@
 			</submenu>
 
 		<files folder="admin">
-			<folder>assets</folder>
+			<folder>libraries</folder>
 			<folder>controllers</folder>
-			<folder>help</folder>
-			<folder>helpers</folder>
 			<folder>install</folder>
-			<folder>models</folder>
-			<folder>tables</folder>
 			<folder>update</folder>
+			<folder>tables</folder>
+			<folder>helpers</folder>
 			<folder>views</folder>
-			<filename>access.xml</filename>
-			<filename>config.xml</filename>
-			<filename>controller.php</filename>
+			<folder>help</folder>
+			<folder>assets</folder>
+			<folder>models</folder>
 			<filename>index.html</filename>
+			<filename>config.xml</filename>
+			<filename>access.xml</filename>
+			<filename>controller.php</filename>
 			<filename>phocamaps.php</filename>
 		</files>
 

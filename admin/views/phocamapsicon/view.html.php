@@ -7,9 +7,13 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die();
+use Joomla\CMS\MVC\View\HtmlView;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Toolbar\ToolbarHelper;
 jimport( 'joomla.application.component.view' );
 
-class phocaMapsCpViewPhocaMapsIcon extends JViewLegacy
+class phocaMapsCpViewPhocaMapsIcon extends HtmlView
 {
 	protected $state;
 	protected $item;
@@ -33,32 +37,32 @@ class phocaMapsCpViewPhocaMapsIcon extends JViewLegacy
 	protected function addToolbar() {
 
 		require_once JPATH_COMPONENT.'/helpers/phocamapsicons.php';
-		JFactory::getApplication()->input->set('hidemainmenu', true);
+		Factory::getApplication()->input->set('hidemainmenu', true);
 
-		$user		= JFactory::getUser();
+		$user		= Factory::getUser();
 		$isNew		= ($this->item->id == 0);
 		$checkedOut	= !($this->item->checked_out == 0 || $this->item->checked_out == $user->get('id'));
 		$canDo		= PhocamapsIconsHelper::getActions($this->t, $this->state->get('filter.icon_id'));
 
-		$text = $isNew ? JText::_( 'COM_PHOCAMAPS_NEW' ) : JText::_('COM_PHOCAMAPS_EDIT');
-		JToolbarHelper::title(   JText::_( 'COM_PHOCAMAPS_ICON_EXT' ).': <small><small>[ ' . $text.' ]</small></small>' , 'pin');
+		$text = $isNew ? Text::_( 'COM_PHOCAMAPS_NEW' ) : Text::_('COM_PHOCAMAPS_EDIT');
+		ToolbarHelper::title(   Text::_( 'COM_PHOCAMAPS_ICON_EXT' ).': <small><small>[ ' . $text.' ]</small></small>' , 'pin');
 
 		// If not checked out, can save the item.
 		if (!$checkedOut && $canDo->get('core.edit')){
-			JToolbarHelper::apply('phocamapsicon.apply', 'JTOOLBAR_APPLY');
-			JToolbarHelper::save('phocamapsicon.save', 'JTOOLBAR_SAVE');
-			JToolbarHelper::addNew('phocamapsicon.save2new', 'JTOOLBAR_SAVE_AND_NEW');
+			ToolbarHelper::apply('phocamapsicon.apply', 'JTOOLBAR_APPLY');
+			ToolbarHelper::save('phocamapsicon.save', 'JTOOLBAR_SAVE');
+			ToolbarHelper::addNew('phocamapsicon.save2new', 'JTOOLBAR_SAVE_AND_NEW');
 		}
 
 		if (empty($this->item->id))  {
-			JToolbarHelper::cancel('phocamapsicon.cancel', 'JTOOLBAR_CANCEL');
+			ToolbarHelper::cancel('phocamapsicon.cancel', 'JTOOLBAR_CANCEL');
 		}
 		else {
-			JToolbarHelper::cancel('phocamapsicon.cancel', 'JTOOLBAR_CLOSE');
+			ToolbarHelper::cancel('phocamapsicon.cancel', 'JTOOLBAR_CLOSE');
 		}
 
-		JToolbarHelper::divider();
-		JToolbarHelper::help( 'screen.phocamaps', true );
+		ToolbarHelper::divider();
+		ToolbarHelper::help( 'screen.phocamaps', true );
 	}
 }
 ?>

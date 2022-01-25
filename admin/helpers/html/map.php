@@ -9,11 +9,12 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License version 2 or later;
  */
  defined('_JEXEC') or die;
+use Joomla\CMS\Factory;
 class PhocaMapsSelectMap
 {
 	public static function options()
 	{
-		$db = JFactory::getDBO();
+		$db = Factory::getDBO();
 
        //build the list of categories
 		$query = 'SELECT a.title AS text, a.id AS value'
@@ -25,7 +26,7 @@ class PhocaMapsSelectMap
 	
 		$catId	= -1;
 		
-		$javascript 	= 'class="inputbox" size="1" onchange="submitform( );"';
+		$javascript 	= 'class="form-control" size="1" onchange="submitform( );"';
 		
 		/*$tree = array();
 		$text = '';

@@ -9,12 +9,16 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License version 2 or later;
  */
 defined('_JEXEC') or die;
-if (!JFactory::getUser()->authorise('core.manage', 'com_phocamaps')) {
-	throw new Exception(JText::_('COM_PHOCAMAPS_ERROR_ALERTNOAUTHOR'), 404);
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\Controller\BaseController;
+if (!Factory::getUser()->authorise('core.manage', 'com_phocamaps')) {
+	throw new Exception(Text::_('COM_PHOCAMAPS_ERROR_ALERTNOAUTHOR'), 404);
 	return false;
 }
 jimport('joomla.filesystem.folder');
 jimport('joomla.filesystem.file');
+require_once JPATH_ADMINISTRATOR . '/components/com_phocamaps/libraries/autoloadPhoca.php';
 require_once( JPATH_COMPONENT.'/controller.php' );
 require_once( JPATH_COMPONENT.'/helpers/phocamaps.php' );
 require_once( JPATH_COMPONENT.'/helpers/phocamapsmap.php' );
@@ -27,7 +31,7 @@ require_once( JPATH_COMPONENT.'/helpers/html/map.php' );
 require_once( JPATH_COMPONENT.'/helpers/html/batch.php' );
 
 jimport('joomla.application.component.controller');
-$controller	= JControllerLegacy::getInstance('PhocaMapsCp');
-$controller->execute(JFactory::getApplication()->input->get('task'));
+$controller	= BaseController::getInstance('PhocaMapsCp');
+$controller->execute(Factory::getApplication()->input->get('task'));
 $controller->redirect();
 ?>

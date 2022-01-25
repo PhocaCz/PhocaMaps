@@ -9,6 +9,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined( '_JEXEC' ) or die( 'Restricted access' );
+use Joomla\CMS\Factory;
 require_once( JPATH_COMPONENT.'/controller.php' );
 require_once( JPATH_COMPONENT.'/helpers/route.php' );
 require_once( JPATH_ADMINISTRATOR.'/components/com_phocamaps/helpers/phocamapspath.php' );
@@ -17,7 +18,7 @@ require_once( JPATH_ADMINISTRATOR.'/components/com_phocamaps/helpers/phocamapsma
 require_once( JPATH_ADMINISTRATOR.'/components/com_phocamaps/helpers/phocamapsmaposm.php' );
 
 // Require specific controller if requested
-if($controller = JFactory::getApplication()->input->get( 'controller')) {
+if($controller = Factory::getApplication()->input->get( 'controller')) {
     $path = JPATH_COMPONENT.'/controllers/'.$controller.'.php';
     if (file_exists($path)) {
         require_once $path;
@@ -30,7 +31,7 @@ $classname    = 'PhocaMapsController'.ucfirst($controller);
 $controller   = new $classname( );
 
 // Perform the Request task
-$controller->execute( JFactory::getApplication()->input->get('task') );
+$controller->execute( Factory::getApplication()->input->get('task') );
 
 // Redirect if set by the controller
 $controller->redirect();

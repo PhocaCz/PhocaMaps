@@ -7,6 +7,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die('Restricted access');
+use Joomla\CMS\Language\Text;
 
 $id		= uniqid();
 $map	= new PhocaMapsMapOsm($id);
@@ -31,7 +32,7 @@ $map->exportMarker($id);
 $map->renderSearch($id);
 
 $map->renderFullScreenControl();
-$map->renderCurrentPosition();
+$map->renderCurrentPosition($id);
 
 $map->renderMap();
 
@@ -57,12 +58,12 @@ $id = uniqid();
 				  //' data-scale="' . $this->map->scalecontrol . '"' .
 				' data-scale="1"' .
 				  ' data-show_fullscreencontrol="1" ' .
-				    ' data-fullscreencontrol_viewfullscreen="' . JText::_('PLG_AGGPXTRACK_VIEW_FULLSCREEN') . '"' .
-				' data-fullscreencontrol_exitfullscreen="' . JText::_('PLG_AGGPXTRACK_EXIT_FULLSCREEN') . '"' .
+				    ' data-fullscreencontrol_viewfullscreen="' . Text::_('PLG_AGGPXTRACK_VIEW_FULLSCREEN') . '"' .
+				' data-fullscreencontrol_exitfullscreen="' . Text::_('PLG_AGGPXTRACK_EXIT_FULLSCREEN') . '"' .
 				' data-fullscreencontrol_position="topright"' .
 				' data-currentposition_position="topright"' .
 				//' data-show_omnivore="' . $this->t['load_kml'] . '"' .
-				//' data-omnivore_file="' . JURI::base() . "phocamapskml/" . $this->map->kmlfile . '"' .
+				//' data-omnivore_file="' . JUri::base() . "phocamapskml/" . $this->map->kmlfile . '"' .
 				' data-show_omnivore=""' .
 				' data-omnivore_file=""' .
 				' data-omnivore_icon="home"' .
@@ -77,11 +78,11 @@ $id = uniqid();
 
 
 			$o .= '<div id="phocamaps-box-leaflet"><div class="pmbox"><div><div><div>';
-			
+
 				$o .= '<div id="map' . $id . '" class="phMap" style="width:100%;height: 400px;border: 1px solid red"></div>';
-			
+
 			$o .= '</div></div></div></div></div>';
-		
+
 		$o .= '<input type="text" id="coordinates" value="" />';
 echo $o;
 /*$id		= '';
@@ -104,7 +105,7 @@ echo $map->startJScData();
 	echo $map->checkMapFunction();
 
 	echo $map->startMapFunction();
-	
+
 		echo $map->setLatLng( $this->latitude, $this->longitude );
 		echo $map->startMapOptions();
 		echo $map->setMapOption('zoom', $this->zoom).','."\n";
@@ -119,25 +120,25 @@ echo $map->startJScData();
 		echo $map->setMapTypeOpt()."\n";
 		echo $map->endMapOptions();
 		echo $map->setMap();
-		
+
 	//	echo $map->exportZoom($this->zoom, 'window.top.document.forms.adminForm.elements.zoom');
 	//	echo $map->exportMarker('Global', $this->type, $this->latitude, $this->longitude, 'window.top.document.forms.adminForm.elements.latitude', 'window.top.document.forms.adminForm.elements.longitude');
 		if ($this->type != 'marker') {
 			echo $map->exportZoom($this->zoom, '', 'phocaSelectMap_jform_zoom');
 		}
-		
+
 		if ($this->type == 'marker') {
 			echo $map->exportMarker('Global', $this->type, $this->latitude, $this->longitude, '', '', 'phocaSelectMap_jform_latitude', 'phocaSelectMap_jform_longitude','phocaSelectMap_jform_gpslatitude', 'phocaSelectMap_jform_gpslongitude');
 		} else {
 			echo $map->exportMarker('Global', $this->type, $this->latitude, $this->longitude, '', '', 'phocaSelectMap_jform_latitude', 'phocaSelectMap_jform_longitude');
 		}
-		
+
 		//if($map->scrollwheelzoom != 0){
 			echo $map->setListener();
 		//}
 		echo $map->setGeoCoder();
 		echo $map->endMapFunction();
-		
+
 	if ($this->type == 'marker') {
 		echo $map->addAddressToMapFunction('Global', 'phocaAddressEl', $this->type, '', '', 'phocaSelectMap_jform_latitude', 'phocaSelectMap_jform_longitude','phocaSelectMap_jform_gpslatitude', 'phocaSelectMap_jform_gpslongitude');// no '.id.' - it is set in class
 	} else {
@@ -146,15 +147,15 @@ echo $map->startJScData();
 
 	echo $map->setInitializeFunctionSpecificMap();
 	echo $map->setInitializeFunction();
-	
+
 echo $map->endJScData();
 echo $map->loadAPI();// must be loaded as last
 
 echo '<div class="p-add-address">'
 . '<form class="form-inline" action="#" onsubmit="addAddressToMap'.$id.'(); return false;">'
-. '<span>'.JText::_('COM_PHOCAMAPS_SET_COORDINATES_BY_ADDRESS').' : </span>'
+. '<span>'.Text::_('COM_PHOCAMAPS_SET_COORDINATES_BY_ADDRESS').' : </span>'
 . ' <input type="text" name="phocaAddressNameEl'.$id.'" id="phocaAddressEl'.$id.'" value="" class="" style="display:inline;" size="30" />'
-. ' <input type="submit" class="btn" name="find" value="'. JText::_('COM_PHOCAMAPS_SET').'" />'
+. ' <input type="submit" class="btn" name="find" value="'. Text::_('COM_PHOCAMAPS_SET').'" />'
 . '</form>'
 . '</div>';*/
 

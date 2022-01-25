@@ -11,17 +11,19 @@
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
+use Joomla\CMS\MVC\Model\BaseDatabaseModel;
+use Joomla\CMS\Factory;
 
 jimport('joomla.application.component.model');
 
-class PhocaMapsModelMap extends JModelLegacy
+class PhocaMapsModelMap extends BaseDatabaseModel
 {
 	var $_id			= null;
 	var $_data			= null;
 
 	function __construct() {
 		parent::__construct();
-		$app				= JFactory::getApplication();
+		$app				= Factory::getApplication();
 		$this->setState('filter.language',$app->getLanguageFilter());
 		$id 	= $app->input->get('id', 0, 'int');
 		$this->setId((int)$id);

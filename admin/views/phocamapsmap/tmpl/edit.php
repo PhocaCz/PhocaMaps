@@ -7,6 +7,10 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
+
+defined( '_JEXEC' ) or die();
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 $r = $this->r;
 
 JFactory::getDocument()->addScriptDeclaration(
@@ -15,7 +19,7 @@ JFactory::getDocument()->addScriptDeclaration(
 	if (task == "'. $this->t['task'].'.cancel" || document.formvalidator.isValid(document.getElementById("adminForm"))) {
 		Joomla.submitform(task, document.getElementById("adminForm"));
 	} else {
-        Joomla.renderMessages({"error": ["'. JText::_('JGLOBAL_VALIDATION_FORM_FAILED', true).'"]});
+        Joomla.renderMessages({"error": ["'. Text::_('JGLOBAL_VALIDATION_FORM_FAILED', true).'"]});
 	}
 }'
 
@@ -25,18 +29,22 @@ echo $r->startForm($this->t['o'], $this->t['task'], $this->item->id, 'adminForm'
 // First Column
 echo '<div class="span12 form-horizontal">';
 $tabs = array (
-'general' 		=> JText::_($this->t['l'].'_GENERAL_OPTIONS'),
-'publishing' 	=> JText::_($this->t['l'].'_PUBLISHING_OPTIONS'),
-'design'		=> JText::_($this->t['l'].'_DESIGN_SETTINGS'),
-'advanced'		=> JText::_($this->t['l'].'_ADVANCED_SETTINGS_GOOGLE_MAPS'),
-'osm_advanced'		=> JText::_($this->t['l'].'_ADVANCED_SETTINGS_OPENSTREETMAP')
+'general' 		=> Text::_($this->t['l'].'_GENERAL_OPTIONS'),
+'publishing' 	=> Text::_($this->t['l'].'_PUBLISHING_OPTIONS'),
+'design'		=> Text::_($this->t['l'].'_DESIGN_SETTINGS'),
+'advanced'		=> Text::_($this->t['l'].'_ADVANCED_SETTINGS_GOOGLE_MAPS'),
+'osm_advanced'		=> Text::_($this->t['l'].'_ADVANCED_SETTINGS_OPENSTREETMAP')
 );
 echo $r->navigation($tabs);
+
+
+$formArray = array ('title', 'alias');
+echo $r->groupHeader($this->form, $formArray, '');
 
 echo $r->startTabs();
 
 echo $r->startTab('general', $tabs['general'], 'active');
-$formArray = array ('title', 'alias','latitude','longitude', 'zoom', 'width', 'height', 'lang','ordering');
+$formArray = array ('latitude','longitude', 'zoom', 'width', 'height', 'lang','ordering');
 echo $r->group($this->form, $formArray);
 $formArray = array('description');
 echo $r->group($this->form, $formArray, 1);

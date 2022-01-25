@@ -9,11 +9,18 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License version 2 or later;
  */
 defined( '_JEXEC' ) or die();
+
+use Joomla\CMS\Application\ApplicationHelper;
+use Joomla\CMS\MVC\Model\AdminModel;
+use Joomla\CMS\Table\Table;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\Utilities\ArrayHelper;
 jimport('joomla.application.component.modeladmin');
 
 use Joomla\String\StringHelper;
 
-class PhocaMapsCpModelPhocaMapsMap extends JModelAdmin
+class PhocaMapsCpModelPhocaMapsMap extends AdminModel
 {
 
 	protected	$option 		= 'com_phocamaps';
@@ -24,32 +31,32 @@ class PhocaMapsCpModelPhocaMapsMap extends JModelAdmin
 		//$user = JFactory::getUser();
 		return parent::canDelete($record);
 	}
-	
+
 	protected function canEditState($record)
 	{
 		//$user = JFactory::getUser();
 		return parent::canEditState($record);
 	}
-	
+
 	public function getTable($type = 'PhocamapsMap', $prefix = 'Table', $config = array())
 	{
-		return JTable::getInstance($type, $prefix, $config);
+		return Table::getInstance($type, $prefix, $config);
 	}
-	
+
 	public function getForm($data = array(), $loadData = true) {
-		
-		$app	= JFactory::getApplication();
+
+		$app	= Factory::getApplication();
 		$form 	= $this->loadForm('com_phocamaps.phocamapsmap', 'phocamapsmap', array('control' => 'jform', 'load_data' => $loadData));
 		if (empty($form)) {
 			return false;
 		}
 		return $form;
 	}
-	
+
 	protected function loadFormData()
 	{
 		// Check the session for previously entered form data.
-		$data = JFactory::getApplication()->getUserState('com_phocamaps.edit.phocamapsmap.data', array());
+		$data = Factory::getApplication()->getUserState('com_phocamaps.edit.phocamapsmap.data', array());
 
 		if (empty($data)) {
 			$data = $this->getItem();
@@ -57,18 +64,18 @@ class PhocaMapsCpModelPhocaMapsMap extends JModelAdmin
 
 		return $data;
 	}
-	
+
 	protected function prepareTable($table)
 	{
 		jimport('joomla.filter.output');
-		$date = JFactory::getDate();
-		$user = JFactory::getUser();
+		$date = Factory::getDate();
+		$user = Factory::getUser();
 
 		$table->title		= htmlspecialchars_decode($table->title, ENT_QUOTES);
-		$table->alias		= JApplication::stringURLSafe($table->alias);
+		$table->alias		= ApplicationHelper::stringURLSafe($table->alias);
 
 		if (empty($table->alias)) {
-			$table->alias = JApplication::stringURLSafe($table->title);
+			$table->alias = ApplicationHelper::stringURLSafe($table->title);
 		}
 
 		if (empty($table->id)) {
@@ -77,7 +84,7 @@ class PhocaMapsCpModelPhocaMapsMap extends JModelAdmin
 
 			// Set ordering to the last item if not set
 			if (empty($table->ordering)) {
-				$db = JFactory::getDbo();
+				$db = Factory::getDbo();
 				$db->setQuery('SELECT MAX(ordering) FROM #__phocamaps_map');
 				$max = $db->loadResult();
 
@@ -90,8 +97,8 @@ class PhocaMapsCpModelPhocaMapsMap extends JModelAdmin
 			//$table->modified_by	= $user->get('id');
 		}
 	}
-	
-	
+
+
 	protected function getReorderConditions($table = null)
 	{
 		$condition = array();
@@ -99,11 +106,11 @@ class PhocaMapsCpModelPhocaMapsMap extends JModelAdmin
 		//$condition[] = 'state >= 0';
 		return $condition;
 	}
-	
+
 	protected function batchCopy($value, $pks, $contexts)
 	{
 		$categoryId	= (int) $value;
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 
 		$table	= $this->getTable();
 		$db		= $this->getDbo();
@@ -111,8 +118,8 @@ class PhocaMapsCpModelPhocaMapsMap extends JModelAdmin
 
 		// Check that the category exists
 		if ($categoryId) {
-			$categoryTable = JTable::getInstance('PhocaMapsMap', 'Table');
-			
+			$categoryTable = Table::getInstance('PhocaMapsMap', 'Table');
+
 			if (!$categoryTable->load($categoryId)) {
 				if ($error = $categoryTable->getError()) {
 					// Fatal error
@@ -120,7 +127,7 @@ class PhocaMapsCpModelPhocaMapsMap extends JModelAdmin
 					return false;
 				}
 				else {
-					throw new Exception(JText::_('JLIB_APPLICATION_ERROR_BATCH_MOVE_CATEGORY_NOT_FOUND'), 500);
+					throw new Exception(Text::_('JLIB_APPLICATION_ERROR_BATCH_MOVE_CATEGORY_NOT_FOUND'), 500);
 					return false;
 				}
 			}
@@ -128,15 +135,15 @@ class PhocaMapsCpModelPhocaMapsMap extends JModelAdmin
 
 		//if (empty($categoryId)) {
 		if (!isset($categoryId)) {
-			throw new Exception(JText::_('JLIB_APPLICATION_ERROR_BATCH_MOVE_CATEGORY_NOT_FOUND'), 500);
+			throw new Exception(Text::_('JLIB_APPLICATION_ERROR_BATCH_MOVE_CATEGORY_NOT_FOUND'), 500);
 			return false;
 		}
 
 		// Check that the user has create permission for the component
-		$extension	= JFactory::getApplication()->input->getCmd('option');
-		$user		= JFactory::getUser();
+		$extension	= Factory::getApplication()->input->getCmd('option');
+		$user		= Factory::getUser();
 		if (!$user->authorise('core.create', $extension)) {
-			throw new Exception(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_CREATE'), 500);
+			throw new Exception(Text::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_CREATE'), 500);
 			return false;
 		}
 
@@ -157,8 +164,8 @@ class PhocaMapsCpModelPhocaMapsMap extends JModelAdmin
 				}
 				else {
 					// Not fatal error
-					
-					$app->enqueueMessage(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
+
+					$app->enqueueMessage(Text::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
 					continue;
 				}
 			}
@@ -173,7 +180,7 @@ class PhocaMapsCpModelPhocaMapsMap extends JModelAdmin
 
 			// New category ID
 			//$table->parent_id	= $categoryId;
-			
+
 			// Ordering
 			$table->ordering = $this->increaseOrdering($categoryId);
 
@@ -190,7 +197,7 @@ class PhocaMapsCpModelPhocaMapsMap extends JModelAdmin
 				throw new Exception($table->getError(), 500);
 				return false;
 			}
-			
+
 			// Get the new item ID
 			$newId = $table->get('id');
 
@@ -208,13 +215,13 @@ class PhocaMapsCpModelPhocaMapsMap extends JModelAdmin
 	protected function batchMove($value, $pks, $contexts)
 	{
 		$categoryId	= (int) $value;
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 		$table	= $this->getTable();
 		//$db		= $this->getDbo();
 
 		// Check that the category exists
 		if ($categoryId) {
-			$categoryTable = JTable::getInstance('PhocaMapsMap', 'Table');
+			$categoryTable = Table::getInstance('PhocaMapsMap', 'Table');
 			if (!$categoryTable->load($categoryId)) {
 				if ($error = $categoryTable->getError()) {
 					// Fatal error
@@ -222,7 +229,7 @@ class PhocaMapsCpModelPhocaMapsMap extends JModelAdmin
 					return false;
 				}
 				else {
-					throw new Exception(JText::_('JLIB_APPLICATION_ERROR_BATCH_MOVE_CATEGORY_NOT_FOUND'), 500);
+					throw new Exception(Text::_('JLIB_APPLICATION_ERROR_BATCH_MOVE_CATEGORY_NOT_FOUND'), 500);
 					return false;
 				}
 			}
@@ -230,20 +237,20 @@ class PhocaMapsCpModelPhocaMapsMap extends JModelAdmin
 
 		//if (empty($categoryId)) {
 		if (!isset($categoryId)) {
-			throw new Exception(JText::_('JLIB_APPLICATION_ERROR_BATCH_MOVE_CATEGORY_NOT_FOUND'), 500);
+			throw new Exception(Text::_('JLIB_APPLICATION_ERROR_BATCH_MOVE_CATEGORY_NOT_FOUND'), 500);
 			return false;
 		}
 
 		// Check that user has create and edit permission for the component
-		$extension	= JFactory::getApplication()->input->getCmd('option');
-		$user		= JFactory::getUser();
+		$extension	= Factory::getApplication()->input->getCmd('option');
+		$user		= Factory::getUser();
 		if (!$user->authorise('core.create', $extension)) {
-			throw new Exception(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_CREATE'), 500);
+			throw new Exception(Text::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_CREATE'), 500);
 			return false;
 		}
 
 		if (!$user->authorise('core.edit', $extension)) {
-			throw new Exception(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_EDIT'), 500);
+			throw new Exception(Text::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_EDIT'), 500);
 			return false;
 		}
 
@@ -259,7 +266,7 @@ class PhocaMapsCpModelPhocaMapsMap extends JModelAdmin
 				}
 				else {
 					// Not fatal error
-					$app->enqueueMessage(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk), 'error');	
+					$app->enqueueMessage(Text::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk), 'error');
 					continue;
 				}
 			}
@@ -285,24 +292,24 @@ class PhocaMapsCpModelPhocaMapsMap extends JModelAdmin
 
 		return true;
 	}
-	
-	
+
+
 	public function increaseOrdering($categoryId) {
-		
+
 		$ordering = 1;
 		$this->_db->setQuery('SELECT MAX(ordering) FROM #__phocamaps_map');
 		$max = $this->_db->loadResult();
 		$ordering = $max + 1;
 		return $ordering;
 	}
-	
+
 
 	public function batch($commands, $pks, $contexts)
 	{
-		
+
 		// Sanitize user ids.
 		$pks = array_unique($pks);
-		Joomla\Utilities\ArrayHelper::toInteger($pks);
+		ArrayHelper::toInteger($pks);
 
 		// Remove any values of zero.
 		if (array_search(0, $pks, true)) {
@@ -310,7 +317,7 @@ class PhocaMapsCpModelPhocaMapsMap extends JModelAdmin
 		}
 
 		if (empty($pks)) {
-			throw new Exception(JText::_('JGLOBAL_NO_ITEM_SELECTED'), 500);
+			throw new Exception(Text::_('JGLOBAL_NO_ITEM_SELECTED'), 500);
 			return false;
 		}
 
@@ -324,12 +331,12 @@ class PhocaMapsCpModelPhocaMapsMap extends JModelAdmin
 			$done = true;
 		}
 
-		
+
 		//PHOCAEDIT - because parent it is 0
 		//if (!empty($commands['category_id'])) {
 		if (isset($commands['category_id']))
 		{
-			$cmd = Joomla\Utilities\ArrayHelper::getValue($commands, 'move_copy', 'c');
+			$cmd = ArrayHelper::getValue($commands, 'move_copy', 'c');
 
 			if ($cmd == 'c')
 			{
@@ -349,7 +356,7 @@ class PhocaMapsCpModelPhocaMapsMap extends JModelAdmin
 			}
 			$done = true;
 		}
-		
+
 		if (!empty($commands['language_id']))
 		{
 			if (!$this->batchLanguage($commands['language_id'], $pks, $contexts))
@@ -361,7 +368,7 @@ class PhocaMapsCpModelPhocaMapsMap extends JModelAdmin
 		}
 
 		if (!$done) {
-			throw new Exception(JText::_('JLIB_APPLICATION_ERROR_INSUFFICIENT_BATCH_INFORMATION'), 500);
+			throw new Exception(Text::_('JLIB_APPLICATION_ERROR_INSUFFICIENT_BATCH_INFORMATION'), 500);
 			return false;
 		}
 
@@ -370,9 +377,9 @@ class PhocaMapsCpModelPhocaMapsMap extends JModelAdmin
 
 		return true;
 	}
-	
-	
-	
+
+
+
 	protected function generateNewTitle($category_id, $alias, $title)
 	{
 		// Alter the title & alias

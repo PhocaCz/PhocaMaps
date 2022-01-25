@@ -8,6 +8,10 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License version 2 or later;
  */
 defined( '_JEXEC' ) or die( 'Restricted access' );
+use Joomla\CMS\Filesystem\Folder;
+use Joomla\CMS\Filesystem\File;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 
 jimport( 'joomla.filesystem.folder' );
 
@@ -29,13 +33,13 @@ class com_phocamapsInstallerScript
 		$msg = '';
 		foreach ($folder as $k => $v) {
    
-			if (!JFolder::exists( $v[1])) {
+			if (!Folder::exists( $v[1])) {
 	
-				if (JFolder::create( $v[1], 0755 )) {
+				if (Folder::create( $v[1], 0755 )) {
 	 
 	 
 					$data = "<html>\n<body bgcolor=\"#FFFFFF\">\n</body>\n</html>";
-					JFile::write($v[1].'/'."index.html", $data);
+					File::write($v[1].'/'."index.html", $data);
 					$msg .= '<div><b><span style="color:#009933">Folder</span> ' . $v[0] 
 						 .' <span style="color:#009933">created!</span></b></div>';
 				  
@@ -60,7 +64,7 @@ class com_phocamapsInstallerScript
 	function install($parent) {
 		$this->loadLanguage($parent);
 		$msg = $this->createFolders();
-		JFactory::getApplication()->enqueueMessage($msg, 'message');
+		Factory::getApplication()->enqueueMessage($msg, 'message');
 		return true;
 	}
 	function uninstall($parent) {
@@ -71,13 +75,13 @@ class com_phocamapsInstallerScript
 	function update($parent) {
 		//$this->loadLanguage($parent);
 		$msg = $this->createFolders();
-		JFactory::getApplication()->enqueueMessage($msg, 'message');
+		Factory::getApplication()->enqueueMessage($msg, 'message');
 		return true;
 	}
 	
 	public function loadLanguage($parent) {
 		$extension = $this->extension;
-		$lang = JFactory::getLanguage();
+		$lang = Factory::getLanguage();
 		$path = $parent->getParent()->getPath('source');
 		$lang->load($this->extension, $path, 'en-GB', true);
 		$lang->load($this->extension, $path, $lang->getDefault(), true);
@@ -99,15 +103,15 @@ class com_phocamapsInstallerScript
 		if ($type == 'update' || $type == 'install') {
 			
 			if ($type == 'update') {
-				$status =  JText::_($this->updatetext);
+				$status =  Text::_($this->updatetext);
 	
 			} else {
-				$status =  JText::_($this->installtext);
+				$status =  Text::_($this->installtext);
 			}
-			$version 	= JText::_($this->versiontext). ': ' . $parent->getManifest()->version;
+			$version 	= Text::_($this->versiontext). ': ' . $parent->getManifest()->version;
 			$link 		= 'index.php?option='.$this->extension;
-			$component	= JText::_($this->extensiontext);
-			$configure	= JText::_($this->configuretext);
+			$component	= Text::_($this->extensiontext);
+			$configure	= Text::_($this->configuretext);
 			
 			$o = '';
 			$o .= $this->getStyle();

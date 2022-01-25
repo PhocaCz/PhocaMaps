@@ -9,7 +9,12 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License version 2 or later;
  */
 
+
+
 defined('JPATH_PLATFORM') or die;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Factory;
 
 abstract class PhocaMapsBatch
 {
@@ -18,15 +23,15 @@ abstract class PhocaMapsBatch
 	{
 		// Create the copy/move options.
 		$options = array(
-			JHtml::_('select.option', 'c', JText::_('JLIB_HTML_BATCH_COPY')),
-			JHtml::_('select.option', 'm', JText::_('JLIB_HTML_BATCH_MOVE'))
+			HTMLHelper::_('select.option', 'c', Text::_('JLIB_HTML_BATCH_COPY')),
+			HTMLHelper::_('select.option', 'm', Text::_('JLIB_HTML_BATCH_MOVE'))
 		);
 
-		$db = JFactory::getDBO();
+		$db = Factory::getDBO();
 
 		if ($category == 1) {
 			$data = array();
-			array_unshift($data, JHTML::_('select.option', 0, JText::_('JLIB_HTML_ADD_TO_ROOT'), 'value', 'text'));
+			array_unshift($data, HTMLHelper::_('select.option', 0, Text::_('JLIB_HTML_ADD_TO_ROOT'), 'value', 'text'));
 		} else {
 
 		   //build the list of categories
@@ -48,15 +53,15 @@ abstract class PhocaMapsBatch
 		// Create the batch selector to change select the category by which to move or copy.
 		$lines = array(
 			'<label id="batch-choose-action-lbl" for="batch-choose-action">',
-			JText::_('JLIB_HTML_BATCH_MENU_LABEL'),
+			Text::_('JLIB_HTML_BATCH_MENU_LABEL'),
 			'</label>',
 			'<fieldset id="batch-choose-action" class="combo">',
-				'<select name="batch[category_id]" class="inputbox" id="batch-category-id">',
-					'<option value="">'.JText::_('JSELECT').'</option>',
+				'<select name="batch[category_id]" class="form-control" id="batch-category-id">',
+					'<option value="">'.Text::_('JSELECT').'</option>',
 					/*JHtml::_('select.options',	JHtml::_('category.options', $extension, array('published' => (int) $published))),*/
-					JHTML::_('select.options',  $data ),
+					HTMLHelper::_('select.options',  $data ),
 				'</select>',
-				JHTML::_( 'select.radiolist', $options, 'batch[move_copy]', '', 'value', 'text', 'm'),
+				HTMLHelper::_( 'select.radiolist', $options, 'batch[move_copy]', '', 'value', 'text', 'm'),
 			'</fieldset>'
 		);
 

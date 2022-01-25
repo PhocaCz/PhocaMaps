@@ -56,13 +56,13 @@ Phoca Maps is Joomla! CMS component. It displays maps on your site rendered with
 
 
 
-
-
-
-
-## Version
+## Version (Joomla! 3.x)
 
 3.0.12
+
+## Version (Joomla! 4.x)
+
+4.0.0Beta
 
 
 

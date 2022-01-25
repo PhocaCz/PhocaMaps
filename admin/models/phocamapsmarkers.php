@@ -10,9 +10,12 @@
  */
 
 defined( '_JEXEC' ) or die();
+use Joomla\CMS\MVC\Model\ListModel;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Component\ComponentHelper;
 jimport('joomla.application.component.modellist');
 
-class PhocaMapsCpModelPhocaMapsMarkers extends JModelList
+class PhocaMapsCpModelPhocaMapsMarkers extends ListModel
 {
 	protected	$option 		= 'com_phocamaps';
 
@@ -42,7 +45,7 @@ class PhocaMapsCpModelPhocaMapsMarkers extends JModelList
 	protected function populateState($ordering = NULL, $direction = NULL)
 	{
 		// Initialise variables.
-		$app = JFactory::getApplication('administrator');
+		$app = Factory::getApplication('administrator');
 
 		// Load the filter state.
 		$search = $app->getUserStateFromRequest($this->context.'.filter.search', 'filter_search');
@@ -62,7 +65,7 @@ class PhocaMapsCpModelPhocaMapsMarkers extends JModelList
 		$this->setState('filter.language', $language);
 
 		// Load the parameters.
-		$params = JComponentHelper::getParams('com_phocamaps');
+		$params = ComponentHelper::getParams('com_phocamaps');
 		$this->setState('params', $params);
 
 		// List state information.

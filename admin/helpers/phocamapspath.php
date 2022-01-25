@@ -9,8 +9,10 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined( '_JEXEC' ) or die( 'Restricted access' );
+use Joomla\CMS\Object\CMSObject;
+use Joomla\CMS\Uri\Uri;
 
-class PhocaMapsPath extends JObject
+class PhocaMapsPath extends CMSObject
 {
 	function __construct() {}
 	
@@ -19,8 +21,8 @@ class PhocaMapsPath extends JObject
 		if (!$instance) {
 			$instance = new PhocaMapsPath();
 			$instance->kml_abs 			= JPATH_ROOT . '/phocamapskml/';
-			$instance->kml_rel			= JURI::base(true) . '/phocamapskml/';
-			$instance->kml_rel_full		= JURI::base() . 'phocamapskml/';
+			$instance->kml_rel			= Uri::base(true) . '/phocamapskml/';
+			$instance->kml_rel_full		= Uri::base() . 'phocamapskml/';
 		}
 		return $instance;
 	}

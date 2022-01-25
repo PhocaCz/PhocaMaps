@@ -7,8 +7,14 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die();
+use Joomla\CMS\MVC\View\HtmlView;
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Filesystem\File;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Uri\Uri;
 jimport( 'joomla.application.component.view');
-class PhocaMapsViewMap extends JViewLegacy
+class PhocaMapsViewMap extends HtmlView
 {
 	protected $t;
 	protected $map;
@@ -16,18 +22,18 @@ class PhocaMapsViewMap extends JViewLegacy
 
 	function display($tpl = null) {
 
-		$document		= JFactory::getDocument();
-		$app			= JFactory::getApplication();
+		$document		= Factory::getDocument();
+		$app			= Factory::getApplication();
 		$this->t['p']	= $app->getParams();
 
 		// PLUGIN WINDOW - we get information from plugin
 		$get			= array();
 		$get['tmpl']	= $app->input->get( 'tmpl', '', 'string' );
 
-		JHtml::_('jquery.framework', false);
-		JHTML::stylesheet('media/com_phocamaps/css/phocamaps.css' );
-		if (JFile::exists(JPATH_SITE.'/media/com_phocamaps/css/custom.css')) {
-			JHTML::stylesheet('media/com_phocamaps/css/custom.css' );
+		HTMLHelper::_('jquery.framework', false);
+		HTMLHelper::stylesheet('media/com_phocamaps/css/phocamaps.css' );
+		if (File::exists(JPATH_SITE.'/media/com_phocamaps/css/custom.css')) {
+			HTMLHelper::stylesheet('media/com_phocamaps/css/custom.css' );
 		}
 		$this->t['enable_kml']				= $this->t['p']->get( 'enable_kml', 0 );
 		$this->t['display_print_route']		= $this->t['p']->get( 'display_print_route', 1 );
@@ -48,7 +54,7 @@ class PhocaMapsViewMap extends JViewLegacy
 
 
 		if( (!isset($this->map)) || (isset($this->map) && $this->map == null) ) {
-			echo '<div id="phocamaps"><div class="error">'.JText::_('COM_PHOCAMAPS_WARNING_SELECT_MAP').'</div></div>';
+			echo '<div id="phocamaps"><div class="error">'.Text::_('COM_PHOCAMAPS_WARNING_SELECT_MAP').'</div></div>';
 			return true;
 		}
 
@@ -77,14 +83,21 @@ class PhocaMapsViewMap extends JViewLegacy
 		// Check Width and Height
 		$this->t['fullwidth'] = 0;
 		if (!isset($this->map->width)) {
-			$this->map->width = 400;
+			$this->map->width = '100%';
 		}
 		if (isset($this->map->width) && (int)$this->map->width < 1) {
 			$this->t['fullwidth'] = 1;
 		}
 		if (!isset($this->map->height) || (isset($this->map->height) && (int)$this->map->height < 1)) {
-			$this->map->height = 400;
+			$this->map->height = '50vh';
+
 		}
+		if ($get['tmpl'] == 'component') {
+		    // Modal window
+            $this->map->height = '95vh';
+		}
+
+
 		if (!isset($this->map->zoom) || (isset($this->map->zoom) && (int)$this->map->zoom < 1)) {
 			$this->map->zoom = 2;
 		}
@@ -195,7 +208,7 @@ class PhocaMapsViewMap extends JViewLegacy
 			jimport( 'joomla.filesystem.folder' );
 			jimport( 'joomla.filesystem.file' );
 			$path = PhocaMapsPath::getPath();
-			if (isset($this->map->kmlfile) && JFile::exists($path->kml_abs . $this->map->kmlfile)) {
+			if (isset($this->map->kmlfile) && File::exists($path->kml_abs . $this->map->kmlfile)) {
 				$this->t['load_kml'] = $path->kml_rel_full . $this->map->kmlfile;
 			}
 		}
@@ -229,7 +242,7 @@ class PhocaMapsViewMap extends JViewLegacy
 					$v = trim($v,'/');
 
 					$tracksA[$k] = array();
-					$tracksA[$k]['file'] = JFile::exists(JPATH_ROOT.'/'.$v) ? JURI::base().$v : '';
+					$tracksA[$k]['file'] = File::exists(JPATH_ROOT.'/'.$v) ? Uri::base().$v : '';
 					$tracksA[$k]['color'] = isset($colors[$k]) ? $colors[$k] : '';
 				}
 			}
@@ -249,7 +262,7 @@ class PhocaMapsViewMap extends JViewLegacy
 
 	protected function _prepareDocument() {
 
-		$app		= JFactory::getApplication();
+		$app		= Factory::getApplication();
 		$menus		= $app->getMenu();
 		$menu 		= $menus->getActive();
 		$pathway 	= $app->getPathway();
@@ -260,7 +273,7 @@ class PhocaMapsViewMap extends JViewLegacy
 		if ($menu) {
 			$this->t['p']->def('page_heading', $this->t['p']->get('page_title', $menu->title));
 		} else {
-			$this->t['p']->def('page_heading', JText::_('JGLOBAL_ARTICLES'));
+			$this->t['p']->def('page_heading', Text::_('JGLOBAL_ARTICLES'));
 		}
 
 
@@ -272,10 +285,10 @@ class PhocaMapsViewMap extends JViewLegacy
           }
           // else add the title before or after the sitename
           elseif ($app->get('sitename_pagetitles', 0) == 1) {
-             $title = JText::sprintf('JPAGETITLE', $app->get('sitename'), $title);
+             $title = Text::sprintf('JPAGETITLE', $app->get('sitename'), $title);
           }
           elseif ($app->get('sitename_pagetitles', 0) == 2) {
-             $title = JText::sprintf('JPAGETITLE', $title, $app->get('sitename'));
+             $title = Text::sprintf('JPAGETITLE', $title, $app->get('sitename'));
           }
           $this->document->setTitle($title);
 

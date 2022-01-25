@@ -7,8 +7,12 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined( '_JEXEC' ) or die( 'Restricted access' );
+use Joomla\CMS\Table\Table;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Application\ApplicationHelper;
+use Joomla\CMS\Factory;
 
-class TablePhocaMapsMarker extends JTable
+class TablePhocaMapsMarker extends Table
 {
 	function __construct( &$db ) {
 		parent::__construct( '#__phocamaps_marker', 'id', $db );
@@ -17,21 +21,21 @@ class TablePhocaMapsMarker extends JTable
 	function check(){
 		
 		if (trim( $this->catid ) == '') {
-			throw new Exception( JText::_( 'COM_PHOCAMAPS_ERROR_MAP_NOT_SELECTED'), 500 );
+			throw new Exception( Text::_( 'COM_PHOCAMAPS_ERROR_MAP_NOT_SELECTED'), 500 );
 			return false;
 		}
 		
 		if (trim( $this->title ) == '') {
-			throw new Exception( JText::_( 'COM_PHOCAMAPS_ERROR_TITLE_NOT_SET'), 500 );
+			throw new Exception( Text::_( 'COM_PHOCAMAPS_ERROR_TITLE_NOT_SET'), 500 );
 			return false;
 		}
 
 		if (empty($this->alias)) {
 			$this->alias = $this->title;
 		}
-		$this->alias = JApplicationHelper::stringURLSafe($this->alias);
+		$this->alias = ApplicationHelper::stringURLSafe($this->alias);
 		if (trim(str_replace('-', '', $this->alias)) == '') {
-			$this->alias = JFactory::getDate()->format("Y-m-d-H-i-s");
+			$this->alias = Factory::getDate()->format("Y-m-d-H-i-s");
 		}
 
 		return true;

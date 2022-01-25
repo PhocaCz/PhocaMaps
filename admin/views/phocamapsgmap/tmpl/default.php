@@ -7,6 +7,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die('Restricted access');
+use Joomla\CMS\Language\Text;
 
 echo '<div id="phocamaps" style="margin:0;padding:0;">';
 $id		= '';
@@ -77,9 +78,9 @@ echo $map->loadAPI();// must be loaded as last
 
 echo '<div class="p-add-address">'
 . '<form class="form-inline" action="#" onsubmit="addAddressToMap'.$id.'(); return false;">'
-. '<span>'.JText::_('COM_PHOCAMAPS_SET_COORDINATES_BY_ADDRESS').' : </span>'
+. '<span>'.Text::_('COM_PHOCAMAPS_SET_COORDINATES_BY_ADDRESS').' : </span>'
 . ' <input type="text" name="phocaAddressNameEl'.$id.'" id="phocaAddressEl'.$id.'" value="" class="" style="display:inline;" size="30" />'
-. ' <input type="submit" class="btn" name="find" value="'. JText::_('COM_PHOCAMAPS_SET').'" />'
+. ' <input type="submit" class="btn" name="find" value="'. Text::_('COM_PHOCAMAPS_SET').'" />'
 . '</form>'
 . '</div>';
 echo '</div>';

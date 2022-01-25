@@ -7,12 +7,13 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined( '_JEXEC' ) or die( 'Restricted access' );
+use Joomla\CMS\Factory;
 class PhocaMapsUtils
 {
 	public static function setVars( $task = '') {
 	
 		$a			= array();
-		$app		= JFactory::getApplication();
+		$app		= Factory::getApplication();
 		$a['o'] 	= htmlspecialchars(strip_tags($app->input->get('option')));
 		$a['c'] 	= str_replace('com_', '', $a['o']);
 		$a['n'] 	= 'Phoca' . ucfirst(str_replace('com_phoca', '', $a['o']));

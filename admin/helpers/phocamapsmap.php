@@ -7,6 +7,12 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined( '_JEXEC' ) or die( 'Restricted access' );
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Form\Form;
+use Joomla\CMS\Router\Route;
 require_once( JPATH_ADMINISTRATOR.'/components/com_phocamaps/helpers/phocamapsicon.php' );
 /* Google Maps Version 3 */
 class PhocaMapsMap
@@ -56,16 +62,16 @@ class PhocaMapsMap
 
 	function endJScData($noScriptText = 'COM_PHOCAMAPS_GOOGLE_MAPS_ENABLE_JS') {
 		return '//]]></script>'."\n"
-			. '<noscript><p class="p-noscript">'.JText::_($noScriptText).'</p><p>&nbsp;</p></noscript>'."\n\n";
+			. '<noscript><p class="p-noscript">'.Text::_($noScriptText).'</p><p>&nbsp;</p></noscript>'."\n\n";
 	}
 
 	/*
 	 * Loaded only one time per site (addScript)
 	 */
 	function loadAPI( $id = '', $lang = '') {
-		$document = JFactory::getDocument();
+		$document = Factory::getDocument();
 
-		$paramsC           = JComponentHelper::getParams('com_phocamaps');
+		$paramsC           = ComponentHelper::getParams('com_phocamaps');
 		$key               = $paramsC->get('maps_api_key', '');
 		$ssl               = $paramsC->get('load_api_ssl', 1);
 		$marker_clustering = $paramsC->get('marker_clustering', 0);
@@ -103,7 +109,7 @@ class PhocaMapsMap
 		$s = '<script async defer src="' . $h . 'maps.googleapis.com/maps/api/js?callback=' . $initMaps . $k . $l . '" type="text/javascript"></script>';
 
 		if ($marker_clustering == 1) {
-			$s .= '<script async defer src="' . JURI::root(true) . '/media/com_phocamaps/js/gm/markerclustererplus.min.js"></script>';
+			$s .= '<script async defer src="' . Uri::root(true) . '/media/com_phocamaps/js/gm/markerclustererplus.min.js"></script>';
 		}
 		//$document->addCustomTag($s);// must be loaded as last in the html, cannot be in header
 		return $s;
@@ -111,20 +117,20 @@ class PhocaMapsMap
 	}
 
 	function loadCoordinatesJS() {
-		$document	= JFactory::getDocument();
-		$document->addScript(JURI::root(true).'/media/com_phocamaps/js/administrator/coordinates.js');
+		$document	= Factory::getDocument();
+		$document->addScript(Uri::root(true).'/media/com_phocamaps/js/administrator/coordinates.js');
 	}
 
 	function loadGeoXMLJS() {
 
 		return "";// GeoXML is not more used
 		//$document	= JFactory::getDocument();
-		//$document->addScript(JURI::root(true).'/components/com_phocamaps/assets/js/geoxml3.js');
-		//$document->addScript(JURI::root(true).'/components/com_phocamaps/assets/js/ProjectedOverlay.js');
+		//$document->addScript(JUri::root(true).'/components/com_phocamaps/assets/js/geoxml3.js');
+		//$document->addScript(JUri::root(true).'/components/com_phocamaps/assets/js/ProjectedOverlay.js');
 	}
 	function loadBase64JS() {
-		$document	= JFactory::getDocument();
-		$document->addScript(JURI::root(true).'/media/com_phocamaps/js/base64.js');
+		$document	= Factory::getDocument();
+		$document->addScript(Uri::root(true).'/media/com_phocamaps/js/base64.js');
 	}
 
 	function addAjaxAPI($type = 'maps', $version = '3.x', $params = '') {
@@ -392,7 +398,7 @@ class PhocaMapsMap
 	function setMarker($name, $title, $description, $latitude, $longitude, $icon = 0, $iconId = '', $text = '', $width = '', $height = '', $open = 0, $iconShadow = 0, $iconShape = 0, $closeOpenedWindow = 0) {
 		jimport('joomla.filter.output');
 
-		$paramsC 	= JComponentHelper::getParams('com_phocamaps');
+		$paramsC 	= ComponentHelper::getParams('com_phocamaps');
 		$marker_clustering 		= $paramsC->get( 'marker_clustering', 0 );
 		//phocagalleryimport('phocagallery.text.text');
 
@@ -563,7 +569,7 @@ class PhocaMapsMap
 			$i = PhocaMapsIcon::getIconData($icon);
 			$icon = 'default'.$icon;// Add specific prefix to not conflict with external icons
 
-			$imagePath = JURI::root(true).'/media/com_phocamaps/images/'.$i['name'].'/';
+			$imagePath = Uri::root(true).'/media/com_phocamaps/images/'.$i['name'].'/';
 
 			$js =' var phocaImage'.$icon.$this->_id.' = new google.maps.MarkerImage(\''.$imagePath.'image.png\','."\n";
 			$js.=' new google.maps.Size('.$i['size'].'),'."\n";
@@ -623,20 +629,20 @@ class PhocaMapsMap
 
 		/*$js = ' var markerCluster'.$this->_id.'Styles = [
     MarkerClusterer.withDefaultStyle({
-          url: "'.JURI::root(true).'/media/com_phocamaps/images/markerclusterer/m'.'",
+          url: "'.Uri::root(true).'/media/com_phocamaps/images/markerclusterer/m'.'",
           width: 56,
           height:56,
           textSize:25,
           textColor:"white",
           anchorText: [-4, 0]
     })];';
-		$js .= ' var markerCluster'.$this->_id.'Options = {styles: markerCluster'.$this->_id.'Styles, gridSize: 50, maxZoom: 14,imagePath: "'.JURI::root(true).'/media/com_phocamaps/images/markerclusterer/m'.'"};';*/
+		$js .= ' var markerCluster'.$this->_id.'Options = {styles: markerCluster'.$this->_id.'Styles, gridSize: 50, maxZoom: 14,imagePath: "'.JUri::root(true).'/media/com_phocamaps/images/markerclusterer/m'.'"};';*/
 
-		$paramsC 	= JComponentHelper::getParams('com_phocamaps');
+		$paramsC 	= ComponentHelper::getParams('com_phocamaps');
 		$marker_clustering 		= $paramsC->get( 'marker_clustering', 0 );
 		$js = '';
 		if ($marker_clustering == 1) {
-			$js = ' var markerCluster' . $this->_id . 'Options = {averageCenter: true, gridSize: 50, maxZoom: 14, imagePath: "' . JURI::root(true) . '/media/com_phocamaps/images/markerclusterer/m' . '"};';
+			$js = ' var markerCluster' . $this->_id . 'Options = {averageCenter: true, gridSize: 50, maxZoom: 14, imagePath: "' . Uri::root(true) . '/media/com_phocamaps/images/markerclusterer/m' . '"};';
 			$js .= ' var markerCluster' . $this->_id . ' = new MarkerClusterer(' . $this->_map . ', ' . $this->_markers . ', markerCluster' . $this->_id . 'Options );' . "\n";
 		}
 		return $js;
@@ -978,7 +984,7 @@ class PhocaMapsMap
 		}
 
 		$js .='         } else {'."\n"
-		.'            alert("'.JText::_('COM_PHOCAMAPS_GEOCODE_NOT_FOUND').' (" + status'.$this->_id.' + ")");'."\n"
+		.'            alert("'.Text::_('COM_PHOCAMAPS_GEOCODE_NOT_FOUND').' (" + status'.$this->_id.' + ")");'."\n"
 		.'         }'."\n"
 		.'      });'."\n"
 		.'   }'."\n"
@@ -1011,21 +1017,21 @@ class PhocaMapsMap
 
 		$js .='      '.$this->_dirdisplay.'.setDirections(response'.$this->_id.');'."\n"
 		.'   } else if (google.maps.DirectionsStatus.NOT_FOND) {'."\n"
-		.'      alert("'. JText::_('COM_PHOCAMAPS_NOT_FOUND').'");'."\n"
+		.'      alert("'. Text::_('COM_PHOCAMAPS_NOT_FOUND').'");'."\n"
 		.'   } else if (google.maps.DirectionsStatus.ZERO_RESULTS) {'."\n"
-		.'      alert("'. JText::_('COM_PHOCAMAPS_ZERO_RESULTS').'");'."\n"
+		.'      alert("'. Text::_('COM_PHOCAMAPS_ZERO_RESULTS').'");'."\n"
 		.'   } else if (google.maps.DirectionsStatus.MAX_WAYPOINTS_EXCEEDED) {'."\n"
-		.'      alert("'. JText::_('COM_PHOCAMAPS_MAX_WAYPOINTS_EXCEEDED').'");'."\n"
+		.'      alert("'. Text::_('COM_PHOCAMAPS_MAX_WAYPOINTS_EXCEEDED').'");'."\n"
 		.'   } else if (google.maps.DirectionsStatus.OVER_QUERY_LIMIT) {'."\n"
-		.'      alert("'. JText::_('COM_PHOCAMAPS_OVER_QUERY_LIMIT').'");'."\n"
+		.'      alert("'. Text::_('COM_PHOCAMAPS_OVER_QUERY_LIMIT').'");'."\n"
 		.'   } else if (google.maps.DirectionsStatus.INVALID_REQUEST) {'."\n"
-		.'      alert("'. JText::_('COM_PHOCAMAPS_INVALID_REQUEST').'");'."\n"
+		.'      alert("'. Text::_('COM_PHOCAMAPS_INVALID_REQUEST').'");'."\n"
 		.'   } else if (google.maps.DirectionsStatus.REQUEST_DENIED) {'."\n"
-		.'      alert("'. JText::_('COM_PHOCAMAPS_REQUEST_DENIED').'");'."\n"
+		.'      alert("'. Text::_('COM_PHOCAMAPS_REQUEST_DENIED').'");'."\n"
 		.'   } else if (google.maps.DirectionsStatus.UNKNOWN_ERROR) {'."\n"
-		.'      alert("'. JText::_('COM_PHOCAMAPS_UNKNOWN_ERROR').'");'."\n"
+		.'      alert("'. Text::_('COM_PHOCAMAPS_UNKNOWN_ERROR').'");'."\n"
 		.'   } else {'."\n"
-		.'      alert("'. JText::_('COM_PHOCAMAPS_UNKNOWN_ERROR').'");'."\n"
+		.'      alert("'. Text::_('COM_PHOCAMAPS_UNKNOWN_ERROR').'");'."\n"
 		.'   } '."\n"
 		.'  });'."\n"
 		.'}'."\n\n";
@@ -1066,7 +1072,7 @@ class PhocaMapsMap
 		$status = 'width=640,height=480,menubar=yes,resizable=yes,scrollbars=yes,resizable=yes';
 
 		$link 		= PhocaMapsHelperRoute::getPrintRouteRoute( $idMap, $idMapAlias, $suffix);
-		$link		= JRoute::_( $link );
+		$link		= Route::_( $link );
 		$isThereQM 	= false;
 		$isThereQM 	= preg_match("/\?/i", $link);
 
@@ -1082,7 +1088,7 @@ class PhocaMapsMap
 		}
 
 		$output = '<div class="pmprintroutelink">'
-		.'<a href=\\u0022'.$link.'\\u0022 rel=\\u0022nofollow\\u0022 onclick=\\u0022window.open(this.href,\\\'phocaMapRoute\\\',\\\''.$status.'\\\'); return false;\\u0022 >'.JText::_('COM_PHOCAMAPS_PRINT_ROUTE', true, true, false).'</a>'
+		.'<a href=\\u0022'.$link.'\\u0022 rel=\\u0022nofollow\\u0022 onclick=\\u0022window.open(this.href,\\\'phocaMapRoute\\\',\\\''.$status.'\\\'); return false;\\u0022 >'.Text::_('COM_PHOCAMAPS_PRINT_ROUTE', true, true, false).'</a>'
 		.'</div>'
 		.'<div style="clear:both"></div>';
 
@@ -1091,8 +1097,8 @@ class PhocaMapsMap
 	}
 
 	function getIconPrintScreen() {
-		$output = '<div class="pmprintscreen"><a class="pmprintscreena" href="javascript: void()" onclick="window.print();return false;">'.JText::_('COM_PHOCAMAPS_PRINT').'</a>'
-		.'&nbsp; <a class="pmprintscreena" href="javascript: void window.close()">'.JText::_( 'COM_PHOCAMAPS_CLOSE_WINDOW' ). '</a></div><div style="clear:both;"></div>';
+		$output = '<div class="pmprintscreen"><a class="pmprintscreena" href="javascript: void()" onclick="window.print();return false;">'.Text::_('COM_PHOCAMAPS_PRINT').'</a>'
+		.'&nbsp; <a class="pmprintscreena" href="javascript: void window.close()">'.Text::_( 'COM_PHOCAMAPS_CLOSE_WINDOW' ). '</a></div><div style="clear:both;"></div>';
 		return $output;
 	}
 	/*

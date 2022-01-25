@@ -7,7 +7,9 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die('Restricted access');
-$app				= JFactory::getApplication();
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+$app				= Factory::getApplication();
 if ($app->input->get( 'print', '', 'int' ) == 1 || $app->input->get( 'tmpl', '', 'string' ) == 'component') {
 
 	$foutput = '<div style="clear:both"></div>';
@@ -25,7 +27,7 @@ if ((!isset($this->map->longitude))
 		|| (!isset($this->map->latitude))
 		|| (isset($this->map->longitude) && $this->map->longitude == '')
 		|| (isset($this->map->latitude) && $this->map->latitude == '')) {
-	echo '<p>' . JText::_('COM_PHOCAMAPS_GOOGLE_MAPS_ERROR_FRONT') . '</p>';
+	echo '<p>' . Text::_('COM_PHOCAMAPS_GOOGLE_MAPS_ERROR_FRONT') . '</p>';
 } else {
 	echo $this->t['description'];
 
@@ -39,17 +41,17 @@ if ((!isset($this->map->longitude))
 	if ($this->t['border'] == '') {
 		echo '<div class="phocamaps-box" align="center" style="'.$this->t['stylesite'].'">';
 		if ($this->t['fullwidth'] == 1) {
-			echo '<div id="phocaMap'.$id.'" style="margin:0;padding:0;width:100%;height:'.$this->map->height.'px"></div>';
+			echo '<div id="phocaMap'.$id.'" style="margin:0;padding:0;width:100%;height:'.$this->map->height.'"></div>';
 		} else {
-			echo '<div id="phocaMap'.$id.'" style="margin:0;padding:0;width:'.$this->map->width.'px;height:'.$this->map->height.'px"></div>';
+			echo '<div id="phocaMap'.$id.'" style="margin:0;padding:0;width:'.$this->map->width.';height:'.$this->map->height.'"></div>';
 		}
 		echo '</div>';
 	} else {
 		echo '<div class="phocamaps-box phocamaps-box-border'.$this->t['border'].'" align="center" style="'.$this->t['stylesite'].'">';
 		if ($this->t['fullwidth'] == 1) {
-			echo '<div id="phocaMap'.$id.'" class="phocamaps-map" style="width:100%;height:'.$this->map->height.'px"></div>';
+			echo '<div id="phocaMap'.$id.'" class="phocamaps-map" style="width:100%;height:'.$this->map->height.'"></div>';
 		} else {
-			echo '<div id="phocaMap'.$id.'" class="phocamaps-map" style="width:'.$this->map->width.'px;height:'.$this->map->height.'px"></div>';
+			echo '<div id="phocaMap'.$id.'" class="phocamaps-map" style="width:'.$this->map->width.';height:'.$this->map->height.'"></div>';
 		}
 		echo '</div>';
 		//echo '</div></div></div></div></div>';
@@ -62,7 +64,7 @@ if ((!isset($this->map->longitude))
 		$form 			= '';
 		if ((int)$countMarker > 1) {
 
-			$form .= ' ' . JText::_('COM_PHOCAMAPS_TO').': <select name="pmto'.$id.'" id="toPMAddress'.$id.'">';
+			$form .= ' ' . Text::_('COM_PHOCAMAPS_TO').': <select name="pmto'.$id.'" id="toPMAddress'.$id.'">';
 			foreach ($this->marker as $key => $markerV) {
 				if ((isset($markerV->longitude) && $markerV->longitude != '')
 				&& (isset($markerV->latitude) && $markerV->latitude != '')) {
@@ -83,10 +85,10 @@ if ((!isset($this->map->longitude))
 
 		if ($form != '') {
 			echo '<div class="pmroute">';
-			echo '<form class="form-inline" action="#" onsubmit="setPhocaDir'.$id.'(this.pmfrom'.$id.'.value, this.pmto'.$id.'.value); return false;">';
-			echo JText::_('COM_PHOCAMAPS_FROM_ADDRESS').': <input class="pm-input-route input" type="text" size="30" id="fromPMAddress'.$id.'" name="pmfrom'.$id.'" value=""/>';
+			echo '<form class="form-inline input-group" action="#" onsubmit="setPhocaDir'.$id.'(this.pmfrom'.$id.'.value, this.pmto'.$id.'.value); return false;">';
+			echo Text::_('COM_PHOCAMAPS_FROM_ADDRESS').': <input class="pm-input-route input form-control" type="text" size="30" id="fromPMAddress'.$id.'" name="pmfrom'.$id.'" value=""/>';
 			echo $form;
-			echo ' <input name="pmsubmit'.$id.'" type="submit" class="pm-input-route-btn btn" value="'.JText::_('COM_PHOCAMAPS_GET_ROUTE').'" />';
+			echo ' <input name="pmsubmit'.$id.'" type="submit" class="pm-input-route-btn btn btn-primary" value="'.Text::_('COM_PHOCAMAPS_GET_ROUTE').'" />';
 			echo '</form></div>';
 			echo '<div id="phocaDir'.$id.'">';
 			if ($this->t['display_print_route'] == 1) {
@@ -118,7 +120,7 @@ if ((!isset($this->map->longitude))
 		echo $map->setMapOption('scaleControl', $this->map->scalecontrol, TRUE ).','."\n";
 
 
-		if ($this->map->gestureHandling != '') {
+		if (isset($this->map->gestureHandling) && $this->map->gestureHandling != '') {
 		   echo $map->setMapOption('gestureHandling', '"' . $this->map->gesturehandling . '"').','."\n";
 		} else {
 		   echo $map->setMapOption('scrollwheel', $this->map->scrollwheelzoom).','."\n";
@@ -160,7 +162,7 @@ if ((!isset($this->map->longitude))
 					$markerV->description = str_replace('@', '&#64;', $markerV->description);
 					$text .= '<div>'. PhocaMapsHelper::strTrimAll(addslashes($markerV->description)).'</div>';
 					if ($markerV->displaygps == 1) {
-						$text .= '<div class="pmgps"><table border="0"><tr><td><strong>'. JText::_('COM_PHOCAMAPS_GPS') . ': </strong></td>'
+						$text .= '<div class="pmgps"><table border="0"><tr><td><strong>'. Text::_('COM_PHOCAMAPS_GPS') . ': </strong></td>'
 								.'<td>'.PhocaMapsHelper::strTrimAll(addslashes($markerV->gpslatitude)).'</td></tr>'
 								.'<tr><td></td>'
 								.'<td>'.PhocaMapsHelper::strTrimAll(addslashes($markerV->gpslongitude)).'</td></tr></table></div>';

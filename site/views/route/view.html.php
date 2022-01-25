@@ -7,19 +7,23 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die();
+use Joomla\CMS\MVC\View\HtmlView;
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Filesystem\File;
 jimport( 'joomla.application.component.view');
-class PhocaMapsViewRoute extends JViewLegacy
+class PhocaMapsViewRoute extends HtmlView
 {
 	protected $t;
 	
 	function display($tpl = null) {
 		//$document		= JFactory::getDocument();		
-		$app			= JFactory::getApplication();
+		$app			= Factory::getApplication();
 		$this->t['p']	= $app->getParams();
 		
-		JHTML::stylesheet('media/com_phocamaps/css/phocamaps.css' );
-		if (JFile::exists(JPATH_SITE.'/media/com_phocamaps/css/custom.css')) {
-			JHTML::stylesheet('media/com_phocamaps/css/custom.css' );
+		HTMLHelper::stylesheet('media/com_phocamaps/css/phocamaps.css' );
+		if (File::exists(JPATH_SITE.'/media/com_phocamaps/css/custom.css')) {
+			HTMLHelper::stylesheet('media/com_phocamaps/css/custom.css' );
 		}
 		
 		//$this->t['printview'] 	= $app->input->get('print', 0, 'get', 'int');

@@ -7,9 +7,13 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die();
+use Joomla\CMS\MVC\View\HtmlView;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Toolbar\Toolbar;
 jimport( 'joomla.application.component.view' );
 
-class PhocaMapsCpViewPhocaMapsCp extends JViewLegacy
+class PhocaMapsCpViewPhocaMapsCp extends HtmlView
 {
 	protected $t;
 	protected $r;
@@ -40,19 +44,19 @@ class PhocaMapsCpViewPhocaMapsCp extends JViewLegacy
 
 		$state	= $this->get('State');
 		$canDo	= PhocaMapsCpHelper::getActions();
-		JToolbarHelper::title( JText::_( 'COM_PHOCAMAPS_PM_CONTROL_PANEL' ), 'home' );
+		ToolbarHelper::title( Text::_( 'COM_PHOCAMAPS_PM_CONTROL_PANEL' ), 'home' );
 		
 		// This button is unnecessary but it is displayed because Joomla! design bug
-		$bar = JToolbar::getInstance( 'toolbar' );
-		$dhtml = '<a href="index.php?option=com_phocamaps" class="btn btn-small"><i class="icon-home-2" title="'.JText::_('COM_PHOCAMAPS_CONTROL_PANEL').'"></i> '.JText::_('COM_PHOCAMAPS_CONTROL_PANEL').'</a>';
+		$bar = Toolbar::getInstance( 'toolbar' );
+		$dhtml = '<a href="index.php?option=com_phocamaps" class="btn btn-small"><i class="icon-home-2" title="'.Text::_('COM_PHOCAMAPS_CONTROL_PANEL').'"></i> '.Text::_('COM_PHOCAMAPS_CONTROL_PANEL').'</a>';
 		$bar->appendButton('Custom', $dhtml);
 		
 		if ($canDo->get('core.admin')) {
-			JToolbarHelper::preferences('com_phocamaps');
-			JToolbarHelper::divider();
+			ToolbarHelper::preferences('com_phocamaps');
+			ToolbarHelper::divider();
 		}
 		
-		JToolbarHelper::help( 'screen.phocamaps', true );
+		ToolbarHelper::help( 'screen.phocamaps', true );
 	}
 }
 ?>

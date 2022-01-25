@@ -9,6 +9,8 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die('Restricted access');
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
 jimport('joomla.application.component.helper');
 
 class PhocaMapsHelperRoute
@@ -64,12 +66,12 @@ class PhocaMapsHelperRoute
 
 	public static function _findItem($needles, $notCheckId = 0)
 	{
-		$component 	= JComponentHelper::getComponent('com_phocamaps');
-		$app		= JFactory::getApplication();
+		$component 	= ComponentHelper::getComponent('com_phocamaps');
+		$app		= Factory::getApplication();
 		//$menus	= &JApplication::getMenu('site', array());
 		//$items	= $menus->getItems('componentid', $component->id);
 		//$menu		= &J Site::getMenu();
-		$app 	= JFactory::getApplication('site');
+		$app 	= Factory::getApplication('site');
 		$menu  = $app->getMenu();
 		$items		= $menu->getItems('component', 'com_phocamaps');
 
