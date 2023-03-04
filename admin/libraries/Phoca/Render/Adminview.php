@@ -221,21 +221,35 @@ class Adminview
 		if (!empty($formArray)) {
 			if ($clear == 1) {
 				foreach ($formArray as $value) {
+
+					$description = Text::_($form->getFieldAttribute($value, 'description'));
+					$descriptionOutput = '';
+					if ($description != '') {
+						$descriptionOutput = '<div role="tooltip">'.$description.'</div>';
+					}
+
 					$o .=
 
-					//	'<div class="control-group">'."\n"
-					 '<div class="control-label">'. $form->getLabel($value) . '</div>'."\n"
+						'<div class="control-group">'."\n"
+					 .'<div class="control-label">'. $form->getLabel($value) . $descriptionOutput . '</div>'."\n"
 					//. '<div class="clearfix"></div>'. "\n"
 					. '<div>' . $form->getInput($value). '</div>'."\n"
-					. '<div class="clearfix"></div>' . "\n";
-					//. '</div>'. "\n";
+					. '<div class="clearfix"></div>' . "\n"
+					. '</div>'. "\n";
 
 				}
 			} else {
 				foreach ($formArray as $value) {
 
+					$description = Text::_($form->getFieldAttribute($value, 'description'));
+					$descriptionOutput = '';
+					if ($description != '') {
+						$descriptionOutput = '<div role="tooltip">'.$description.'</div>';
+					}
+
+					//$o .= $form->renderField($value) ;
 					$o .= '<div class="control-group">'."\n"
-					. '<div class="control-label">'. $form->getLabel($value) . '</div>'."\n"
+					. '<div class="control-label">'. $form->getLabel($value)  . $descriptionOutput . '</div>'
 					. '<div class="controls">' . $form->getInput($value). '</div>'."\n"
 					. '</div>' . "\n";
 				}
@@ -256,17 +270,34 @@ class Adminview
 			$value = $form->getInput($item);
 
 		}
+
+
+		$description = Text::_($form->getFieldAttribute($item, 'description'));
+		$descriptionOutput = '';
+		if ($description != '') {
+			$descriptionOutput = '<div role="tooltip">'.$description.'</div>';
+		}
+
+
 		$o .= '<div class="control-group">'."\n";
-		$o .= '<div class="control-label">'. $form->getLabel($item) . '</div>'."\n"
+		$o .= '<div class="control-label">'. $form->getLabel($item) . $descriptionOutput . '</div>'."\n"
 		. '<div class="controls">' . $value.'</div>'."\n"
 		. '</div>' . "\n";
 		return $o;
 	}
 
-	public function itemLabel($item, $label) {
+	public function itemLabel($item, $label, $description = '', $name = '') {
+
+
+		$description = Text::_($description);
+		$descriptionOutput = '';
+		if ($description != '') {
+			$descriptionOutput = '<div role="tooltip">'.$description.'</div>';
+		}
+
 		$o = '';
 		$o .= '<div class="control-group">'."\n";
-		$o .= '<div class="control-label">'. $label . '</div>'."\n"
+		$o .= '<div class="control-label"><label>'. $label .'</label>'. $descriptionOutput . '</div>'."\n"
 		. '<div class="controls">' . $item.'</div>'."\n"
 		. '</div>' . "\n";
 		return $o;

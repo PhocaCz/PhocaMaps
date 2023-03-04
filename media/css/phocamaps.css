@@ -221,3 +221,8 @@
 #phocamaps-box img {
    max-width:none !important;
 }
+
+.pmMarkerTitle {
+    font-weight: bold;
+    font-size: 110%;
+}

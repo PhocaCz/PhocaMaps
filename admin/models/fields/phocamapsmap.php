@@ -34,7 +34,7 @@ class JFormFieldPhocaMapsMap extends FormField
 		$attr = '';
 		$attr .= $this->required ? ' required aria-required="true"' : '';
 		$attr .= $this->element['onchange'] ? ' onchange="'.(string) $this->element['onchange'].'"' : '';
-		$attr .= $this->element['class'] ? ' class="'.(string) $this->element['class'].'"' : '';
+		$attr .= $this->element['class'] ? ' class="'.(string) $this->element['class'].'"' : 'class="form-select"';
 
 
 

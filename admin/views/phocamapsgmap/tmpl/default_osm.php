@@ -113,7 +113,7 @@ echo $map->startJScData();
 		echo $map->setTypeControlOpt().','."\n";
 		echo $map->setNavigationControlOpt().','."\n";
 		echo $map->setMapOption('scaleControl', 1, TRUE ).','."\n";
-		echo $map->setMapOption('scrollwheel', 1).','."\n";
+		echo $map->setMapOption('scrollwheel', 1, TRUE).','."\n";
 		echo $map->setMapOption('disableDoubleClickZoom', 0).','."\n";
 	//	echo $map->setMapOption('googleBar', $this->map->googlebar).','."\n";// Not ready yet
 	//	echo $map->setMapOption('continuousZoom', $this->map->continuouszoom).','."\n";// Not ready yet

@@ -140,7 +140,7 @@ class PhocaMapsHelper
 	public static function getExtInfo() {
 
         PluginHelper::importPlugin('phocatools');
-        $results = Factory::getApplication()->triggerEvent('PhocatoolsOnDisplayInfo', array('NjI5NTcyMjc3MTE3'));
+        $results = Factory::getApplication()->triggerEvent('onPhocatoolsOnDisplayInfo', array('NjI5NTcyMjc3MTE3'));
         if (isset($results[0]) && $results[0] === true) {
             return '';
         }

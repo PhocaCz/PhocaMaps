@@ -97,6 +97,15 @@ class PhocaMapsViewMap extends HtmlView
             $this->map->height = '95vh';
 		}
 
+        if (is_numeric($this->map->width)) {
+            $this->map->width = $this->map->width . 'px';
+        }
+
+        if (is_numeric($this->map->height)) {
+            $this->map->height = $this->map->height . 'px';
+        }
+
+
 
 		if (!isset($this->map->zoom) || (isset($this->map->zoom) && (int)$this->map->zoom < 1)) {
 			$this->map->zoom = 2;

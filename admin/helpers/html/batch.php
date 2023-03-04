@@ -56,7 +56,7 @@ abstract class PhocaMapsBatch
 			Text::_('JLIB_HTML_BATCH_MENU_LABEL'),
 			'</label>',
 			'<fieldset id="batch-choose-action" class="combo">',
-				'<select name="batch[category_id]" class="form-control" id="batch-category-id">',
+				'<select name="batch[category_id]" class="form-select" id="batch-category-id">',
 					'<option value="">'.Text::_('JSELECT').'</option>',
 					/*JHtml::_('select.options',	JHtml::_('category.options', $extension, array('published' => (int) $published))),*/
 					HTMLHelper::_('select.options',  $data ),

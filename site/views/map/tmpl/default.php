@@ -123,7 +123,7 @@ if ((!isset($this->map->longitude))
 		if (isset($this->map->gestureHandling) && $this->map->gestureHandling != '') {
 		   echo $map->setMapOption('gestureHandling', '"' . $this->map->gesturehandling . '"').','."\n";
 		} else {
-		   echo $map->setMapOption('scrollwheel', $this->map->scrollwheelzoom).','."\n";
+		   echo $map->setMapOption('scrollwheel', $this->map->scrollwheelzoom, TRUE).','."\n";
 		}
 
 
@@ -154,8 +154,9 @@ if ((!isset($this->map->longitude))
 				if ((isset($markerV->longitude) && $markerV->longitude != '')
 				&& (isset($markerV->latitude) && $markerV->latitude != '')) {
 
-					$hStyle = 'font-size:120%;margin: 5px 0px;font-weight:bold;';
-					$text = '<div style="'.$hStyle.'">' . addslashes($markerV->title) . '</div>';
+					//$hStyle = 'font-size:120%;margin: 5px 0px;font-weight:bold;';
+					// style="'.$hStyle.'
+					$text = '<div class="pmMarkerTitle">' . addslashes($markerV->title) . '</div>';
 
 					// Try to correct images in description
 					$markerV->description = PhocaMapsHelper::fixImagePath($markerV->description);

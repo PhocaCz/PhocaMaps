@@ -90,12 +90,16 @@ class PhocaMapsCpViewPhocaMapsMarkers extends HtmlView
 		// Add a batch button
 		if ($user->authorise('core.edit'))
 		{
-			HTMLHelper::_('bootstrap.renderModal', 'collapseModal');
+			/*HTMLHelper::_('bootstrap.renderModal', 'collapseModal');
 			$title = Text::_('JTOOLBAR_BATCH');
 			$dhtml = "<button data-toggle=\"modal\" data-target=\"#collapseModal\" class=\"btn btn-small\">
 						<i class=\"icon-checkbox-partial\" title=\"$title\"></i>
 						$title</button>";
-			$bar->appendButton('Custom', $dhtml, 'batch');
+			$bar->appendButton('Custom', $dhtml, 'batch');*/
+			$bar->popupButton('batch')
+				->text('JTOOLBAR_BATCH')
+				->selector('collapseModal')
+				->listCheck(true);
 		}
 
 		ToolbarHelper::divider();

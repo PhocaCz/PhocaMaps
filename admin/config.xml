@@ -120,10 +120,9 @@
 
 		</fieldset>
 
-	
-		<fieldset name="permissions_LABEL" description="JCONFIG_PERMISSIONS_DESC" label="JCONFIG_PERMISSIONS_LABEL">
-			<field name="rules" type="rules" component="com_phocamaps" filter="rules" label="COM_PHOCAMAPS_FIELD_JCONFIG_PERMISSIONS_LABEL" section="component" description=""/>
-		</fieldset>
+        <fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
+            <field name="rules" type="rules" label="JCONFIG_PERMISSIONS_LABEL" filter="rules" validate="rules" component="com_phocamaps" section="component"/>
+        </fieldset>
 	
 	</fields>
 </config>
