@@ -100,7 +100,7 @@ echo "\n\n";
 //echo '<tr class="row'.$iD.'" sortable-group-id="'.$item->catid.'" item-id="'.$item->id.'" parents="'.$item->catid.'" level="0">'. "\n";
 echo '<tr class="row'.$iD.'" sortable-group-id="'.$item->catid.'" >'. "\n";
 echo $r->tdOrder($canChange, $saveOrder, $orderkey, $item->ordering);
-echo $r->td(JHtml::_('grid.id', $i, $item->id), "small ");*/
+echo $r->td(HtmlHelper::_('grid.id', $i, $item->id), "small ");*/
 echo $r->startTr($i, isset($item->catid) ? (int)$item->catid : 0);
 echo $r->firstColumn($i, $item->id, $canChange, $saveOrder, $orderkey, $item->ordering);
 echo $r->secondColumn($i, $item->id, $canChange, $saveOrder, $orderkey, $item->ordering);

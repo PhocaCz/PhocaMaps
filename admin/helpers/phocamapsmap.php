@@ -31,6 +31,7 @@ class PhocaMapsMap
 	public $_options	= 'phocaOptions';
 	public $_tst		= 'tstPhocaMap';
 	public $_tstint		= 'tstIntPhocaMap';
+	public $_markers	= '';
 
 	/*
 	 * If you want to work only with one marker (administration), set TRUE for global marker so only with one marker id will be worked in the map
@@ -125,8 +126,8 @@ class PhocaMapsMap
 
 		return "";// GeoXML is not more used
 		//$document	= JFactory::getDocument();
-		//$document->addScript(JUri::root(true).'/components/com_phocamaps/assets/js/geoxml3.js');
-		//$document->addScript(JUri::root(true).'/components/com_phocamaps/assets/js/ProjectedOverlay.js');
+		//$document->addScript(Uri::root(true).'/components/com_phocamaps/assets/js/geoxml3.js');
+		//$document->addScript(Uri::root(true).'/components/com_phocamaps/assets/js/ProjectedOverlay.js');
 	}
 	function loadBase64JS() {
 		$document	= Factory::getDocument();
@@ -431,9 +432,9 @@ class PhocaMapsMap
 
 		// Global Marker is defined, don't define var here - the marker markerPhocaMarkerGlobal is defined in the beginning
 		if ($name == 'Global') {
-			$output .= ' markerPhocaMarker'.$name.$this->_id.' = new google.maps.Marker({title:"'.PhocaMapsHelper::filterValue($title, 'text').'"'."\n";
+			$output .= ' markerPhocaMarker'.$name.$this->_id.' = new google.maps.Marker({title:"'.PhocaMapsHelper::filterValue($title, 'textjs').'"'."\n";
 		} else {
-			$output .= ' var markerPhocaMarker'.$name.$this->_id.' = new google.maps.Marker({' ."\n" . ' title:"'.PhocaMapsHelper::filterValue($title, 'text').'"';
+			$output .= ' var markerPhocaMarker'.$name.$this->_id.' = new google.maps.Marker({' ."\n" . ' title:"'.PhocaMapsHelper::filterValue($title, 'textjs').'"';
 		}
 
 		if ($icon == 1) {
@@ -636,7 +637,7 @@ class PhocaMapsMap
           textColor:"white",
           anchorText: [-4, 0]
     })];';
-		$js .= ' var markerCluster'.$this->_id.'Options = {styles: markerCluster'.$this->_id.'Styles, gridSize: 50, maxZoom: 14,imagePath: "'.JUri::root(true).'/media/com_phocamaps/images/markerclusterer/m'.'"};';*/
+		$js .= ' var markerCluster'.$this->_id.'Options = {styles: markerCluster'.$this->_id.'Styles, gridSize: 50, maxZoom: 14,imagePath: "'.Uri::root(true).'/media/com_phocamaps/images/markerclusterer/m'.'"};';*/
 
 		$paramsC 	= ComponentHelper::getParams('com_phocamaps');
 		$marker_clustering 		= $paramsC->get( 'marker_clustering', 0 );

@@ -27,7 +27,7 @@ if($controller = Factory::getApplication()->input->get( 'controller')) {
     }
 }
 // Create the controller
-$classname    = 'PhocaMapsController'.ucfirst($controller);
+$classname    = 'PhocaMapsController'.ucfirst((string)$controller);
 $controller   = new $classname( );
 
 // Perform the Request task

@@ -49,7 +49,7 @@ class PhocaMapsHelper
 		{
 			foreach ($xmlFilesInDir as $xmlfile)
 			{
-				if ($data = JInstaller::parseXMLInstallFile($folder.'/'.$xmlfile)) {
+				if ($data = Installer::parseXMLInstallFile($folder.'/'.$xmlfile)) {
 					foreach($data as $key => $value) {
 						$xml_items[$key] = $value;
 					}
@@ -71,14 +71,14 @@ class PhocaMapsHelper
 
 	public static function fixImagePath($description) {
 
-          $description = str_replace('<img src="'.JUri::root(true).'/', '', $description);// no double
+          $description = str_replace('<img src="'.Uri::root(true).'/', '', $description);// no double
           $description = str_replace('<img src="', '<img src="'.Uri::root(true).'/', $description);
 
           // correct possible problems with full paths
-          $description = str_replace('<img src="'.JUri::root(true).'/http://', '<img src="http://', $description);
+          $description = str_replace('<img src="'.Uri::root(true).'/http://', '<img src="http://', $description);
           $description = str_replace('<img src="/http://', '<img src="http://', $description);
 
-		  $description = str_replace('<img src="'.JUri::root(true).'/https://', '<img src="https://', $description);
+		  $description = str_replace('<img src="'.Uri::root(true).'/https://', '<img src="https://', $description);
           $description = str_replace('<img src="/https://', '<img src="https://', $description);
           return $description;
        }
@@ -127,6 +127,9 @@ class PhocaMapsHelper
 			case 'text':
 				return htmlspecialchars(strip_tags($string), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 				break;
+			case 'textjs':
+			return addslashes(strip_tags($string));
+			break;
 
 			case 'html':
 			default:

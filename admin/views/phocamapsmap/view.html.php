@@ -42,7 +42,7 @@ class phocaMapsCpViewPhocaMapsMap extends HtmlView
 		$checkedOut	= !($this->item->checked_out == 0 || $this->item->checked_out == $user->get('id'));
 		//$canDo		= PhocamapsMapsHelper::getActions($this->state->get('filter.map_id'), $this->item->id);
 		$canDo 		= PhocamapsMapsHelper::getActions($this->t, $this->state->get('filter.map_id'));
-		//$paramsC 	= JComponentHelper::getParams('COM_PHOCAMAPS');
+		//$paramsC 	= ComponentHelper::getParams('COM_PHOCAMAPS');
 
 
 

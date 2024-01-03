@@ -53,10 +53,10 @@ echo '<p>&nbsp;</p><p>Maps are created by OpenStreetmap<br />or by Google Mapsâ„
 
 
 echo '<div class="ph-cp-hr"></div>'
-.'<div class="btn-group ph-cp-btn-update"><a class="btn btn-large btn-primary" href="https://www.phoca.cz/version/index.php?'.$this->t['c'].'='.  $this->t['version'] .'" target="_blank"><i class="icon-loop icon-white"></i>&nbsp;&nbsp;'.  JText::_($this->t['l'] . '_CHECK_FOR_UPDATE') .'</a></div>';
+.'<div class="btn-group ph-cp-btn-update"><a class="btn btn-large btn-primary" href="https://www.phoca.cz/version/index.php?'.$this->t['c'].'='.  $this->t['version'] .'" target="_blank"><i class="icon-loop icon-white"></i>&nbsp;&nbsp;'.  Text::_($this->t['l'] . '_CHECK_FOR_UPDATE') .'</a></div>';
 
 
-echo '<div class="ph-cp-logo-footer"><a href="https://www.phoca.cz/" target="_blank">'.JHtml::_('image', $this->t['i'] . 'logo.png', 'Phoca.cz' ).'</a></div>';
+echo '<div class="ph-cp-logo-footer"><a href="https://www.phoca.cz/" target="_blank">'.HTMLHelper::_('image', $this->t['i'] . 'logo.png', 'Phoca.cz' ).'</a></div>';
 echo '<div class="ph-cb"></div>';
 
 

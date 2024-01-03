@@ -44,7 +44,7 @@
 <field name="ordering" type="PhocaMapsOrdering" table="map" class="form-select" label="COM_PHOCAMAPS_FIELD_ORDERING_LABEL" description="COM_PHOCAMAPS_FIELD_ORDERING_DESC" />
 
 
-<field name="description" type="editor" buttons="true" hide="pagebreak,readmore" class="form-control" label="COM_PHOCAMAPS_FIELD_DESC_LABEL" description="COM_PHOCAMAPS_FIELD_DESC_DESC" filter="JComponentHelper::filterText" />
+<field name="description" type="editor" buttons="true" hide="pagebreak,readmore" class="form-control" label="COM_PHOCAMAPS_FIELD_DESC_LABEL" description="COM_PHOCAMAPS_FIELD_DESC_DESC" filter="\Joomla\CMS\Component\ComponentHelper::filterText" />
 
 
 
@@ -91,7 +91,7 @@
 
 
 	</fieldset>
-	
+
 	<fieldset name="publish" label="COM_PHOCAMAPS_GROUP_LABEL_PUBLISHING_DETAILS" >
 
 <field name="published" type="list" label="COM_PHOCAMAPS_FIELD_PUBLISHED_LABEL" description="COM_PHOCAMAPS_FIELD_PUBLISHED_DESC" class="form-control" size="1" default="1">
@@ -103,5 +103,5 @@
 </field>
 
 	</fieldset>
-	
+
 </form>

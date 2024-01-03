@@ -9,6 +9,8 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License version 2 or later;
  */
 defined('JPATH_BASE') or die;
+
+use Joomla\CMS\Factory;
 use Joomla\CMS\Form\FormField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
@@ -19,18 +21,23 @@ class JFormFieldPhocaHead extends FormField
 {
 	protected $type = 'PhocaHead';
 	protected function getLabel() { return '';}
-	
+
 	protected function getInput() {
-	
-		HTMLHelper::stylesheet( 'media/com_phocamaps/css/administrator/phocamapsoptions.css' );
-		echo '<div style="clear:both;"></div>';
+
+		$app				= Factory::getApplication();
+		$wa 				= $app->getDocument()->getWebAssetManager();
+		$option				= 'com_phocamaps';
+		$wa->registerAndUseStyle($option . '.options', 'media/' .$option . '/css/administrator/phocamapsoptions.css', array('version' => 'auto'));
+		$wa->registerAndUseStyle($option . '.theme', 'media/' .$option . '/css/administrator/theme-dark.css', array('version' => 'auto'), [], ['template.active']);
+
+		//echo '<div style="clear:both;"></div>';
 		$phocaImage	= ( (string)$this->element['phocaimage'] ? $this->element['phocaimage'] : '' );
 		$image 		= '';
-		
+
 		if ($phocaImage != ''){
-			$image 	= HTMLHelper::_('image', 'media/com_phocamaps/images/administrator/'. $phocaImage, '' );
+			$image 	= HTMLHelper::_('image', 'media/com_phocagallery/images/administrator/'. $phocaImage, '' );
 		}
-		
+
 		if ($this->element['default']) {
 			if ($image != '') {
 				return '<div class="ph-options-head">'
@@ -44,7 +51,7 @@ class JFormFieldPhocaHead extends FormField
 		} else {
 			return parent::getLabel();
 		}
-		echo '<div style="clear:both;"></div>';
+		//echo '<div style="clear:both;"></div>';
 	}
 }
 ?>

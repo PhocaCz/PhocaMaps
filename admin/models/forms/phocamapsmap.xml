@@ -22,7 +22,7 @@
 <field name="ordering" type="PhocaMapsOrdering" table="map" class="form-select" label="COM_PHOCAMAPS_FIELD_ORDERING_LABEL" description="COM_PHOCAMAPS_FIELD_ORDERING_DESC" />
 
 
-<field name="description" type="editor" buttons="true" hide="pagebreak,readmore" class="form-control" label="COM_PHOCAMAPS_FIELD_DESC_LABEL" description="COM_PHOCAMAPS_FIELD_DESC_DESC" filter="JComponentHelper::filterText"  />
+<field name="description" type="editor" buttons="true" hide="pagebreak,readmore" class="form-control" label="COM_PHOCAMAPS_FIELD_DESC_LABEL" description="COM_PHOCAMAPS_FIELD_DESC_DESC" filter="\Joomla\CMS\Component\ComponentHelper::filterText"  />
 
 
 <field name="border" type="list" label="COM_PHOCAMAPS_FIELD_BORDER_LABEL" description="COM_PHOCAMAPS_FIELD_BORDER_DESC" class="form-control" size="1" default="1" typedesign="1" >

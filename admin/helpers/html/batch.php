@@ -58,7 +58,7 @@ abstract class PhocaMapsBatch
 			'<fieldset id="batch-choose-action" class="combo">',
 				'<select name="batch[category_id]" class="form-select" id="batch-category-id">',
 					'<option value="">'.Text::_('JSELECT').'</option>',
-					/*JHtml::_('select.options',	JHtml::_('category.options', $extension, array('published' => (int) $published))),*/
+					/*HtmlHelper::_('select.options',	HtmlHelper::_('category.options', $extension, array('published' => (int) $published))),*/
 					HTMLHelper::_('select.options',  $data ),
 				'</select>',
 				HTMLHelper::_( 'select.radiolist', $options, 'batch[move_copy]', '', 'value', 'text', 'm'),

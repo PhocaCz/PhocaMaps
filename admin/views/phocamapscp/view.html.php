@@ -18,7 +18,7 @@ class PhocaMapsCpViewPhocaMapsCp extends HtmlView
 	protected $t;
 	protected $r;
 	protected $view;
-	
+
 	function display($tpl = null) {
 
 		$this->t	= PhocaMapsUtils::setVars('cp');
@@ -36,26 +36,26 @@ class PhocaMapsCpViewPhocaMapsCp extends HtmlView
 
 		$this->addToolbar();
 		parent::display($tpl);
-		
+
 	}
-	
+
 	protected function addToolbar() {
 		require_once JPATH_COMPONENT.'/helpers/phocamapscp.php';
 
 		$state	= $this->get('State');
 		$canDo	= PhocaMapsCpHelper::getActions();
 		ToolbarHelper::title( Text::_( 'COM_PHOCAMAPS_PM_CONTROL_PANEL' ), 'home' );
-		
+
 		// This button is unnecessary but it is displayed because Joomla! design bug
 		$bar = Toolbar::getInstance( 'toolbar' );
-		$dhtml = '<a href="index.php?option=com_phocamaps" class="btn btn-small"><i class="icon-home-2" title="'.Text::_('COM_PHOCAMAPS_CONTROL_PANEL').'"></i> '.Text::_('COM_PHOCAMAPS_CONTROL_PANEL').'</a>';
+		$dhtml = '<a href="index.php?option=com_phocamaps" class="btn btn-primary btn-small"><i class="icon-home-2" title="'.Text::_('COM_PHOCAMAPS_CONTROL_PANEL').'"></i> '.Text::_('COM_PHOCAMAPS_CONTROL_PANEL').'</a>';
 		$bar->appendButton('Custom', $dhtml);
-		
+
 		if ($canDo->get('core.admin')) {
 			ToolbarHelper::preferences('com_phocamaps');
 			ToolbarHelper::divider();
 		}
-		
+
 		ToolbarHelper::help( 'screen.phocamaps', true );
 	}
 }
