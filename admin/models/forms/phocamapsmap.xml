@@ -75,7 +75,7 @@
 
 <field name="zoomcontrol" type="list" label="COM_PHOCAMAPS_FIELD_NAVIGATION_CONTROL_LABEL" description="COM_PHOCAMAPS_FIELD_NAVIGATION_CONTROL_DESC" class="form-control" size="1" default="1"  >
 	<option value="0">COM_PHOCAMAPS_DISABLE</option>
-	<option	value="1">COM_PHOCAMAPS_default</option>
+	<option	value="1">COM_PHOCAMAPS_DEFAULT</option>
 	<option	value="2">COM_PHOCAMAPS_MINI_ZOOM</option>
 	<option	value="3">COM_PHOCAMAPS_ZOOM_PAN</option>
 	<option	value="4">COM_PHOCAMAPS_ANDROID</option>
@@ -85,6 +85,11 @@
 	<option value="0">COM_PHOCAMAPS_DISABLE</option>
 	<option	value="1">COM_PHOCAMAPS_ENABLE</option>
 </field>
+
+<field name="autolocation" type="list" default="0" label="COM_PHOCAMAPS_DISPLAY_CURRENT_LOCATION_LABEL" description="COM_PHOCAMAPS_DISPLAY_CURRENT_LOCATION_DESC">
+			<option value="0">COM_PHOCAMAPS_NO</option>
+			<option value="1">COM_PHOCAMAPS_YES</option>
+		</field>
 
 <field name="displayroute" type="list" label="COM_PHOCAMAPS_FIELD_DISPLAY_ROUTE_LABEL" description="COM_PHOCAMAPS_FIELD_DISPLAY_ROUTE_DESC" class="form-control" size="1" default="1"  >
 	<option value="0">COM_PHOCAMAPS_NO</option>

@@ -107,10 +107,11 @@ class PhocaMapsMap
 		$initMaps = 'initMaps' . $id;
 
 
-		$s = '<script async defer src="' . $h . 'maps.googleapis.com/maps/api/js?callback=' . $initMaps . $k . $l . '" type="text/javascript"></script>';
+		// &libraries=marker
+		$s = '<script async src="' . $h . 'maps.googleapis.com/maps/api/js?callback=' . $initMaps . $k . $l . '&loading=async" type="text/javascript"></script>';
 
 		if ($marker_clustering == 1) {
-			$s .= '<script async defer src="' . Uri::root(true) . '/media/com_phocamaps/js/gm/markerclustererplus.min.js"></script>';
+			$s .= '<script async src="' . Uri::root(true) . '/media/com_phocamaps/js/gm/markerclustererplus.min.js"></script>';
 		}
 		//$document->addCustomTag($s);// must be loaded as last in the html, cannot be in header
 		return $s;
@@ -430,6 +431,9 @@ class PhocaMapsMap
 
 		$output .= ' var phocaPoint'.$name.$this->_id.' = new google.maps.LatLng('. PhocaMapsHelper::filterValue($latitude, 'number2').', ' .PhocaMapsHelper::filterValue($longitude, 'number2').');'."\n";
 
+		// google.maps.marker.AdvancedMarkerElement does not work: Google maps marker.AdvancedMarkerElement is Undefined
+		// requires MAP_ID
+
 		// Global Marker is defined, don't define var here - the marker markerPhocaMarkerGlobal is defined in the beginning
 		if ($name == 'Global') {
 			$output .= ' markerPhocaMarker'.$name.$this->_id.' = new google.maps.Marker({title:"'.PhocaMapsHelper::filterValue($title, 'textjs').'"'."\n";
@@ -437,13 +441,16 @@ class PhocaMapsMap
 			$output .= ' var markerPhocaMarker'.$name.$this->_id.' = new google.maps.Marker({' ."\n" . ' title:"'.PhocaMapsHelper::filterValue($title, 'textjs').'"';
 		}
 
+		//$output .= ', '."\n".'   markerId:' .$name.$this->_id;
+		$output .= ', '."\n".'   markerId:' .$name;
+
 		if ($icon == 1) {
-			$output .= ', '."\n".'   icon:phocaImage'.$iconId.$this->_id;
+			$output .= ', '."\n".'   icon: phocaImage'.$iconId.$this->_id;
 			if ($iconShadow == 1) {
-				$output .= ', '."\n".'   shadow:phocaImageShadow'.$iconId.$this->_id;
+				$output .= ', '."\n".'   shadow: phocaImageShadow'.$iconId.$this->_id;
 			}
 			if ($iconShape == 1) {
-				$output .= ', '."\n".'   shape:phocaImageShape'.$iconId.$this->_id;
+				$output .= ', '."\n".'   shape: phocaImageShape'.$iconId.$this->_id;
 			}
 		}
 
@@ -776,6 +783,8 @@ class PhocaMapsMap
 	function exportMarker($name, $type, $latitude, $longitude, $valueLat = '', $valueLng = '', $jFormLat = '', $jFormLng = '', $jFormLatGPS = '', $jFormLngGPS = '') {
 
 		$js = ' var phocaPoint'.$name.$this->_id.' = new google.maps.LatLng('. PhocaMapsHelper::filterValue($latitude, 'number2').', ' .PhocaMapsHelper::filterValue($longitude, 'number2').');'."\n";
+
+		// google.maps.marker.AdvancedMarkerElement does not work: Google maps marker.AdvancedMarkerElement is Undefined
 
 		if ($name == 'Global') {
 			$js .= ' markerPhocaMarker'.$name.$this->_id.' = new google.maps.Marker({'."\n";
@@ -1124,5 +1133,38 @@ class PhocaMapsMap
 				//.' kmlLayer'.$this->_id.'.setMap('.$this->_map.');'."\n";
 		return $js;
 	}
+
+	public function setAutolocation() {
+		$js = ' infoWindow = new google.maps.InfoWindow();
+                const locationButton = document.createElement("button");
+                locationButton.textContent = "' . Text::_('COM_PHOCAMAPS_CURRENT_LOCATION') . '";
+                locationButton.classList.add("custom-map-control-button");
+                mapPhocaMap' . $this->_id . '.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+
+                locationButton.addEventListener("click", () => {
+			// Try HTML5 geolocation.
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(
+					(position) => {
+					const pos = {
+						lat: position.coords.latitude,
+                                    lng: position.coords.longitude,
+                                };
+
+                                mapPhocaMap' . $this->_id . '.setCenter(pos);
+                                mapPhocaMap' . $this->_id . '.setZoom(10);
+                            },
+                            () => {
+					handleLocationError(true, infoWindow, mapPhocaMap' . $this->_id . '.getCenter());
+                            },
+                        );
+                    } else {
+				// Browser doesn\'t support Geolocation
+				handleLocationError(false, infoWindow, mapPhocaMap' . $this->_id . '.getCenter());
+                    }
+		});';
+		return $js;
+	}
+
 }
 ?>

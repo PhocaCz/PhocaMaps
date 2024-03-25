@@ -1,8 +1,11 @@
 @media (prefers-color-scheme: dark) {
 
+    .ph-cpanel-info-box, 
+    .ph-cpanel-tips-box,
     .ph-extension-links-box,
 	.ph-extension-info-box,
     .ph-box-info {
+        background-image: none;
         background-color: rgb(72, 86, 106);
 	}
 
@@ -26,11 +29,31 @@
     }
 
     .ph-admin-additional-box {
-        background: rgb(255, 222, 125, 0.4);
+        /*background: rgb(255, 222, 125, 0.4);*/
+        background: #b59410;
+        color: #000;
+
+        & a {
+            color: #000;
+        }
+    }
+
+
+    .import-import-box,
+    .import-export-box,
+    #phAdminEdit .ph-admin-order-link,
+    #phAdminEdit .ph-admin-download-links {
+        color: #fff;
+        background: #000;
+
+    }
+
+    table.ph-report-table tr.ph-report-total-row td {
+        background: transparent;
     }
 
     select.form-control {
-        background-color: transparent;
+       /* background-color: transparent;*/
     }
 
     .subhead .btn:not([disabled]):active, .subhead .btn:not([disabled]):focus, .subhead .btn:not([disabled]):hover {
@@ -39,11 +62,81 @@
         color: hsla(0,0%,100%,.9);
     }
 
+    .subhead .btn.btn-warning {
+        --subhead-btn-accent: #ffb514;
+    }
+
+    .ph-admin-stat-row {
+        background: rgb(72, 86, 106);
+    }
+
+    .btn-close {
+        filter: invert(1) grayscale(100%) brightness(0%);
+    }
+
+    #phAdminEdit .subform-repeatable-group {
+        background-color: #2e486b;
+        color: #fff;
+    }
+
+    #phAdminEdit .subform-repeatable-group .subform-repeatable-group {
+        background-color: #1f3047;
+        color: #fff;
+    }
+
+    /*form*/
+    #phAdminEdit .chzn-container-single.chzn-disabled .chzn-single,
+    #phAdminEdit select[readonly] {
+        background: #333 !important;
+        color: #777 !important;
+        border: 1px solid #aaa !important;
+    }
+    #phAdminEditPopup  input[readonly],
+    #phAdminEdit input[readonly],
+    input.pmreadonly {
+        background: #333 !important;
+        color: #777 !important;
+    }
+
+    #phAdminEdit .chzn-container-single.chzn-disabled .chzn-single:focus,
+    #phAdminEdit .chzn-container-single.chzn-disabled .chzn-single:hover,
+    #phAdminEdit select[readonly]:focus,
+    #phAdminEdit select[readonly]:hover {
+        background: #333 !important;
+        color: #777 !important;
+        border: 1px solid #aaa !important;
+    }
+
+    #phAdminEditPopup  input[readonly]:focus,
+    #phAdminEditPopup  input[readonly]:hover,
+    #phAdminEdit input[readonly]:focus,
+    #phAdminEdit input[readonly]:hover,
+    input.pmreadonly:focus,
+    input.pmreadonly:hover {
+        background: #333 !important;
+        color: #777 !important;
+    }
+
+    #phAdminEditPopup input[readonly], #phAdminEdit input[readonly], input.pmreadonly {
+        color: #333 !important;
+        background: #777 !important;
+    }
+
+    .ph-editinplace-text {
+        background: #000;
+        color: #fff;
+    }
+    
+    .ph-editinplace-text form {
+        background-color: #000;
+    }
+
+
+
     /* codemirror */
     .ͼ1 .cm-content[contenteditable="true"] {
         background-color: rgb(72, 86, 106);
     }
-
 }
 
 

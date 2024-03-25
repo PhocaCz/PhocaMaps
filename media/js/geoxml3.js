@@ -1,7 +1,7 @@
 /*
     geoXML3.js
 
-    Renders KML on the Google Maps JavaScript API Version 3 
+    Renders KML on the Google Maps JavaScript API Version 3
     http://code.google.com/p/geoxml3/
 
 
@@ -44,7 +44,7 @@ geoXML3.parser = function (options) {
 
   var parse = function (urls) {
     // Process one or more KML documents
-  
+
     if (typeof urls === 'string') {
       // Single KML document
       urls = [urls];
@@ -55,12 +55,12 @@ geoXML3.parser = function (options) {
       docSet: [],
       remaining: urls.length,
       parserOnly: !parserOptions.afterParse
-    }; 
+    };
 
     var thisDoc;
     for (var i = 0; i < urls.length; i++) {
       thisDoc = {
-        url: urls[i], 
+        url: urls[i],
         internals: internals
       };
       internals.docSet.push(thisDoc);
@@ -69,7 +69,7 @@ geoXML3.parser = function (options) {
   };
 
   var hideDocument = function (doc) {
-    // Hide the map objects associated with a document 
+    // Hide the map objects associated with a document
     var i;
     for (i = 0; i < doc.markers.length; i++) {
       this.markers[i].set_visible(false);
@@ -78,9 +78,9 @@ geoXML3.parser = function (options) {
       doc.overlays[i].setOpacity(0);
     }
   };
-  
+
   var showDocument = function (doc) {
-    // Show the map objects associated with a document 
+    // Show the map objects associated with a document
     var i;
     for (i = 0; i < doc.markers.length; i++) {
       doc.markers[i].set_visible(true);
@@ -107,7 +107,7 @@ geoXML3.parser = function (options) {
       doc.groundOverlays = [];
       if (parserOptions.zoom && !!parserOptions.map)
         doc.bounds = new google.maps.LatLngBounds();
-  
+
       // Parse styles
       var styleID, iconNodes, i;
       var styleNodes = responseXML.getElementsByTagName('Style');
@@ -124,7 +124,7 @@ geoXML3.parser = function (options) {
         // Convert parsed styles into GMaps equivalents
         processStyles(doc);
       }
-      
+
       // Parse placemarks
       var placemark, node, coords, path;
       var placemarkNodes = responseXML.getElementsByTagName('Placemark');
@@ -151,8 +151,8 @@ geoXML3.parser = function (options) {
           // Polygons/lines not supported in v3, so only plot markers
           coords = path[0].split(',');
           placemark.point = {
-            lat: parseFloat(coords[1]), 
-            lng: parseFloat(coords[0]), 
+            lat: parseFloat(coords[1]),
+            lng: parseFloat(coords[0]),
             alt: parseFloat(coords[2])
           };
           if (!!doc.bounds) {
@@ -167,13 +167,13 @@ geoXML3.parser = function (options) {
           }
         }
       }
-  
+
       // Parse ground overlays
       var groundOverlay, color, transparency;
       var groundNodes = responseXML.getElementsByTagName('GroundOverlay');
       for (i = 0; i < groundNodes.length; i++) {
         node = groundNodes[i];
-        
+
         // Init the ground overlay object
         groundOverlay = {
           name:        geoXML3.nodeValue(node.getElementsByTagName('name')[0]),
@@ -201,7 +201,7 @@ geoXML3.parser = function (options) {
         } else {
           groundOverlay.opacity = 100;
         }
-  
+
         // Call the appropriate function to create the overlay
         if (!!parserOptions.createOverlay) {
           parserOptions.createOverlay(groundOverlay, doc);
@@ -212,7 +212,7 @@ geoXML3.parser = function (options) {
 
       if (!!doc.bounds) {
         doc.internals.bounds = doc.internals.bounds || new google.maps.LatLngBounds();
-        doc.internals.bounds.union(doc.bounds); 
+        doc.internals.bounds.union(doc.bounds);
       }
       if (!!doc.styles || !!doc.markers || !!doc.overlays) {
         doc.internals.parserOnly = false;
@@ -224,7 +224,7 @@ geoXML3.parser = function (options) {
 
         // Options that get invoked after parsing completes
         if (!!doc.internals.bounds) {
-          parserOptions.map.fitBounds(doc.internals.bounds); 
+          parserOptions.map.fitBounds(doc.internals.bounds);
         }
         if (parserOptions.afterParse) {
           parserOptions.afterParse(doc.internals.docSet);
@@ -237,7 +237,7 @@ geoXML3.parser = function (options) {
       }
     }
   };
-    
+
   var processStyles = function (doc) {
     var stdRegEx = /\/(red|blue|green|yellow|lightblue|purple|pink|orange)(-dot)?\.png/;
     for (var styleID in doc.styles) {
@@ -287,15 +287,15 @@ geoXML3.parser = function (options) {
       title:    placemark.name,
       zIndex:   Math.round(-placemark.point.lat * 100000),
       icon:     placemark.style.icon,
-      shadow:   placemark.style.shadow 
+      shadow:   placemark.style.shadow
     });
-  
+
     // Create the marker on the map
     var marker = new google.maps.Marker(markerOptions);
 
     // Set up and create the infowindow
     var infoWindowOptions = geoXML3.combineOptions(parserOptions.infoWindowOptions, {
-      content: '<div class="infowindow"><h3>' + placemark.name + 
+      content: '<div class="infowindow"><h3>' + placemark.name +
                '</h3><div>' + placemark.description + '</div></div>',
       pixelOffset: new google.maps.Size(0, 2)
     });
@@ -311,7 +311,7 @@ geoXML3.parser = function (options) {
       }
       this.infoWindow.open(this.map, this);
     });
-    
+
     if (!!doc) {
       doc.markers = doc.markers || [];
       doc.markers.push(marker);
@@ -319,7 +319,7 @@ geoXML3.parser = function (options) {
 
     return marker;
   };
-  
+
   var createOverlay = function (groundOverlay, doc) {
     // Add a ProjectedOverlay to the map from a groundOverlay KML object
 
@@ -333,13 +333,13 @@ geoXML3.parser = function (options) {
     );
     var overlayOptions = geoXML3.combineOptions(parserOptions.overlayOptions, {percentOpacity: groundOverlay.opacity});
     var overlay = new ProjectedOverlay(parserOptions.map, groundOverlay.icon.href, bounds, overlayOptions);
-    
+
     if (!!doc) {
       doc.overlays = doc.overlays || [];
       doc.overlays.push(overlay);
     }
 
-    return 
+    return
   };
 
   return {
@@ -347,11 +347,11 @@ geoXML3.parser = function (options) {
 
     options: parserOptions,
     docs:    docs,
-    
+
     parse:         parse,
     hideDocument:  hideDocument,
     showDocument:  showDocument,
-    processStyles: processStyles, 
+    processStyles: processStyles,
     createMarker:  createMarker,
     createOverlay: createOverlay
   };
@@ -367,7 +367,7 @@ geoXML3.log = function(msg) {
   }
 };
 
-// Combine two options objects, a set of default values and a set of override values 
+// Combine two options objects, a set of default values and a set of override values
 geoXML3.combineOptions = function (overrides, defaults) {
   var result = {};
   if (!!overrides) {

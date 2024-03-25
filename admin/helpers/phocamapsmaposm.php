@@ -425,6 +425,9 @@ class PhocaMapsMapOsm
 	public function renderSearch($markerId = '', $position = '') {
 
 
+		if ($this->search == 0) {
+			return '';
+		}
 
 		$position = $position != '' ? $position : 'topright';
 		$o 	= array();

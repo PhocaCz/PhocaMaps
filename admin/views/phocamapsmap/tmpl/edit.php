@@ -69,7 +69,7 @@ echo $r->endTab();
 
 
 echo $r->startTab('advanced', $tabs['advanced']);
-$formArray = array ('typeid', 'typecontrol', 'typecontrolposition', 'doubleclickzoom', 'scrollwheelzoom', 'gesturehandling', 'zoomcontrol', 'scalecontrol', 'displayroute', 'kmlfile', 'custom_options', 'map_styles');
+$formArray = array ('typeid', 'typecontrol', 'typecontrolposition', 'doubleclickzoom', 'scrollwheelzoom', 'gesturehandling', 'zoomcontrol', 'scalecontrol', 'autolocation', 'displayroute', 'kmlfile', 'custom_options', 'map_styles');
 echo $r->group($this->form, $formArray);
 echo $r->endTab();
 

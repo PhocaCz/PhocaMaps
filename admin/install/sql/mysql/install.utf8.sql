@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS `#__phocamaps_map` (
   `trackfiles_osm` varchar(255) NOT NULL default '',
   `trackcolors_osm` varchar(255) NOT NULL default '',
   `fitbounds_osm` tinyint(1) NOT NULL default '0',
+  `autolocation` tinyint(1) NOT NULL default '0',
   `description` text,
   `published` tinyint(1) NOT NULL default '0',
   `checked_out` int(11) unsigned NOT NULL default '0',
