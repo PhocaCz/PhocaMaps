@@ -208,7 +208,7 @@ class PhocaMapsMapOsm
 			}
 			$o[] = 'L.tileLayer(\'https://{s}.tile.thunderforest.com/'.PhocaMapsHelper::filterValue($thunderForestMapType).'/{z}/{x}/{y}.png?apikey={apikey}\', {';
 			$o[] = '	maxZoom: 22,';
-			$o[] = '	apikey: '.PhocaMapsHelper::filterValue($thunderForestKey).',';
+			$o[] = '	apikey: \''.PhocaMapsHelper::filterValue($thunderForestKey).'\',';
 			$o[] = '	attribution: \'&copy; <a href="https://www.thunderforest.com/" target="_blank">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>\'';
 			$o[] = '}).addTo(map'.$this->name.$this->id.');';
 
