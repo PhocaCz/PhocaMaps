@@ -271,6 +271,10 @@ class com_phocamapsInstallerScript
 	border-radius: 6px;
 }
 
+.g5-actions a.g5-button {
+	color: #fff;
+}
+
 
 .upBox {
     display: flex;

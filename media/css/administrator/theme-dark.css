@@ -1,6 +1,9 @@
+/*
 @media (prefers-color-scheme: dark) {
+*/
+[data-bs-theme="dark"] {
 
-    .ph-cpanel-info-box, 
+    .ph-cpanel-info-box,
     .ph-cpanel-tips-box,
     .ph-extension-links-box,
 	.ph-extension-info-box,
@@ -126,7 +129,7 @@
         background: #000;
         color: #fff;
     }
-    
+
     .ph-editinplace-text form {
         background-color: #000;
     }
@@ -142,8 +145,10 @@
 
 /* Select 2 */
 
-
+/*
 @media (prefers-color-scheme: dark) {
+*/
+[data-bs-theme="dark"] {
 
     .select2-container .select2-choice {
         color: #fff;
@@ -300,7 +305,7 @@
 
     .select2-container-multi .select2-choices .select2-search-choice {
         color: #000;
- 
+
     }
 
     .select2-search-choice-close::before {

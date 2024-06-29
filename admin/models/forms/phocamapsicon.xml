@@ -20,11 +20,11 @@
 
 <field name="ordering" type="PhocaMapsOrdering" table="icon" class="form-select" label="COM_PHOCAMAPS_FIELD_ORDERING_LABEL" description="COM_PHOCAMAPS_FIELD_ORDERING_DESC" />
 
-	</fieldset>	
-	
+	</fieldset>
+
 	<fieldset name="publish" label="COM_PHOCAMAPS_GROUP_LABEL_PUBLISHING_DETAILS" >
 
-<field name="published" type="list" label="COM_PHOCAMAPS_FIELD_PUBLISHED_LABEL" description="COM_PHOCAMAPS_FIELD_PUBLISHED_DESC" class="form-control" size="1" default="1">
+<field name="published" type="list" label="COM_PHOCAMAPS_FIELD_PUBLISHED_LABEL" description="COM_PHOCAMAPS_FIELD_PUBLISHED_DESC" class="form-select" size="1" default="1">
 	<option value="1">JPUBLISHED</option>
 	<option	value="0">JUNPUBLISHED</option>
 </field>

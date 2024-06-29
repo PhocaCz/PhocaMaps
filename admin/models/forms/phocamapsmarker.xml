@@ -25,7 +25,7 @@
 	<option	value="1">COM_PHOCAMAPS_YES</option>
 </field>-->
 
-<field name="markerwindow" type="list" label="COM_PHOCAMAPS_FIELD_MARKER_WINDOW_LABEL" description="COM_PHOCAMAPS_FIELD_MARKER_WINDOW_DESC" class="form-control" size="1" default="0"  >
+<field name="markerwindow" type="list" label="COM_PHOCAMAPS_FIELD_MARKER_WINDOW_LABEL" description="COM_PHOCAMAPS_FIELD_MARKER_WINDOW_DESC" class="form-select" size="1" default="0"  >
 	<option value="0">COM_PHOCAMAPS_CLOSED</option>
 	<option value="1">COM_PHOCAMAPS_OPENED</option>
 	<option value="2">COM_PHOCAMAPS_HIDDEN</option>
@@ -34,7 +34,7 @@
 <field name="contentwidth" type="text" class="form-control" size="40" label="COM_PHOCAMAPS_MARKER_CONTENT_WIDTH_LABEL" description="COM_PHOCAMAPS_MARKER_CONTENT_WIDTH_DESC" />
 <field name="contentheight" type="text" class="form-control" size="40" label="COM_PHOCAMAPS_MARKER_CONTENT_HEIGHT_LABEL" description="COM_PHOCAMAPS_MARKER_CONTENT_HEIGHT_DESC" />
 
-<field name="displaygps" type="list" label="COM_PHOCAMAPS_FIELD_DISPLAY_GPS_LABEL" description="COM_PHOCAMAPS_FIELD_DISPLAY_GPS_DESC" class="form-control" size="1" default="0"  >
+<field name="displaygps" type="list" label="COM_PHOCAMAPS_FIELD_DISPLAY_GPS_LABEL" description="COM_PHOCAMAPS_FIELD_DISPLAY_GPS_DESC" class="form-select" size="1" default="0"  >
 	<option value="0">COM_PHOCAMAPS_NO</option>
 	<option	value="1">COM_PHOCAMAPS_YES</option>
 </field>
@@ -67,7 +67,7 @@
 
 <field name="osm_icon" type="text" default="circle" class="form-control" size="40" label="COM_PHOCAMAPS_MARKER_ICON_OSM_LABEL" description="COM_PHOCAMAPS_MARKER_ICON_OSM_DESC" />
 
-<field name="osm_marker_color" type="list" label="COM_PHOCAMAPS_FIELD_MARKER_COLOR_OSM_LABEL" description="COM_PHOCAMAPS_FIELD_MARKER_COLOR_OSM_DESC" class="form-control" size="1" default="blue" >
+<field name="osm_marker_color" type="list" label="COM_PHOCAMAPS_FIELD_MARKER_COLOR_OSM_LABEL" description="COM_PHOCAMAPS_FIELD_MARKER_COLOR_OSM_DESC" class="form-select" size="1" default="blue" >
 	<option	value="red">red</option>
 	<option	value="darkred">darkred</option>
 	<option	value="orange">orange</option>
@@ -81,7 +81,7 @@
 <field name="osm_icon_color" type="text" default="#ffffff" class="form-control" size="40" label="COM_PHOCAMAPS_ICON_COLOR_OSM_LABEL" description="COM_PHOCAMAPS_ICON_COLOR_OSM_DESC" />
 
 <field name="osm_icon_prefix" type="text" default="fa" class="form-control" size="40" label="COM_PHOCAMAPS_ICON_PREFIX_OSM_LABEL" description="COM_PHOCAMAPS_ICON_PREFIX_OSM_DESC" />
-<field name="osm_icon_spin" type="list" label="COM_PHOCAMAPS_FIELD_ICON_SPIN_OSM_LABEL" description="COM_PHOCAMAPS_FIELD_ICON_SPIN_OSM_DESC" class="form-control" size="1" default="0" >
+<field name="osm_icon_spin" type="list" label="COM_PHOCAMAPS_FIELD_ICON_SPIN_OSM_LABEL" description="COM_PHOCAMAPS_FIELD_ICON_SPIN_OSM_DESC" class="form-select" size="1" default="0" >
 	<option	value="0">COM_PHOCAMAPS_NO</option>
 	<option	value="1">COM_PHOCAMAPS_YES</option>
 </field>
@@ -94,11 +94,11 @@
 
 	<fieldset name="publish" label="COM_PHOCAMAPS_GROUP_LABEL_PUBLISHING_DETAILS" >
 
-<field name="published" type="list" label="COM_PHOCAMAPS_FIELD_PUBLISHED_LABEL" description="COM_PHOCAMAPS_FIELD_PUBLISHED_DESC" class="form-control" size="1" default="1">
+<field name="published" type="list" label="COM_PHOCAMAPS_FIELD_PUBLISHED_LABEL" description="COM_PHOCAMAPS_FIELD_PUBLISHED_DESC" class="form-select" size="1" default="1">
 	<option value="1">JPUBLISHED</option>
 	<option	value="0">JUNPUBLISHED</option>
 </field>
-<field name="language" type="contentlanguage" label="JFIELD_LANGUAGE_LABEL" description="COM_PHOCAMAPS_FIELD_LANGUAGE_MARKER_DESC" class="form-control">
+<field name="language" type="contentlanguage" label="JFIELD_LANGUAGE_LABEL" description="COM_PHOCAMAPS_FIELD_LANGUAGE_MARKER_DESC" class="form-select">
 	<option value="*">JALL</option>
 </field>
 

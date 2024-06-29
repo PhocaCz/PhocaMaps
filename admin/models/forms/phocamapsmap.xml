@@ -25,7 +25,7 @@
 <field name="description" type="editor" buttons="true" hide="pagebreak,readmore" class="form-control" label="COM_PHOCAMAPS_FIELD_DESC_LABEL" description="COM_PHOCAMAPS_FIELD_DESC_DESC" filter="\Joomla\CMS\Component\ComponentHelper::filterText"  />
 
 
-<field name="border" type="list" label="COM_PHOCAMAPS_FIELD_BORDER_LABEL" description="COM_PHOCAMAPS_FIELD_BORDER_DESC" class="form-control" size="1" default="1" typedesign="1" >
+<field name="border" type="list" label="COM_PHOCAMAPS_FIELD_BORDER_LABEL" description="COM_PHOCAMAPS_FIELD_BORDER_DESC" class="form-select" size="1" default="1" typedesign="1" >
 	<option value="0">COM_PHOCAMAPS_NONE</option>
 	<option	value="1">COM_PHOCAMAPS_GREY</option>
 	<option	value="2">COM_PHOCAMAPS_GREYWB</option>
@@ -33,21 +33,21 @@
 	<option	value="4">COM_PHOCAMAPS_BLACK</option>
 </field>
 
-<field name="typeid" type="list" label="COM_PHOCAMAPS_FIELD_MAP_TYPE_LABEL" description="COM_PHOCAMAPS_FIELD_MAP_TYPE_DESC" class="form-control" size="1" default="0"  >
+<field name="typeid" type="list" label="COM_PHOCAMAPS_FIELD_MAP_TYPE_LABEL" description="COM_PHOCAMAPS_FIELD_MAP_TYPE_DESC" class="form-select" size="1" default="0"  >
 	<option value="0">COM_PHOCAMAPS_ROADMAP</option>
 	<option	value="1">COM_PHOCAMAPS_SATELLITE</option>
 	<option	value="2">COM_PHOCAMAPS_HYBRID</option>
 	<option	value="3">COM_PHOCAMAPS_TERRAIN</option>
 </field>
 
-<field name="typecontrol" type="list" label="COM_PHOCAMAPS_FIELD_MAP_TYPE_CONTROL_LABEL" description="COM_PHOCAMAPS_FIELD_MAP_TYPE_CONTROL_DESC" class="form-control" size="1" default="1"  >
+<field name="typecontrol" type="list" label="COM_PHOCAMAPS_FIELD_MAP_TYPE_CONTROL_LABEL" description="COM_PHOCAMAPS_FIELD_MAP_TYPE_CONTROL_DESC" class="form-select" size="1" default="1"  >
 	<option value="0">COM_PHOCAMAPS_DISABLE</option>
 	<option	value="1">COM_PHOCAMAPS_default</option>
 	<option	value="2">COM_PHOCAMAPS_HORIZONTAL_BAR</option>
 	<option	value="3">COM_PHOCAMAPS_DROPDOWN_MENU</option>
 </field>
 
-<field name="typecontrolposition" type="list" label="COM_PHOCAMAPS_FIELD_MAP_TYPE_CONTROL_POS_LABEL" description="COM_PHOCAMAPS_FIELD_MAP_TYPE_CONTROL_POS_DESC" class="form-control" size="1" default="1"  >
+<field name="typecontrolposition" type="list" label="COM_PHOCAMAPS_FIELD_MAP_TYPE_CONTROL_POS_LABEL" description="COM_PHOCAMAPS_FIELD_MAP_TYPE_CONTROL_POS_DESC" class="form-select" size="1" default="1"  >
 	<option value="1">COM_PHOCAMAPS_TOP</option>
 	<option	value="2">COM_PHOCAMAPS_TOP_LEFT</option>
 	<option	value="3">COM_PHOCAMAPS_TOP_RIGHT</option>
@@ -58,22 +58,22 @@
 	<option	value="8">COM_PHOCAMAPS_RIGHT</option>
 </field>
 
-<field name="doubleclickzoom" type="list" label="COM_PHOCAMAPS_FIELD_DOUBLECLICK_ZOOM_LABEL" description="COM_PHOCAMAPS_FIELD_DOUBLECLICK_ZOOM_DESC" class="form-control" size="1" default="1"  >
+<field name="doubleclickzoom" type="list" label="COM_PHOCAMAPS_FIELD_DOUBLECLICK_ZOOM_LABEL" description="COM_PHOCAMAPS_FIELD_DOUBLECLICK_ZOOM_DESC" class="form-select" size="1" default="1"  >
 	<option value="0">COM_PHOCAMAPS_NO</option>
 	<option	value="1">COM_PHOCAMAPS_YES</option>
 </field>
 
-<field name="scrollwheelzoom" type="list" label="COM_PHOCAMAPS_FIELD_SCROLL_WHEEL_ZOOM_LABEL" description="COM_PHOCAMAPS_FIELD_SCROLL_WHEEL_ZOOM_DESC" class="form-control" size="1" default="1"  >
+<field name="scrollwheelzoom" type="list" label="COM_PHOCAMAPS_FIELD_SCROLL_WHEEL_ZOOM_LABEL" description="COM_PHOCAMAPS_FIELD_SCROLL_WHEEL_ZOOM_DESC" class="form-select" size="1" default="1"  >
 	<option value="0">COM_PHOCAMAPS_NO</option>
 	<option	value="1">COM_PHOCAMAPS_YES</option>
 </field>
 
-<field name="gesturehandling" type="list" label="COM_PHOCAMAPS_FIELD_GESTURE_HANDLING_LABEL" description="COM_PHOCAMAPS_FIELD_GESTURE_HANDLING_DESC" class="form-control" size="1" default=""  >
+<field name="gesturehandling" type="list" label="COM_PHOCAMAPS_FIELD_GESTURE_HANDLING_LABEL" description="COM_PHOCAMAPS_FIELD_GESTURE_HANDLING_DESC" class="form-select" size="1" default=""  >
 	<option value="">COM_PHOCAMAPS_DISABLED</option>
 	<option	value="cooperative">COM_PHOCAMAPS_COOPERATIVE</option>
 </field>
 
-<field name="zoomcontrol" type="list" label="COM_PHOCAMAPS_FIELD_NAVIGATION_CONTROL_LABEL" description="COM_PHOCAMAPS_FIELD_NAVIGATION_CONTROL_DESC" class="form-control" size="1" default="1"  >
+<field name="zoomcontrol" type="list" label="COM_PHOCAMAPS_FIELD_NAVIGATION_CONTROL_LABEL" description="COM_PHOCAMAPS_FIELD_NAVIGATION_CONTROL_DESC" class="form-select" size="1" default="1"  >
 	<option value="0">COM_PHOCAMAPS_DISABLE</option>
 	<option	value="1">COM_PHOCAMAPS_DEFAULT</option>
 	<option	value="2">COM_PHOCAMAPS_MINI_ZOOM</option>
@@ -81,7 +81,7 @@
 	<option	value="4">COM_PHOCAMAPS_ANDROID</option>
 </field>
 
-<field name="scalecontrol" type="list" label="COM_PHOCAMAPS_FIELD_SCALE_CONTROL_LABEL" description="COM_PHOCAMAPS_FIELD_SCALE_CONTROL_DESC" class="form-control" size="1" default="1"  >
+<field name="scalecontrol" type="list" label="COM_PHOCAMAPS_FIELD_SCALE_CONTROL_LABEL" description="COM_PHOCAMAPS_FIELD_SCALE_CONTROL_DESC" class="form-select" size="1" default="1"  >
 	<option value="0">COM_PHOCAMAPS_DISABLE</option>
 	<option	value="1">COM_PHOCAMAPS_ENABLE</option>
 </field>
@@ -91,7 +91,7 @@
 			<option value="1">COM_PHOCAMAPS_YES</option>
 		</field>
 
-<field name="displayroute" type="list" label="COM_PHOCAMAPS_FIELD_DISPLAY_ROUTE_LABEL" description="COM_PHOCAMAPS_FIELD_DISPLAY_ROUTE_DESC" class="form-control" size="1" default="1"  >
+<field name="displayroute" type="list" label="COM_PHOCAMAPS_FIELD_DISPLAY_ROUTE_LABEL" description="COM_PHOCAMAPS_FIELD_DISPLAY_ROUTE_DESC" class="form-select" size="1" default="1"  >
 	<option value="0">COM_PHOCAMAPS_NO</option>
 	<option	value="1">COM_PHOCAMAPS_YES</option>
 </field>
@@ -118,12 +118,12 @@
 
 	<fieldset name="publish" label="COM_PHOCAMAPS_GROUP_LABEL_PUBLISHING_DETAILS" >
 
-<field name="published" type="list" label="COM_PHOCAMAPS_FIELD_PUBLISHED_LABEL" description="COM_PHOCAMAPS_FIELD_PUBLISHED_DESC" class="form-control" size="1" default="1">
+<field name="published" type="list" label="COM_PHOCAMAPS_FIELD_PUBLISHED_LABEL" description="COM_PHOCAMAPS_FIELD_PUBLISHED_DESC" class="form-select" size="1" default="1">
 	<option value="1">JPUBLISHED</option>
 	<option	value="0">JUNPUBLISHED</option>
 </field>
 
-<field name="language" type="contentlanguage" label="JFIELD_LANGUAGE_LABEL" description="COM_PHOCAMAPS_FIELD_LANGUAGE_MAP_DESC" class="form-control">
+<field name="language" type="contentlanguage" label="JFIELD_LANGUAGE_LABEL" description="COM_PHOCAMAPS_FIELD_LANGUAGE_MAP_DESC" class="form-select">
 	<option value="*">JALL</option>
 </field>
 
