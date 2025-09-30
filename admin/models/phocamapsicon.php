@@ -14,10 +14,12 @@ use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Factory;
+use Phoca\PhocaMaps\MVC\Model\AdminModelTrait;
 jimport('joomla.application.component.modeladmin');
 
 class PhocaMapsCpModelPhocaMapsIcon extends AdminModel
 {
+	use AdminModelTrait;
 	protected	$option 		= 'com_phocamaps';
 	protected 	$text_prefix	= 'com_phocamaps';
 

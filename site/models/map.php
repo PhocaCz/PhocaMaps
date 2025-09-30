@@ -25,7 +25,7 @@ class PhocaMapsModelMap extends BaseDatabaseModel
 		parent::__construct();
 		$app				= Factory::getApplication();
 		$this->setState('filter.language',$app->getLanguageFilter());
-		$id 	= $app->input->get('id', 0, 'int');
+		$id 	= $app->getInput()->get('id', 0, 'int');
 		$this->setId((int)$id);
 	}
 

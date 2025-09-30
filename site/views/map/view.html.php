@@ -10,7 +10,7 @@ defined('_JEXEC') or die();
 use Joomla\CMS\MVC\View\HtmlView;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\File;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 jimport( 'joomla.application.component.view');
@@ -28,11 +28,11 @@ class PhocaMapsViewMap extends HtmlView
 
 		// PLUGIN WINDOW - we get information from plugin
 		$get			= array();
-		$get['tmpl']	= $app->input->get( 'tmpl', '', 'string' );
+		$get['tmpl']	= $app->getInput()->get( 'tmpl', '', 'string' );
 
 		HTMLHelper::_('jquery.framework', false);
 		HTMLHelper::stylesheet('media/com_phocamaps/css/phocamaps.css' );
-		if (File::exists(JPATH_SITE.'/media/com_phocamaps/css/custom.css')) {
+		if (is_file(JPATH_SITE.'/media/com_phocamaps/css/custom.css')) {
 			HTMLHelper::stylesheet('media/com_phocamaps/css/custom.css' );
 		}
 		$this->t['enable_kml']				= $this->t['p']->get( 'enable_kml', 0 );
@@ -217,7 +217,7 @@ class PhocaMapsViewMap extends HtmlView
 			jimport( 'joomla.filesystem.folder' );
 			jimport( 'joomla.filesystem.file' );
 			$path = PhocaMapsPath::getPath();
-			if (isset($this->map->kmlfile) && File::exists($path->kml_abs . $this->map->kmlfile)) {
+			if (isset($this->map->kmlfile) && is_file($path->kml_abs . $this->map->kmlfile)) {
 				$this->t['load_kml'] = $path->kml_rel_full . $this->map->kmlfile;
 			}
 		}
@@ -248,10 +248,8 @@ class PhocaMapsViewMap extends HtmlView
 					if (strpos($v,'/') === false) {
 						$v = 'phocamapskml/'.$v;
 					}
-					$v = trim($v,'/');
-
 					$tracksA[$k] = array();
-					$tracksA[$k]['file'] = File::exists(JPATH_ROOT.'/'.$v) ? Uri::base().$v : '';
+					$tracksA[$k]['file'] = is_file(JPATH_ROOT.'/'.$v) ? Uri::base().$v : '';
 					$tracksA[$k]['color'] = isset($colors[$k]) ? $colors[$k] : '';
 				}
 			}

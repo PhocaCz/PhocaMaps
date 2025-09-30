@@ -14,7 +14,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\MVC\Controller\BaseController;
 jimport('joomla.application.component.controller');
 $app		= Factory::getApplication();
-$option 	= $app->input->get('option');
+$option 	= $app->getInput()->get('option');
 
 $l['cp']	= array('COM_PHOCAMAPS_CONTROL_PANEL', '');
 $l['mp']	= array('COM_PHOCAMAPS_MAPS', 'phocamapsmaps');
@@ -25,8 +25,8 @@ $l['in']	= array('COM_PHOCAMAPS_INFO', 'phocamapsinfo');
 // Submenu view
 
 
-$view	= Factory::getApplication()->input->get('view');
-$layout	= Factory::getApplication()->input->get('layout');
+$view	= Factory::getApplication()->getInput()->get('view');
+$layout	= Factory::getApplication()->getInput()->get('layout');
 
 if ($layout == 'edit') {
 } else {

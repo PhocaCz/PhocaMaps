@@ -5,6 +5,7 @@
 	"license": "GNU/GPL",
 	"projectName": "PhocaMaps",
 	"extensionName": "Phoca Maps",
+	"nameSpace": "Phoca\\Component\\Phocamaps",
 	"projectInitials" : "PM",				  
 	"description": "Phoca Maps is Joomla! CMS component. It displays maps on your site rendered with help of Google Maps API or OpenStreetMap API.",
 	"projectUrl": "https://www.phoca.cz/phocamaps",

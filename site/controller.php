@@ -16,18 +16,18 @@ class PhocaMapsController extends BaseController
 {
 	public function display($cachable = false, $urlparams = false)
 	{
-		
-		if ( ! Factory::getApplication()->input->get('view') ) {
-			Factory::getApplication()->input->set('view', 'map' );
+
+		if ( ! Factory::getApplication()->getInput()->get('view') ) {
+			Factory::getApplication()->getInput()->set('view', 'map' );
 		}
-		
+
 		$paramsC 	= ComponentHelper::getParams('com_phocamaps');
 		$cache 		= $paramsC->get( 'enable_cache', 0 );
 		$cachable 	= false;
 		if ($cache == 1) {
 			$cachable 	= true;
 		}
-		
+
 		$document 	= Factory::getDocument();
 
 		$safeurlparams = array('catid'=>'INT','id'=>'INT','cid'=>'ARRAY','year'=>'INT','month'=>'INT','limit'=>'INT','limitstart'=>'INT',

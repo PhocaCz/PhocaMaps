@@ -10,7 +10,7 @@ defined('_JEXEC') or die('Restricted access');
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 $app				= Factory::getApplication();
-if ($app->input->get( 'print', '', 'int' ) == 1 || $app->input->get( 'tmpl', '', 'string' ) == 'component') {
+if ($app->getInput()->get( 'print', '', 'int' ) == 1 || $app->getInput()->get( 'tmpl', '', 'string' ) == 'component') {
 
 	$foutput = '<div style="clear:both"></div>';
 	echo '<div id="phocamaps" class="phocamaps'.$this->t['p']->get( 'pageclass_sfx' ).'">';

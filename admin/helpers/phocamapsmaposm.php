@@ -756,6 +756,7 @@ class PhocaMapsMapOsm
 		$o[] = implode("\n", $this->output);
 		$o[] = '})';
 		Factory::getDocument()->addScriptDeclaration(implode("\n", $o));
+
 	}
 }
 ?>

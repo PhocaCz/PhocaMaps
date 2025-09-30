@@ -32,6 +32,6 @@ require_once( JPATH_COMPONENT.'/helpers/html/batch.php' );
 
 jimport('joomla.application.component.controller');
 $controller	= BaseController::getInstance('PhocaMapsCp');
-$controller->execute(Factory::getApplication()->input->get('task'));
+$controller->execute(Factory::getApplication()->getInput()->get('task'));
 $controller->redirect();
 ?>

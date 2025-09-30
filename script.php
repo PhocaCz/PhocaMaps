@@ -8,8 +8,8 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License version 2 or later;
  */
 defined( '_JEXEC' ) or die( 'Restricted access' );
-use Joomla\CMS\Filesystem\Folder;
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\Folder;
+use Joomla\Filesystem\File;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 
@@ -33,7 +33,7 @@ class com_phocamapsInstallerScript
 		$msg = '';
 		foreach ($folder as $k => $v) {
 
-			if (!Folder::exists( $v[1])) {
+			if (!is_dir( $v[1])) {
 
 				if (Folder::create( $v[1], 0755 )) {
 
@@ -275,6 +275,12 @@ class com_phocamapsInstallerScript
 	color: #fff;
 }
 
+.g5i .g5-phoca a::before {
+   content: none;
+}
+.alert.alert-info a.g5-button {
+   color: #fff;
+}
 
 .upBox {
     display: flex;

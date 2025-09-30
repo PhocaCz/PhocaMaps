@@ -16,7 +16,7 @@ use Joomla\CMS\Language\Text;
 //$o[]= 'jQuery(\'.phTabs ul li a\').click(function(){ setTimeout(function() { map'.$this->name.$this->id.'.invalidateSize(); }, 0);});';
 
 $app	= Factory::getApplication();
-if ($app->input->get( 'print', '', 'int' ) == 1 || $app->input->get( 'tmpl', '', 'string' ) == 'component') {
+if ($app->getInput()->get( 'print', '', 'int' ) == 1 || $app->getInput()->get( 'tmpl', '', 'string' ) == 'component') {
 
 	$foutput = '<div style="clear:both"></div>';
 	echo '<div id="phocamaps" class="phocamaps'.$this->t['p']->get( 'pageclass_sfx' ).'">';
@@ -271,6 +271,7 @@ if ((!isset($this->map->longitude))
 		$map->renderRouting(0,0,$lat,$lng, $mId, $markerIconOptions, $this->map->lang);
 		$map->renderEasyPrint();
 		$map->renderMap();
+
 }
 
 

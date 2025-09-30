@@ -20,12 +20,12 @@ class PhocaMapsHelperRoute
 		$needles = array(
 			'map'  => (int) $id
 		);
-		
-		
+
+
 		if ($idAlias != '') {
 			$id = $id . ':' . $idAlias;
 		}
-		
+
 		//Create the link
 		$link = 'index.php?option=com_phocamaps&view=map&id='. $id;
 
@@ -37,13 +37,13 @@ class PhocaMapsHelperRoute
 
 		return $link;
 	}
-	
+
 	public static function getPrintRouteRoute($id, $idAlias = '', $suffix = '') {
 		$needles = array(
 			'map'  => (int) $id
 		);
-		
-		
+
+
 		if ($idAlias != '') {
 			$id = $id . ':' . $idAlias;
 		}
@@ -51,9 +51,9 @@ class PhocaMapsHelperRoute
 		if ($suffix != '') {
 			$suffix = '&'. $suffix;
 		}
-		
+
 		$link = 'index.php?option=com_phocamaps&view=route&id='. $id . $suffix;
-		
+
 		if($item = PhocaMapsHelperRoute::_findItem($needles)) {
 			if(isset($item->id)) {
 				$link .= '&Itemid='.$item->id;
@@ -76,16 +76,16 @@ class PhocaMapsHelperRoute
 		$items		= $menu->getItems('component', 'com_phocamaps');
 
 		if(!$items) {
-			return  $app->input->get('id', 0, 'int');
+			return  $app->getInput()->get('id', 0, 'int');
 			//return null;
 		}
-		
+
 		$match = null;
-		
+
 
 		foreach($needles as $needle => $id)
 		{
-			
+
 			if ($notCheckId == 0) {
 				foreach($items as $item) {
 					if ((@$item->query['view'] == $needle) && (@$item->query['id'] == $id)) {

@@ -13,10 +13,12 @@ defined( '_JEXEC' ) or die();
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
+use Phoca\PhocaMaps\MVC\Model\AdminModelTrait;
 jimport('joomla.application.component.modellist');
 
 class PhocaMapsCpModelPhocaMapsMarkers extends ListModel
 {
+	use AdminModelTrait;
 	protected	$option 		= 'com_phocamaps';
 
 	public function __construct($config = array())
