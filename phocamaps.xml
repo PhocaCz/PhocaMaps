@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="component" method="upgrade" version="5.0">
+<extension type="component" method="upgrade" version="6.0">
 	<name>com_phocamaps</name>
 	<author>Jan Pavelka (www.phoca.cz)</author>
-	<creationDate>30/09/2025</creationDate>
+	<creationDate>24/10/2025</creationDate>
 	<authorEmail></authorEmail>
 	<authorUrl>https://www.phoca.cz</authorUrl>
 	<copyright>Jan Pavelka</copyright>
 	<license>GNU/GPL</license>
-	<version>5.1.0</version>
+	<version>6.0.0</version>
 	<description>COM_PHOCAMAPS_XML_DESCRIPTION</description>
 	<namespace path="src">Phoca\Component\Phocamaps</namespace>
 	<scriptfile>script.php</scriptfile>
