@@ -13,6 +13,8 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Router\Route;
+use Joomla\Utilities\IpHelper;
+
 require_once( JPATH_ADMINISTRATOR.'/components/com_phocamaps/helpers/phocamapsicon.php' );
 /* Google Maps Version 3 */
 class PhocaMapsMap
@@ -76,6 +78,10 @@ class PhocaMapsMap
 		$key               = $paramsC->get('maps_api_key', '');
 		$ssl               = $paramsC->get('load_api_ssl', 1);
 		$marker_clustering = $paramsC->get('marker_clustering', 0);
+		$lazy_loading = (int) $paramsC->get('google_maps_lazy_loading', 300);
+		$ipList = preg_split('/\s*\n\s*/', $paramsC->get('ip_list', ''));
+		if (IpHelper::IPinList($this->getIp(), $ipList))
+			$key = "";
 
 
 		if ($ssl) {
@@ -106,9 +112,45 @@ class PhocaMapsMap
 
 		$initMaps = 'initMaps' . $id;
 
-
 		// &libraries=marker
-		$s = '<script async src="' . $h . 'maps.googleapis.com/maps/api/js?callback=' . $initMaps . $k . $l . '&loading=async" type="text/javascript"></script>';
+		$scriptUrl = $h . 'maps.googleapis.com/maps/api/js?callback=' . $initMaps . $k . $l . '&loading=async';
+		if ($lazy_loading <= 0) {
+			$s = '<script async src="' . $scriptUrl . '" type="text/javascript"></script>';
+		}
+		else {
+			$s = '<script>
+			document.addEventListener("DOMContentLoaded", function () {
+    const mapDiv = document.querySelector("[data-lazy-phoca-map]");
+
+    if (!mapDiv) return;
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                loadGoogleMaps();
+                observer.disconnect();
+            }
+        });
+    }, {
+        rootMargin: "' . $lazy_loading . 'px" // načti knihovnu už 300px před mapou
+    });
+
+    observer.observe(mapDiv);
+
+    function loadGoogleMaps() {
+        if (window.googleMapsLoaded) return;
+        window.googleMapsLoaded = true;
+
+        const script = document.createElement("script");
+        script.src =
+            "' . $scriptUrl . '";
+        script.async = true;
+        document.body.appendChild(script);
+    }
+});
+</script>';
+		}
+		//$s = '<script async src="' . $h . 'maps.googleapis.com/maps/api/js?callback=' . $initMaps . $k . $l . '&loading=async" type="text/javascript"></script>';
 
 		if ($marker_clustering == 1) {
 			$s .= '<script async src="' . Uri::root(true) . '/media/com_phocamaps/js/gm/markerclustererplus.min.js"></script>';
@@ -1164,6 +1206,18 @@ class PhocaMapsMap
                     }
 		});';
 		return $js;
+	}
+
+	private function getIp(): string
+	{
+		$ip = IpHelper::getIp();
+
+		// MS Azure cloud servers contains port in IP address
+		if (preg_match('~^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}:[0-9]+$~', $ip)) {
+			$ip = preg_replace('~^([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}):[0-9]+$~', '$1', $ip);
+		}
+
+		return $ip;
 	}
 
 }
