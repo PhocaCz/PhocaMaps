@@ -14,6 +14,7 @@ use Joomla\CMS\Installer\Installer;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Factory;
+
 class PhocaMapsHelper
 {
 	public static function strTrimAll($input) {

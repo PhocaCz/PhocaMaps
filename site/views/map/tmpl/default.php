@@ -41,17 +41,17 @@ if ((!isset($this->map->longitude))
 	if ($this->t['border'] == '') {
 		echo '<div class="phocamaps-box" align="center" style="'.$this->t['stylesite'].'">';
 		if ($this->t['fullwidth'] == 1) {
-			echo '<div id="phocaMap'.$id.'" style="margin:0;padding:0;width:100%;height:'.$this->map->height.'"></div>';
+			echo '<div id="phocaMap'.$id.'" style="margin:0;padding:0;width:100%;height:'.$this->map->height.'"'.$this->t['lazy_loading_data'].'></div>';
 		} else {
-			echo '<div id="phocaMap'.$id.'" style="margin:0;padding:0;width:'.$this->map->width.';height:'.$this->map->height.'"></div>';
+			echo '<div id="phocaMap'.$id.'" style="margin:0;padding:0;width:'.$this->map->width.';height:'.$this->map->height.'"'.$this->t['lazy_loading_data'].'></div>';
 		}
 		echo '</div>';
 	} else {
 		echo '<div class="phocamaps-box phocamaps-box-border'.$this->t['border'].'" align="center" style="'.$this->t['stylesite'].'">';
 		if ($this->t['fullwidth'] == 1) {
-			echo '<div id="phocaMap'.$id.'" class="phocamaps-map" style="width:100%;height:'.$this->map->height.'"></div>';
+			echo '<div id="phocaMap'.$id.'" class="phocamaps-map" style="width:100%;height:'.$this->map->height.'"'.$this->t['lazy_loading_data'].'></div>';
 		} else {
-			echo '<div id="phocaMap'.$id.'" class="phocamaps-map" style="width:'.$this->map->width.';height:'.$this->map->height.'"></div>';
+			echo '<div id="phocaMap'.$id.'" class="phocamaps-map" style="width:'.$this->map->width.';height:'.$this->map->height.'"'.$this->t['lazy_loading_data'].'></div>';
 		}
 		echo '</div>';
 		//echo '</div></div></div></div></div>';

@@ -31,15 +31,30 @@ class PhocaMapsViewMap extends HtmlView
 		$get['tmpl']	= $app->getInput()->get( 'tmpl', '', 'string' );
 
 		HTMLHelper::_('jquery.framework', false);
-		HTMLHelper::stylesheet('media/com_phocamaps/css/phocamaps.css' );
+
+        $wa  = $app->getDocument()->getWebAssetManager();
+		$wa->registerAndUseStyle('com_phocamaps.phocamaps', 'media/com_phocamaps/css/phocamaps.css', array('version' => 'auto'));
+
+		//HTMLHelper::stylesheet('media/com_phocamaps/css/phocamaps.css' );
 		if (is_file(JPATH_SITE.'/media/com_phocamaps/css/custom.css')) {
-			HTMLHelper::stylesheet('media/com_phocamaps/css/custom.css' );
+			$wa->registerAndUseStyle('com_phocamaps.custom', 'media/com_phocamaps/css/custom.css', array('version' => 'auto'));
+			//HTMLHelper::stylesheet('media/com_phocamaps/css/custom.css' );
 		}
+
+		//HTMLHelper::stylesheet('media/com_phocamaps/css/phocamaps.css' );
+		//if (is_file(JPATH_SITE.'/media/com_phocamaps/css/custom.css')) {
+			//HTMLHelper::stylesheet('media/com_phocamaps/css/custom.css' );
+		//}
 		$this->t['enable_kml']				= $this->t['p']->get( 'enable_kml', 0 );
 		$this->t['display_print_route']		= $this->t['p']->get( 'display_print_route', 1 );
 		$this->t['close_opened_window']		= $this->t['p']->get( 'close_opened_window', 0 );
 		$this->t['load_api_ssl']			= (int)$this->t['p']->get( 'load_api_ssl', 0 );
 		$this->t['map_type']				= (int)$this->t['p']->get( 'map_type', 2 );
+        $this->t['lazy_loading'] 			= (int)$this->t['p']->get( 'google_maps_lazy_loading', 0 );
+        $this->t['lazy_loading_data'] = '';
+        if ($this->t['lazy_loading']  > 0) {
+            $this->t['lazy_loading_data'] = ' data-lazy-phoca-map';
+        }
 		// Moved to marker table
 		//$this->t['width_marker_content']	= $this->t['p']->get( 'width_marker_content', '' );
 		//$this->t['height_marker_content']	= $this->t['p']->get( 'height_marker_content', '' );

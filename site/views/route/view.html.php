@@ -21,9 +21,13 @@ class PhocaMapsViewRoute extends HtmlView
 		$app			= Factory::getApplication();
 		$this->t['p']	= $app->getParams();
 
-		HTMLHelper::stylesheet('media/com_phocamaps/css/phocamaps.css' );
+		$wa  = $app->getDocument()->getWebAssetManager();
+		$wa->registerAndUseStyle('com_phocamaps.phocamaps', 'media/com_phocamaps/css/phocamaps.css', array('version' => 'auto'));
+
+		//HTMLHelper::stylesheet('media/com_phocamaps/css/phocamaps.css' );
 		if (is_file(JPATH_SITE.'/media/com_phocamaps/css/custom.css')) {
-			HTMLHelper::stylesheet('media/com_phocamaps/css/custom.css' );
+			$wa->registerAndUseStyle('com_phocamaps.custom', 'media/com_phocamaps/css/custom.css', array('version' => 'auto'));
+			//HTMLHelper::stylesheet('media/com_phocamaps/css/custom.css' );
 		}
 
 		//$this->t['printview'] 	= $app->getInput()->get('print', 0, 'get', 'int');
