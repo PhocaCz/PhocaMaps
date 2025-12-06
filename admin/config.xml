@@ -44,6 +44,8 @@
 </field>
 
 <field name="maps_api_key" default=""  type="text" label="COM_PHOCAMAPS_FIELD_MAPS_API_KEY_LABEL" description="COM_PHOCAMAPS_FIELD_MAPS_API_KEY_DESC"/>
+<field name="google_maps_lazy_loading" type="number" default="300" min="0" filter="integer" label="COM_PHOCAMAPS_FIELD_GOOGLEMAPS_LAZYLOADING_LABEL" description="COM_PHOCAMAPS_FIELD_GOOGLEMAPS_LAZYLOADING_DESC" />
+<field name="ip_list" type="iplist" default="" label="COM_PHOCAMAPS_FIELD_GOOGLEMAPS_IPLIST_LABEL" description="COM_PHOCAMAPS_FIELD_GOOGLEMAPS_IPLIST_DESC" rows="10" cols="35" />
 
 <field name="google_maps_lazy_loading" type="number" default="0" min="0" filter="integer" label="COM_PHOCAMAPS_FIELD_GOOGLEMAPS_LAZYLOADING_LABEL" description="COM_PHOCAMAPS_FIELD_GOOGLEMAPS_LAZYLOADING_DESC" />
 <field name="ip_list" type="iplist" default="" label="COM_PHOCAMAPS_FIELD_GOOGLEMAPS_IPLIST_LABEL" description="COM_PHOCAMAPS_FIELD_GOOGLEMAPS_IPLIST_DESC" rows="10" cols="35" />
