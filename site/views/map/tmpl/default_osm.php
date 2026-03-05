@@ -163,18 +163,27 @@ if ((!isset($this->map->longitude))
 
 					//$hStyle = 'font-size:120%;margin: 5px 0px;font-weight:bold;';
 					//$text = '<div style="'.$hStyle.'">' . addslashes($markerV->title) . '</div>';
-					$text = '<div class="pmMarkerTitle">' . addslashes($markerV->title) . '</div>';
+					$text = '<div class="pmMarkerTitle">' . addslashes(htmlspecialchars($markerV->title)) . '</div>';
 
 					// Try to correct images in description
 					$markerV->description = PhocaMapsHelper::fixImagePath($markerV->description);
 					$markerV->description = str_replace('@', '&#64;', $markerV->description);
-					$text .= '<div>'. PhocaMapsHelper::strTrimAll(addslashes($markerV->description)).'</div>';
+
+					$allowed = '<p><b><i><strong><em><u><br><ul><li><a><img><table><tr><td><span>';
+					$markerV->description = strip_tags($markerV->description, $allowed);
+					$markerV->description = PhocaMapsHelper::strTrimAll($markerV->description);
+					$markerV->description = addslashes($markerV->description);
+
+
+					$text .= '<div>'. $markerV->description.'</div>';
 					if ($markerV->displaygps == 1) {
 						$text .= '<div class="pmgps"><table border="0"><tr><td><strong>'. Text::_('COM_PHOCAMAPS_GPS') . ': </strong></td>'
-								.'<td>'.PhocaMapsHelper::strTrimAll(addslashes($markerV->gpslatitude)).'</td></tr>'
+								.'<td>'.PhocaMapsHelper::strTrimAll(addslashes(htmlspecialchars($markerV->gpslatitude))).'</td></tr>'
 								.'<tr><td></td>'
-								.'<td>'.PhocaMapsHelper::strTrimAll(addslashes($markerV->gpslongitude)).'</td></tr></table></div>';
+								.'<td>'.PhocaMapsHelper::strTrimAll(addslashes(htmlspecialchars($markerV->gpslongitude))).'</td></tr></table></div>';
 					}
+
+					$markerV->title = htmlspecialchars($markerV->title);
 
 
 					if(empty($markerV->icon)) {
