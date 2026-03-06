@@ -48,7 +48,7 @@ class PhocaMapsModelMap extends BaseDatabaseModel
 			// Map
 			$where 		= array();
 			$where[]	= 'a.id = '.(int) $this->_id;
-			//$where[]	= 'a.published = 1';
+			$where[]	= 'a.published = 1';
 			// Filter by language
 			if ($this->getState('filter.language')) {
 				$where[] =  'a.language IN ('.$this->_db->Quote(Factory::getLanguage()->getTag()).','.$this->_db->Quote('*').')';
@@ -57,6 +57,7 @@ class PhocaMapsModelMap extends BaseDatabaseModel
 			$query = 'SELECT a.*'
 					.' FROM #__phocamaps_map AS a'
 					.' ' . $where;
+
 			$this->_db->setQuery($query);
 			$this->_data['map'] = $this->_db->loadObject();
 

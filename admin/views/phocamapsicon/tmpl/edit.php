@@ -42,6 +42,8 @@ echo $r->startTab('general', $tabs['general'], 'active');
 
 
 if ($this->item->url != '') {
+	$this->item->url = filter_var($this->item->url, FILTER_SANITIZE_URL);
+	$this->item->url = htmlspecialchars($this->item->url, ENT_QUOTES, 'UTF-8');
 	echo '<div class="ph-admin-additional-box">';
 	echo '<img src="'.$this->item->url.'" alt="" />';
 	echo '</div>';

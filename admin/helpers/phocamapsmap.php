@@ -283,12 +283,46 @@ class PhocaMapsMap
 		return ' var '.$this->_options.' = {'."\n";
 	}
 
+	function json_validate(string $json, int $depth = 512, int $flags = 0): bool {
+        if (empty($json)) {
+            return false;
+        }
+
+        json_decode($json, null, $depth, $flags);
+
+        return json_last_error() === JSON_ERROR_NONE;
+    }
+
 	function endMapOptions ($customOptions = ''){
 
 		$o = '';
 		if ($customOptions != '') {
 
-			$o .= "\n" . ', '. strip_tags($customOptions);
+			$pairs = explode(',', $customOptions);
+			$outputLines = [];
+
+			foreach ($pairs as $pair) {
+				$parts = explode(':', $pair, 2);
+				if (count($parts) === 2) {
+					// SECURITY: Only allow alphanumeric characters for the Key
+					// This prevents the user from adding "};" into the key name
+					$key = preg_replace('/[^a-z0-9_]/i', '', trim($parts[0]));
+
+					$value = trim($parts[1]);
+
+					if (!empty($key)) {
+						// SECURITY: json_encode handles quotes and semicolons in the value
+						// We strip the outer quotes from json_encode to fit your object syntax
+						$safeValue = json_encode($value);
+						$outputLines[] = "   " . $key . ": " . $safeValue;
+					}
+				}
+			}
+
+			// Join the cleaned lines with commas
+			$customOptionsString = implode(",\n", $outputLines);
+
+			$o .= "\n" . ', '. $customOptionsString;
 		}
 
 		$o .= ' };'."\n\n";
@@ -301,16 +335,25 @@ class PhocaMapsMap
 		$js = '';
 		if (!$trueOrFalse) {
 			if ($value == '') {
-				$js .= '   '.$option.': \'\'';
+				$js .= '   '.PhocaMapsHelper::filterValue($option, 'textjs').': \'\'';
 			} else {
-				$js .= '   '.$option.': '.$value;
+				if ($option == 'styles') {
+					if ($this->json_validate(trim($value))) {
+						$js .= '   '.PhocaMapsHelper::filterValue($option, 'textjs').': '.trim($value);
+					} else {
+						$js .= '   '.PhocaMapsHelper::filterValue($option, 'textjs').': \'\'';
+					}
+				} else {
+					$js .= '   '.PhocaMapsHelper::filterValue($option, 'textjs').': '.PhocaMapsHelper::filterValue($value, 'alphanumeric3');
+				}
+
 			}
 
 		} else {
 			if ($value == 0) {
-				$js .= '   '.$option.': false';
+				$js .= '   '.PhocaMapsHelper::filterValue($option, 'textjs').': false';
 			} else {
-				$js .= '   '.$option.': true';
+				$js .= '   '.PhocaMapsHelper::filterValue($option, 'textjs').': true';
 			}
 		}
 		return $js;
@@ -572,7 +615,7 @@ class PhocaMapsMap
 
 		if ((int)$iconExt > 0) {
 			// EXTERNAL ICON
-			$js =' var phocaImage'.$iconExt.$this->_id.' = new google.maps.MarkerImage(\''.$extIconUrl.'\'';
+			$js =' var phocaImage'.$iconExt.$this->_id.' = new google.maps.MarkerImage(\''.htmlspecialchars($extIconUrl).'\'';
 			if ($iObj != '') {
 				$iObjA = explode(';', $iObj);
 				$js.=',';
@@ -583,7 +626,7 @@ class PhocaMapsMap
 			$js.= ');'. "\n";
 
 			if ($extIconShadowUrl != '') {
-				$js.=' var phocaImageShadow'.$iconExt.$this->_id.' = new google.maps.MarkerImage(\''.$extIconShadowUrl.'\'';
+				$js.=' var phocaImageShadow'.$iconExt.$this->_id.' = new google.maps.MarkerImage(\''.htmlspecialchars($extIconShadowUrl).'\'';
 				if ($iObjShadow != '') {
 					$iObjAS = explode(';', $iObjShadow);
 					$js.=',';

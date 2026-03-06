@@ -105,6 +105,10 @@ echo $r->firstColumn($i, $item->id, $canChange, $saveOrder, $orderkey, $item->or
 echo $r->secondColumn($i, $item->id, $canChange, $saveOrder, $orderkey, $item->ordering);
 $imgU = '';
 if ($item->url != '') {
+
+	$item->url = filter_var($item->url, FILTER_SANITIZE_URL);
+	$item->url = htmlspecialchars($item->url, ENT_QUOTES, 'UTF-8');
+
 	$imgU =  '<img src="'.$item->url.'" alt="" />';
 }
 echo $r->td($imgU, "small ");
@@ -125,6 +129,8 @@ echo $r->td(HTMLHelper::_('jgrid.published', $item->published, $i, $this->t['tas
 
 $url = '';
 if ($item->url != '') {
+	$item->url = filter_var($item->url, FILTER_SANITIZE_URL);
+	$item->url = htmlspecialchars($item->url, ENT_QUOTES, 'UTF-8');
 	$url .= '<span>'.$item->url.'</span>';
 }
 if ($item->urls != '') {
