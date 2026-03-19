@@ -344,7 +344,15 @@ class PhocaMapsMap
 						$js .= '   '.PhocaMapsHelper::filterValue($option, 'textjs').': \'\'';
 					}
 				} else {
-					$js .= '   '.PhocaMapsHelper::filterValue($option, 'textjs').': '.PhocaMapsHelper::filterValue($value, 'alphanumeric3');
+
+
+					if (str_starts_with($value, '"') && str_ends_with($value, '"')) {
+						$value = '"' . PhocaMapsHelper::filterValue($value, 'alphanumeric3') . '"';
+					} else {
+						$value = PhocaMapsHelper::filterValue($value, 'alphanumeric3');
+					}
+
+					$js .= '   '.PhocaMapsHelper::filterValue($option, 'textjs').': '.$value;
 				}
 
 			}
