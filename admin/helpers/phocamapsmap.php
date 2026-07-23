@@ -1141,12 +1141,13 @@ class PhocaMapsMap
 		return $js;
 	}
 
-	function directionInitializeFunctionSpecificMap($from, $to){
+/*	function directionInitializeFunctionSpecificMap($from, $to){
+
 		$js ='function initMap'.$this->_id.'() {'."\n"
 
 		/*.'   '.$this->_tst.'.setAttribute("oldValue",0);'."\n"
 		.'   '.$this->_tst.'.setAttribute("refreshMap",0);'."\n"
-		.'   '.$this->_tstint.' = setInterval("CheckPhocaMap()",500);'."\n"*/
+		.'   '.$this->_tstint.' = setInterval("CheckPhocaMap()",500);'."\n"*//*
 
 		.'     '.$this->_dirdisplay.' = new google.maps.DirectionsRenderer();'."\n"
 		.'     '.$this->_dirservice.' = new google.maps.DirectionsService();'."\n"
@@ -1155,6 +1156,34 @@ class PhocaMapsMap
 		.'}'."\n\n";
 		//.'google.setOnLoadCallback(initialize'.$this->_id.');'."\n";
 		return $js;
+
+	}*/
+
+	function directionInitializeFunctionSpecificMap($from, $to){
+
+	   $id = preg_replace('/[^a-zA-Z0-9_]/', '', $this->_id);
+
+	   $fromDecoded = base64_decode($from);
+	   $toDecoded   = base64_decode($to);
+
+	   if ($fromDecoded === false) {
+		  $fromDecoded = '';
+	   }
+	   if ($toDecoded === false) {
+		  $toDecoded = '';
+	   }
+
+	   $fromJs = json_encode($fromDecoded, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+	   $toJs   = json_encode($toDecoded, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+
+	   $js ='function initMap'.$id.'() {'."\n"
+	   .'     '.$this->_dirdisplay.' = new google.maps.DirectionsRenderer();'."\n"
+	   .'     '.$this->_dirservice.' = new google.maps.DirectionsService();'."\n"
+	   .'     '.$this->_dirdisplay.'.setPanel(document.getElementById("directionsPanel'.$id.'"));'."\n"
+	   .'     setPhocaDir'.$id.'('.$fromJs.', '.$toJs.');'."\n"
+	   .'}'."\n\n";
+
+	   return $js;
 
 	}
 
@@ -1167,7 +1196,7 @@ class PhocaMapsMap
 	}
 
 
-	function getIconPrint($idMap, $idMapAlias = '', $lang = '') {
+/*	function getIconPrint($idMap, $idMapAlias = '', $lang = '') {
 
 		$suffix	= 'tmpl=component&print=1';
 		//$status = 'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no';
@@ -1196,7 +1225,36 @@ class PhocaMapsMap
 
 		return $output;
 
+	} */
+
+	function getIconPrint($idMap, $idMapAlias = '', $lang = '') {
+
+	   $id        = preg_replace('/[^a-zA-Z0-9]/', '', $this->_id);
+	   $suffix    = 'tmpl=component&print=1';
+	   $status    = 'width=640,height=480,menubar=yes,resizable=yes,scrollbars=yes,resizable=yes';
+
+	   $link      = PhocaMapsHelperRoute::getPrintRouteRoute($idMap, $idMapAlias, $suffix);
+	   $link      = Route::_($link);
+	   $isThereQM = preg_match("/\?/i", $link);
+
+	   $amp       = $isThereQM ? '&amp;' : '?';
+
+	   if ($lang != '') {
+		  $link .= $amp . 'lang=' . urlencode($lang);
+		  $amp   = '&amp;';
+	   }
+
+	   $onclick   = 'window.open(this.href + \'' . $amp . 'from=\' + encodeURIComponent(from64' . $id . ') + \'&amp;to=\' + encodeURIComponent(to64' . $id . '), \'phocaMapRoute\', \'' . $status . '\'); return false;';
+
+	   $output    = '<div class="pmprintroutelink">'
+	   . '<a href=\\u0022' . htmlspecialchars($link, ENT_QUOTES, 'UTF-8') . '\\u0022 rel=\\u0022nofollow\\u0022 onclick=\\u0022' . $onclick . '\\u0022 >' . Text::_('COM_PHOCAMAPS_PRINT_ROUTE', true, true, false) . '</a>'
+	   . '</div>'
+	   . '<div style="clear:both"></div>';
+
+	   return $output;
+
 	}
+
 
 	function getIconPrintScreen() {
 		$output = '<div class="pmprintscreen"><a class="pmprintscreena" href="javascript: void()" onclick="window.print();return false;">'.Text::_('COM_PHOCAMAPS_PRINT').'</a>'
