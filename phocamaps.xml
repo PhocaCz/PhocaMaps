@@ -77,7 +77,9 @@
 			<folder>help</folder>
 			<folder>assets</folder>
 			<folder>models</folder>
+			<filename>FOSS.md</filename>
 			<filename>index.html</filename>
+			<filename>LICENSE</filename>
 			<filename>config.xml</filename>
 			<filename>access.xml</filename>
 			<filename>controller.php</filename>
