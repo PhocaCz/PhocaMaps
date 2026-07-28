@@ -62,19 +62,19 @@
 		<description><![CDATA[ Phoca Maps is Joomla! CMS component. It displays maps on your site rendered with help of Google Maps API or OpenStreetMap API. ]]></description>
 		<element>com_phocamaps</element>
 		<type>component</type>
-		<version>6.1.0</version>
-		<infourl title="Phoca Maps 6.1.0">http://www.phoca.cz/version/index.php?phocamaps=6.1.0</infourl>
+		<version>6.1.1</version>
+		<infourl title="Phoca Maps 6.1.1">http://www.phoca.cz/version/index.php?phocamaps=6.1.1</infourl>
 		<downloads>
-			<downloadurl type="full" format="zip">https://github.com/PhocaCz/PhocaMaps/releases/download/6.1.0/com_phocamaps_v6.1.0.zip</downloadurl>
+			<downloadurl type="full" format="zip">https://github.com/PhocaCz/PhocaMaps/releases/download/6.1.1/com_phocamaps_v6.1.1.zip</downloadurl>
 		</downloads>
-		<sha512>ee5d03689d23f34d70040d30a5473ebddf901f8d57191e7aafb0c255c3f53102d65dbefab5173cc293110aa328ed5c7fd34bcae3aa8e0a47e970e67d4856301f</sha512>
+		<sha512>c366202b98f77f0f3e0822fb7ff24b99b3829c8c5120a02cabc4f954fc07ee2b90ff78d4738944e5f29be33938d87e5d182b76c51476e7983064f115e0d6917c</sha512>
 		<tags>
 			<tag>stable</tag>
 		</tags>
 		<maintainer><![CDATA[ Phoca.cz ]]></maintainer>
 		<maintainerurl>https://www.phoca.cz/</maintainerurl>
 		<section>Updates</section>
-		<targetplatform name="joomla" version="(5|6)\.*"/>
+		<targetplatform name="joomla" version="6\.*"/>
 		<client>administrator</client>
 	</update>
 </updates>

@@ -34,6 +34,7 @@ class PhocaMapsMapOsm
 	public $zoomcontrol				= '';
 	public $easyprint				= '';
 	public $markerclustering		= 0;
+	public $referrerpolicy 			= '';
 
 	/*var $_map			= 'mapPhocaMap';
 	var $_latlng		= 'phocaLatLng';
@@ -66,9 +67,7 @@ class PhocaMapsMapOsm
 		$this->easyprint			= $paramsC->get( 'osm_easyprint', 0 );
 
 		$this->markerclustering		= $paramsC->get( 'marker_clustering', 0 );
-
-
-
+		$this->referrerpolicy		= $paramsC->get( 'osm_referrer_policy', '' );
 		$this->id	= $id;
 
 
@@ -174,15 +173,23 @@ class PhocaMapsMapOsm
 		$app = Factory::getApplication();
 
 		// Possible new parameters
+
+		$referrerOption = '';
+		if (!empty($this->referrerpolicy)) {
+			$referrerOption = '    referrerPolicy: \''.$this->referrerpolicy.'\',';
+		}
+
 		$thunderForestMapType = $this->thunderforestmaptype;
 		$thunderForestKey	= $this->maprouterapikey;
 		$mapBoxKey	= $this->maprouterapikey;
 		$type = $this->osmmaptype;
 
 		$o = array();
+
 		if ($type === "osm_de") {
 
 			$o[] = 'L.tileLayer(\'https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png\', {';
+			$o[] = $referrerOption;
 			$o[] = '	maxZoom: 18,';
 			$o[] = '	attribution: \'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>\'';
 			$o[] = '}).addTo(map'.$this->name.$this->id.');';
@@ -192,6 +199,7 @@ class PhocaMapsMapOsm
 			//$o[] = 'L.tileLayer(\'http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png\', {';
 			$o[] = 'L.tileLayer(\'https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png\', {';
 
+			$o[] = $referrerOption;
 			$o[] = '	maxZoom: 18,';
 			$o[] = '	attribution: \'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>\'';
 			$o[] = '}).addTo(map'.$this->name.$this->id.');';
@@ -207,6 +215,7 @@ class PhocaMapsMapOsm
 				return false;
 			}
 			$o[] = 'L.tileLayer(\'https://{s}.tile.thunderforest.com/'.PhocaMapsHelper::filterValue($thunderForestMapType).'/{z}/{x}/{y}.png?apikey={apikey}\', {';
+			$o[] = $referrerOption;
 			$o[] = '	maxZoom: 22,';
 			$o[] = '	apikey: \''.PhocaMapsHelper::filterValue($thunderForestKey).'\',';
 			$o[] = '	attribution: \'&copy; <a href="https://www.thunderforest.com/" target="_blank">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>\'';
@@ -221,6 +230,7 @@ class PhocaMapsMapOsm
 
 
 			$o[] = 'L.tileLayer(\'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token='.PhocaMapsHelper::filterValue($mapBoxKey).'\', {';
+			$o[] = $referrerOption;
 			$o[] = '	maxZoom: 18,';
 			$o[] = '	attribution: \'Map data &copy; <a href="https://openstreetmap.org" target="_blank">OpenStreetMap</a> contributors, \' + ';
 			$o[] = '		\'<a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank" target="_blank">CC-BY-SA</a>, \' + ';
@@ -231,6 +241,7 @@ class PhocaMapsMapOsm
 		} else if ($type === 'opentopomap') {
 
 			$o[] = 'L.tileLayer(\'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png\', {';
+			$o[] = $referrerOption;
 			$o[] = '	maxZoom: 17,';
 			$o[] = '	attribution: \'Map data: &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>, <a href="https://viewfinderpanoramas.org" target="_blank">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org" target="_blank">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank">CC-BY-SA</a>)\'';
 			$o[] = '}).addTo(map'.$this->name.$this->id.');';
@@ -243,6 +254,7 @@ class PhocaMapsMapOsm
 			*/
 		} else if ($type === 'wikimedia') {
 			$o[] = 'L.tileLayer(\'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png\', {';
+			$o[] = $referrerOption;
 			$o[] = '	maxZoom: 18,';
 			$o[] = '	attribution: \'&copy; <a href="https://wikimediafoundation.org/wiki/Maps_Terms_of_Use" target="_blank">Wikimedia maps</a> | Map data © <a href="https://openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a>\'';
 			$o[] = '}).addTo(map'.$this->name.$this->id.');';
@@ -250,6 +262,7 @@ class PhocaMapsMapOsm
 		} else if ($type == 'osm_fr') {
 
 			$o[] = 'L.tileLayer(\'https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png\', {';
+			$o[] = $referrerOption;
 			$o[] = '	maxZoom: 20,';
 			$o[] = '	attribution: \'&copy; <a href="https://www.openstreetmap.fr" target="_blank">Openstreetmap France</a> & <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>\'';
 			$o[] = '}).addTo(map'.$this->name.$this->id.');';
@@ -257,6 +270,7 @@ class PhocaMapsMapOsm
 		} else if ($type == 'osm_hot') {
 
 			$o[] = 'L.tileLayer(\'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png\', {';
+			$o[] = $referrerOption;
 			$o[] = '	maxZoom: 20,';
 			$o[] = '	attribution: \'&copy; <a href="https://hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> & <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>\'';
 			$o[] = '}).addTo(map'.$this->name.$this->id.');';
@@ -265,6 +279,7 @@ class PhocaMapsMapOsm
 
 
 			$o[] = 'L.tileLayer(\'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\', {';
+			$o[] = $referrerOption;
 			$o[] = '	maxZoom: 18,';
 			$o[] = '	attribution: \'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>\'';
 			$o[] = '}).addTo(map'.$this->name.$this->id.');';

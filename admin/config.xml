@@ -99,6 +99,16 @@
 	<option value="1">COM_PHOCAMAPS_YES</option>
 </field>
 
+<field name="osm_referrer_policy" type="list" label="COM_PHOCAMAPS_OSM_REFERRER_POLICY_LABEL" description="COM_PHOCAMAPS_OSM_REFERRER_POLICY_DESC" default="">
+    <option value="">COM_PHOCAMAPS_NONE</option>
+    <option value="no-referrer">no-referrer</option>
+    <option value="no-referrer-when-downgrade">no-referrer-when-downgrade</option>
+    <option value="origin">origin</option>
+    <option value="origin-when-cross-origin">origin-when-cross-origin</option>
+    <option value="strict-origin">strict-origin</option>
+    <option value="strict-origin-when-cross-origin">strict-origin-when-cross-origin</option>
+</field>
+
 
 <field name="phocahead1" type="phocahead" default="COM_PHOCAMAPS_ROUTING_SETTINGS_LABEL" label="" description=""/>
 
