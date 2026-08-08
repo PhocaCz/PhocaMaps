@@ -67,7 +67,7 @@
 		<downloads>
 			<downloadurl type="full" format="zip">https://github.com/PhocaCz/PhocaMaps/releases/download/6.1.2/com_phocamaps_v6.1.2.zip</downloadurl>
 		</downloads>
-		<sha512>3b4d1086729c20b2c265bfb822ffe92be8da60d4f5debe1607163cc84e1e12736522916b84f0beea89c9e4571b85ac543bc3a7d0d572601b9320df86d6d6a8e3</sha512>
+		<sha512>2ac8047af82b009b1839487b380da9f5c6a4bc47da88f7d54b031f0308cd2958bdd277fc358cd703fbcbce60108915eb78472e55efef7e238a74a9f48c9f2f8a</sha512>
 		<tags>
 			<tag>stable</tag>
 		</tags>
