@@ -62,12 +62,12 @@
 		<description><![CDATA[ Phoca Maps is Joomla! CMS component. It displays maps on your site rendered with help of Google Maps API or OpenStreetMap API. ]]></description>
 		<element>com_phocamaps</element>
 		<type>component</type>
-		<version>6.1.1</version>
-		<infourl title="Phoca Maps 6.1.1">http://www.phoca.cz/version/index.php?phocamaps=6.1.1</infourl>
+		<version>6.1.2</version>
+		<infourl title="Phoca Maps 6.1.2">http://www.phoca.cz/version/index.php?phocamaps=6.1.2</infourl>
 		<downloads>
-			<downloadurl type="full" format="zip">https://github.com/PhocaCz/PhocaMaps/releases/download/6.1.1/com_phocamaps_v6.1.1.zip</downloadurl>
+			<downloadurl type="full" format="zip">https://github.com/PhocaCz/PhocaMaps/releases/download/6.1.2/com_phocamaps_v6.1.2.zip</downloadurl>
 		</downloads>
-		<sha512>c366202b98f77f0f3e0822fb7ff24b99b3829c8c5120a02cabc4f954fc07ee2b90ff78d4738944e5f29be33938d87e5d182b76c51476e7983064f115e0d6917c</sha512>
+		<sha512>3b4d1086729c20b2c265bfb822ffe92be8da60d4f5debe1607163cc84e1e12736522916b84f0beea89c9e4571b85ac543bc3a7d0d572601b9320df86d6d6a8e3</sha512>
 		<tags>
 			<tag>stable</tag>
 		</tags>

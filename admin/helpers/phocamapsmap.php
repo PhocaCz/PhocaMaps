@@ -1246,10 +1246,18 @@ class PhocaMapsMap
 
 	   $onclick   = 'window.open(this.href + \'' . $amp . 'from=\' + encodeURIComponent(from64' . $id . ') + \'&amp;to=\' + encodeURIComponent(to64' . $id . '), \'phocaMapRoute\', \'' . $status . '\'); return false;';
 
-	   $output    = '<div class="pmprintroutelink">'
+	   /*$output    = '<div class="pmprintroutelink">'
 	   . '<a href=\\u0022' . htmlspecialchars($link, ENT_QUOTES, 'UTF-8') . '\\u0022 rel=\\u0022nofollow\\u0022 onclick=\\u0022' . $onclick . '\\u0022 >' . Text::_('COM_PHOCAMAPS_PRINT_ROUTE', true, true, false) . '</a>'
 	   . '</div>'
-	   . '<div style="clear:both"></div>';
+	   . '<div style="clear:both"></div>';*/
+
+	   // Escape single quotes inside the JS logic so they don't break the outer string literal
+		$safe_onclick = str_replace("'", "\\u0027", $onclick);
+
+		$output    = '<div class="pmprintroutelink">'
+		. '<a href=\\u0022' . htmlspecialchars($link, ENT_QUOTES, 'UTF-8') . '\\u0022 rel=\\u0022nofollow\\u0022 onclick=\\u0022' . $safe_onclick . '\\u0022 >' . Text::_('COM_PHOCAMAPS_PRINT_ROUTE', true, true, false) . '</a>'
+		. '</div>'
+		. '<div style="clear:both"></div>';
 
 	   return $output;
 
