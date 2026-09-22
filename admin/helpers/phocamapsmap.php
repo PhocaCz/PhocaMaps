@@ -73,12 +73,16 @@ class PhocaMapsMap
 	 */
 	function loadAPI( $id = '', $lang = '') {
 		$document = Factory::getDocument();
+		$app = Factory::getApplication();
 
 		$paramsC           = ComponentHelper::getParams('com_phocamaps');
 		$key               = $paramsC->get('maps_api_key', '');
 		$ssl               = $paramsC->get('load_api_ssl', 1);
 		$marker_clustering = $paramsC->get('marker_clustering', 0);
 		$lazy_loading 	   = (int) $paramsC->get('google_maps_lazy_loading', 0);
+		if ($app->isClient('administrator')) {
+			$lazy_loading = 0;
+		}
 		$ipList 		   = preg_split('/\s*\n\s*/', $paramsC->get('ip_list', ''));
 		if (IpHelper::IPinList($this->getIp(), $ipList)) {
 			$key = "";
