@@ -19,6 +19,8 @@
 
 <field name="catid" type="phocamapsmap" default="" label="COM_PHOCAMAPS_FIELD_SELECT_MAP_LABEL" description="COM_PHOCAMAPS_FIELD_SELECT_MAP_LABEL" required="true" class="form-select" />
 
+<field name="tags" type="phocamapstags" multiple="true" label="COM_PHOCAMAPS_FIELD_TAGS_LABEL" description="COM_PHOCAMAPS_FIELD_TAGS_DESC" />
+
 <!--
 <field name="markerwindow" type="list" label="COM_PHOCAMAPS_FIELD_OPEN_MARKER_WINDOW_LABEL" description="COM_PHOCAMAPS_FIELD_OPEN_MARKER_WINDOW_DESC" class="form-control" size="1" default="0"  >
 	<option value="0">COM_PHOCAMAPS_NO</option>
@@ -65,7 +67,7 @@
 <field name="iconext" type="phocaselecticon" label="COM_PHOCAMAPS_FIELD_MARKER_ICON_EXT_LABEL" description="COM_PHOCAMAPS_FIELD_MARKER_ICON_EXT_DESC" class="form-select" size="1" default="0"  />
 
 
-<field name="osm_icon" type="text" default="circle" class="form-control" size="40" label="COM_PHOCAMAPS_MARKER_ICON_OSM_LABEL" description="COM_PHOCAMAPS_MARKER_ICON_OSM_DESC" />
+<field name="osm_icon" type="phocamapsfaicon" prefixfield="osm_icon_prefix" classfield="osm_icon_class" colorfield="osm_marker_color" iconcolorfield="osm_icon_color" spinfield="osm_icon_spin" default="circle" class="form-control" size="40" label="COM_PHOCAMAPS_MARKER_ICON_OSM_LABEL" description="COM_PHOCAMAPS_MARKER_ICON_OSM_DESC" />
 
 <field name="osm_marker_color" type="list" label="COM_PHOCAMAPS_FIELD_MARKER_COLOR_OSM_LABEL" description="COM_PHOCAMAPS_FIELD_MARKER_COLOR_OSM_DESC" class="form-select" size="1" default="blue" >
 	<option	value="red">red</option>
@@ -87,6 +89,28 @@
 </field>
 
 <field name="osm_icon_class" type="textarea" default="" class="form-control" size="40" label="COM_PHOCAMAPS_ICON_CLASS_OSM_LABEL" description="COM_PHOCAMAPS_ICON_CLASS_OSM_DESC" />
+<field name="mapy_icon" type="phocamapsfaicon" prefixfield="mapy_icon_prefix" classfield="mapy_icon_class" colorfield="mapy_marker_color" iconcolorfield="mapy_icon_color" spinfield="mapy_icon_spin" default="" class="form-control" size="40" label="COM_PHOCAMAPS_MARKER_ICON_OSM_LABEL" description="COM_PHOCAMAPS_MAPY_MARKER_ICON_DESC" />
+
+<field name="mapy_marker_color" type="list" label="COM_PHOCAMAPS_FIELD_MARKER_COLOR_OSM_LABEL" description="COM_PHOCAMAPS_FIELD_MARKER_COLOR_OSM_DESC" class="form-select" size="1" default="blue" >
+	<option	value="red">red</option>
+	<option	value="darkred">darkred</option>
+	<option	value="orange">orange</option>
+	<option	value="green">green</option>
+	<option	value="darkgreen">darkgreen</option>
+	<option	value="blue">blue</option>
+	<option	value="purple">purple</option>
+	<option	value="darkpurple">darkpurple</option>
+	<option	value="cadetblue">cadetblue</option>
+</field>
+<field name="mapy_icon_color" type="text" default="#ffffff" class="form-control" size="40" label="COM_PHOCAMAPS_ICON_COLOR_OSM_LABEL" description="COM_PHOCAMAPS_ICON_COLOR_OSM_DESC" />
+
+<field name="mapy_icon_prefix" type="text" default="fa" class="form-control" size="40" label="COM_PHOCAMAPS_ICON_PREFIX_OSM_LABEL" description="COM_PHOCAMAPS_ICON_PREFIX_OSM_DESC" />
+<field name="mapy_icon_spin" type="list" label="COM_PHOCAMAPS_FIELD_ICON_SPIN_OSM_LABEL" description="COM_PHOCAMAPS_FIELD_ICON_SPIN_OSM_DESC" class="form-select" size="1" default="0" >
+	<option	value="0">COM_PHOCAMAPS_NO</option>
+	<option	value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+<field name="mapy_icon_class" type="textarea" default="" class="form-control" size="40" label="COM_PHOCAMAPS_ICON_CLASS_OSM_LABEL" description="COM_PHOCAMAPS_ICON_CLASS_OSM_DESC" />
 
 
 

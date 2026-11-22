@@ -13,6 +13,8 @@
 		</field>
 
 		<field name="map_id" type="PhocaMapsMap" label="COM_PHOCAMAPS_FILTER_MAP_LABEL" description="COM_PHOCAMAPS_FILTER_MAP_DESC"   onchange="this.form.submit();" />
+
+		<field name="tag_id" type="PhocaMapsTag" label="COM_PHOCAMAPS_FILTER_TAG_LABEL" description="COM_PHOCAMAPS_FILTER_TAG_DESC"   onchange="this.form.submit();" />
 		
 
 		

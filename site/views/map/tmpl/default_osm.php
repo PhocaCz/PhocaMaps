@@ -19,11 +19,11 @@ $app	= Factory::getApplication();
 if ($app->getInput()->get( 'print', '', 'int' ) == 1 || $app->getInput()->get( 'tmpl', '', 'string' ) == 'component') {
 
 	$foutput = '<div style="clear:both"></div>';
-	echo '<div id="phocamaps" class="phocamaps'.$this->t['p']->get( 'pageclass_sfx' ).'">';
+	echo '<div id="phocamaps" class="phocamaps'.$this->escape($this->t['p']->get( 'pageclass_sfx' )).'">';
 } else {
-	echo '<div id="phocamaps" class="phocamaps'.$this->t['p']->get( 'pageclass_sfx' ).'">';
+	echo '<div id="phocamaps" class="phocamaps'.$this->escape($this->t['p']->get( 'pageclass_sfx' )).'">';
 	if ( $this->t['p']->def( 'show_page_heading', 1 ) ) {
-		echo '<h1>'. $this->t['p']->get('page_heading') . '</h1>';
+		echo '<h1>'. $this->escape($this->t['p']->get('page_heading')) . '</h1>';
 	}
 	$foutput = PhocaMapsHelper::getExtInfo();
 }
@@ -38,7 +38,12 @@ if ((!isset($this->map->longitude))
 	echo $this->t['description'];
 
 	$id		= uniqid();
-	$map	= new PhocaMapsMapOsm($id);
+	if ($this->t['map_type'] == 3) {
+		$map	= new PhocaMapsMapMapy($id);
+		$map->setMapOptions($this->map);
+	} else {
+		$map	= new PhocaMapsMapOsm($id);
+	}
 	//$map->loadAPI();
 	//$map->loadGeoXMLJS();
 	//$map->loadBase64JS();
@@ -208,8 +213,9 @@ if ((!isset($this->map->longitude))
 
 					$markerIconOptions = array();
 
-					if (isset($markerV->osm_icon) && $markerV->osm_icon != '') {
-						$markerIconOptions = $map->setMarkerIcon($id . 'm'.$markerV->id, $markerV->osm_icon, $markerV->osm_marker_color, $markerV->osm_icon_color, $markerV->osm_icon_prefix, $markerV->osm_icon_spin, $markerV->osm_icon_class);
+					$iconOptions = $map->getMarkerIconOptions($markerV);
+					if ($iconOptions['icon'] != '') {
+						$markerIconOptions = $map->setMarkerIcon($id . 'm'.$markerV->id, $iconOptions['icon'], $iconOptions['markercolor'], $iconOptions['iconcolor'], $iconOptions['prefix'], $iconOptions['spin'], $iconOptions['class']);
 					}
 
 					if ($i == 0) {

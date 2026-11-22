@@ -16,6 +16,8 @@ require_once( JPATH_ADMINISTRATOR.'/components/com_phocamaps/helpers/phocamapspa
 require_once( JPATH_ADMINISTRATOR.'/components/com_phocamaps/helpers/phocamaps.php' );
 require_once( JPATH_ADMINISTRATOR.'/components/com_phocamaps/helpers/phocamapsmap.php' );
 require_once( JPATH_ADMINISTRATOR.'/components/com_phocamaps/helpers/phocamapsmaposm.php' );
+require_once( JPATH_ADMINISTRATOR.'/components/com_phocamaps/helpers/phocamapsmapmapy.php' );
+require_once( JPATH_ADMINISTRATOR.'/components/com_phocamaps/helpers/phocamapstag.php' );
 
 // Require specific controller if requested
 if($controller = Factory::getApplication()->getInput()->get( 'controller')) {

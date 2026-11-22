@@ -15,4 +15,16 @@
 		</fieldset>
 	</fields>
 
+	<fields name="params">
+		<fieldset name="basic" label="COM_PHOCAMAPS_TAGS" addfieldpath="/administrator/components/com_phocamaps/models/fields">
+
+			<field name="tags_mode" type="list" default="0" class="form-select" label="COM_PHOCAMAPS_FIELD_TAGS_MODE_LABEL" description="COM_PHOCAMAPS_FIELD_TAGS_MODE_DESC">
+				<option value="0">COM_PHOCAMAPS_TAGS_MODE_MAP</option>
+				<option value="1">COM_PHOCAMAPS_TAGS_MODE_ALL</option>
+			</field>
+
+			<field name="tags" type="phocamapstags" multiple="true" label="COM_PHOCAMAPS_FIELD_TAGS_LABEL" description="COM_PHOCAMAPS_FIELD_MENU_TAGS_DESC" />
+		</fieldset>
+	</fields>
+
 </metadata>

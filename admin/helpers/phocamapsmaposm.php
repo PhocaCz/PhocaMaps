@@ -18,7 +18,7 @@ class PhocaMapsMapOsm
 
 	protected $name					= 'phocaMap';
 	protected $id					= '';
-	private	$output					= array();
+	protected $output				= array();
 
 	public $router					= '';
 	public $maprouterapikey 		= '';
@@ -379,6 +379,19 @@ class PhocaMapsMapOsm
 
 		$this->output[] = implode("\n", $o);
 		return $o2;//return only options;
+	}
+
+
+	public function getMarkerIconOptions($marker) {
+
+		return array(
+			'icon'			=> isset($marker->osm_icon) ? $marker->osm_icon : '',
+			'markercolor'	=> isset($marker->osm_marker_color) ? $marker->osm_marker_color : 'blue',
+			'iconcolor'		=> isset($marker->osm_icon_color) ? $marker->osm_icon_color : '#ffffff',
+			'prefix'		=> isset($marker->osm_icon_prefix) ? $marker->osm_icon_prefix : 'fa',
+			'spin'			=> isset($marker->osm_icon_spin) ? $marker->osm_icon_spin : 0,
+			'class'			=> isset($marker->osm_icon_class) ? $marker->osm_icon_class : ''
+		);
 	}
 
 
@@ -749,18 +762,19 @@ class PhocaMapsMapOsm
 			return false;
 		}
 		$mapname = 'map'.$this->name.$this->id;
+		$jsFlags = JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT;
 		// colour layer doesn't seem to work for kml files
 		if (($ext=='.gpx') && $color) {
-			$this->output[] = " var customLayer = L.geoJson(null, { style: function(feature) {return {color: '".$color."'}; } });";
+			$this->output[] = " var customLayer = L.geoJson(null, { style: function(feature) {return {color: ".json_encode((string)$color, $jsFlags)."}; } });";
 		} else {
 			$this->output[] = "var customLayer = null;";
 		}
 		if ($fitbounds) {
-			$this->output[] = "var runLayer = omnivore".$ext."('".$filename."', null, customLayer).on('ready', function() {
+			$this->output[] = "var runLayer = omnivore".$ext."(".json_encode((string)$filename, $jsFlags).", null, customLayer).on('ready', function() {
                                 ".$mapname.".fitBounds(runLayer.getBounds());
                                 }).addTo(".$mapname.")";
 		} else {
-			$this->output[] = "omnivore".$ext."('".$filename."', null, customLayer).addTo(".$mapname.")";
+			$this->output[] = "omnivore".$ext."(".json_encode((string)$filename, $jsFlags).", null, customLayer).addTo(".$mapname.")";
 		}
 		return true;
 	}

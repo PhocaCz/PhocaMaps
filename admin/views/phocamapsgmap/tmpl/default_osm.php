@@ -10,7 +10,7 @@ defined('_JEXEC') or die('Restricted access');
 use Joomla\CMS\Language\Text;
 
 $id		= uniqid();
-$map	= new PhocaMapsMapOsm($id);
+$map	= $this->p['map_type'] == 3 ? new PhocaMapsMapMapy($id) : new PhocaMapsMapOsm($id);
 $map->loadAPI();
 if ($this->type == 'marker') {
 	$map->loadCoordinatesJS();

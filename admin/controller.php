@@ -20,6 +20,7 @@ $l['cp']	= array('COM_PHOCAMAPS_CONTROL_PANEL', '');
 $l['mp']	= array('COM_PHOCAMAPS_MAPS', 'phocamapsmaps');
 $l['mr']	= array('COM_PHOCAMAPS_MARKERS', 'phocamapsmarkers');
 $l['mi']	= array('COM_PHOCAMAPS_ICONS', 'phocamapsicons');
+$l['mt']	= array('COM_PHOCAMAPS_TAGS', 'phocamapstags');
 $l['in']	= array('COM_PHOCAMAPS_INFO', 'phocamapsinfo');
 
 // Submenu view

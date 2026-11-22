@@ -46,7 +46,7 @@ class PhocaMapsCpViewPhocaMapsGMap extends HtmlView
 
 
 
-		if ($this->p['map_type'] == 2) {
+		if ($this->p['map_type'] == 2 || $this->p['map_type'] == 3) {
 			parent::display('osm');
 		} else {
 			parent::display($tpl);

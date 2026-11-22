@@ -13,11 +13,11 @@ $app				= Factory::getApplication();
 if ($app->getInput()->get( 'print', '', 'int' ) == 1 || $app->getInput()->get( 'tmpl', '', 'string' ) == 'component') {
 
 	$foutput = '<div style="clear:both"></div>';
-	echo '<div id="phocamaps" class="phocamaps'.$this->t['p']->get( 'pageclass_sfx' ).'">';
+	echo '<div id="phocamaps" class="phocamaps'.$this->escape($this->t['p']->get( 'pageclass_sfx' )).'">';
 } else {
-	echo '<div id="phocamaps" class="phocamaps'.$this->t['p']->get( 'pageclass_sfx' ).'">';
+	echo '<div id="phocamaps" class="phocamaps'.$this->escape($this->t['p']->get( 'pageclass_sfx' )).'">';
 	if ( $this->t['p']->def( 'show_page_heading', 1 ) ) {
-		echo '<h1>'. $this->t['p']->get('page_heading') . '</h1>';
+		echo '<h1>'. $this->escape($this->t['p']->get('page_heading')) . '</h1>';
 	}
 	$foutput = PhocaMapsHelper::getExtInfo();
 }

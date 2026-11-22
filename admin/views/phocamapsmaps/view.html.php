@@ -40,6 +40,7 @@ class PhocaMapsCpViewPhocaMapsMaps extends HtmlView
 		$paramsC 					= ComponentHelper::getParams('com_phocamaps');
 		$this->t['maps_api_key']	= $paramsC->get( 'maps_api_key', '' );
 		$this->t['map_type']		= $paramsC->get( 'map_type', 2 );
+		$this->t['mapy_api_key']	= trim((string)$paramsC->get( 'mapy_api_key', '' ));
 		//$this->t['load_api_ssl'] 	= $paramsC->get( 'load_api_ssl', 1 );
 
 		// Preprocess the list of items to find ordering divisions.
@@ -67,7 +68,7 @@ class PhocaMapsCpViewPhocaMapsMaps extends HtmlView
 		$user  	= Factory::getUser();
 		$bar 	= Toolbar::getInstance('toolbar');
 
-		ToolbarHelper::title( Text::_( 'COM_PHOCAMAPS_MAPS' ), 'ph-earth' );
+		ToolbarHelper::title( Text::_( 'COM_PHOCAMAPS_PM_MAPS' ), 'ph-earth' );
 
 		if ($canDo->get('core.create')) {
 			ToolbarHelper::addNew('phocamapsmap.add','JTOOLBAR_NEW');
@@ -102,6 +103,8 @@ class PhocaMapsCpViewPhocaMapsMaps extends HtmlView
 				->selector('collapseModal')
 				->listCheck(true);
 		}
+
+		ToolbarHelper::link('index.php?option=com_phocamaps', 'COM_PHOCAMAPS_CONTROL_PANEL', 'home-2');
 
 		ToolbarHelper::divider();
 		ToolbarHelper::help( 'screen.phocamaps', true );

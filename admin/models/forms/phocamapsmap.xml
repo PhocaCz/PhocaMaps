@@ -113,6 +113,90 @@
 	<option	value="1">COM_PHOCAMAPS_YES</option>
 </field>
 
+<field name="phocaheadmapy1" type="phocahead" default="COM_PHOCAMAPS_MAPY_HEAD_MAP_LABEL" label="" description=""/>
+
+<field name="mapy_mapset" type="list" label="COM_PHOCAMAPS_FIELD_MAPY_MAPSET_LABEL" description="COM_PHOCAMAPS_FIELD_MAPY_MAPSET_DESC" class="form-select" size="1" default="" >
+	<option value="">JGLOBAL_USE_GLOBAL</option>
+	<option	value="basic">COM_PHOCAMAPS_MAPY_MAPSET_BASIC</option>
+	<option	value="outdoor">COM_PHOCAMAPS_MAPY_MAPSET_OUTDOOR</option>
+	<option	value="winter">COM_PHOCAMAPS_MAPY_MAPSET_WINTER</option>
+	<option	value="aerial">COM_PHOCAMAPS_MAPY_MAPSET_AERIAL</option>
+</field>
+
+<field name="mapy_names_overlay" type="list" label="COM_PHOCAMAPS_FIELD_MAPY_NAMES_OVERLAY_LABEL" description="COM_PHOCAMAPS_FIELD_MAPY_NAMES_OVERLAY_DESC" class="form-select" size="1" default="" >
+	<option value="">JGLOBAL_USE_GLOBAL</option>
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option	value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+<field name="mapy_switcher" type="list" label="COM_PHOCAMAPS_FIELD_MAPY_SWITCHER_LABEL" description="COM_PHOCAMAPS_FIELD_MAPY_SWITCHER_DESC" class="form-select" size="1" default="" >
+	<option value="">JGLOBAL_USE_GLOBAL</option>
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option	value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+<field name="mapy_zoom_control" type="list" label="COM_PHOCAMAPS_FIELD_ENABLE_ZOOM_CONTROL_BUTTON_LABEL" description="COM_PHOCAMAPS_FIELD_ENABLE_ZOOM_CONTROL_BUTTON_DESC" class="form-select" size="1" default="" >
+	<option value="">JGLOBAL_USE_GLOBAL</option>
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option	value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+<field name="mapy_zoom_wheel" type="list" label="COM_PHOCAMAPS_FIELD_ENABLE_MOUSE_WHEEL_ZOOM_LABEL" description="COM_PHOCAMAPS_FIELD_ENABLE_MOUSE_WHEEL_ZOOM_DESC" class="form-select" size="1" default="" >
+	<option value="">JGLOBAL_USE_GLOBAL</option>
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option	value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+<field name="mapy_current_position" type="list" label="COM_PHOCAMAPS_FIELD_DISPLAY_CURRENT_POSITION_BUTTON_LABEL" description="COM_PHOCAMAPS_FIELD_DISPLAY_CURRENT_POSITION_BUTTON_DESC" class="form-select" size="1" default="" >
+	<option value="">JGLOBAL_USE_GLOBAL</option>
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option	value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+<field name="mapy_full_screen" type="list" label="COM_PHOCAMAPS_FIELD_DISPLAY_FULL_SCREEN_BUTTON_LABEL" description="COM_PHOCAMAPS_FIELD_DISPLAY_FULL_SCREEN_BUTTON_DESC" class="form-select" size="1" default="" >
+	<option value="">JGLOBAL_USE_GLOBAL</option>
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option	value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+<field name="phocaheadmapy2" type="phocahead" default="COM_PHOCAMAPS_MAPY_HEAD_SERVICES_LABEL" label="" description=""/>
+
+<field name="mapy_search" type="list" label="COM_PHOCAMAPS_FIELD_MAPY_SEARCH_LABEL" description="COM_PHOCAMAPS_FIELD_MAPY_SEARCH_DESC" class="form-select" size="1" default="" >
+	<option value="">JGLOBAL_USE_GLOBAL</option>
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option	value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+<field name="mapy_suggest" type="list" label="COM_PHOCAMAPS_FIELD_MAPY_SUGGEST_LABEL" description="COM_PHOCAMAPS_FIELD_MAPY_SUGGEST_DESC" class="form-select" size="1" default="" >
+	<option value="">JGLOBAL_USE_GLOBAL</option>
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option	value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+<field name="mapy_routing" type="list" label="COM_PHOCAMAPS_FIELD_MAPY_ROUTING_LABEL" description="COM_PHOCAMAPS_FIELD_MAPY_ROUTING_DESC" class="form-select" size="1" default="" >
+	<option value="">JGLOBAL_USE_GLOBAL</option>
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option	value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+<field name="mapy_point_info" type="list" label="COM_PHOCAMAPS_FIELD_MAPY_POINT_INFO_LABEL" description="COM_PHOCAMAPS_FIELD_MAPY_POINT_INFO_DESC" class="form-select" size="1" default="" >
+	<option value="">JGLOBAL_USE_GLOBAL</option>
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option	value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+<field name="mapy_panorama" type="list" label="COM_PHOCAMAPS_FIELD_MAPY_PANORAMA_LABEL" description="COM_PHOCAMAPS_FIELD_MAPY_PANORAMA_DESC" class="form-select" size="1" default="" >
+	<option value="">JGLOBAL_USE_GLOBAL</option>
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option	value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+<field name="mapy_static_map" type="list" label="COM_PHOCAMAPS_FIELD_MAPY_STATIC_MAP_LABEL" description="COM_PHOCAMAPS_FIELD_MAPY_STATIC_MAP_DESC" class="form-select" size="1" default="" >
+	<option value="">JGLOBAL_USE_GLOBAL</option>
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option	value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
 
 	</fieldset>
 

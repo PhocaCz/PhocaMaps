@@ -63,6 +63,30 @@ class PhocaMapsCpModelPhocaMapsMarker extends AdminModel
 		return $data;
 	}
 
+	public function save($data) {
+
+		if (!parent::save($data)) {
+			return false;
+		}
+
+		if (!isset($data['tags'])) {
+			$data['tags'] = array();
+		}
+		PhocaMapsTag::storeTags($data['tags'], (int)$this->getState($this->getName().'.id'));
+
+		return true;
+	}
+
+	public function delete(&$pks) {
+
+		if (!parent::delete($pks)) {
+			return false;
+		}
+
+		PhocaMapsTag::deleteMarkerTags($pks);
+		return true;
+	}
+
 	protected function prepareTable($table)
 	{
 		jimport('joomla.filter.output');

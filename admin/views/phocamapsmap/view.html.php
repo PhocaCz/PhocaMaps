@@ -46,8 +46,8 @@ class phocaMapsCpViewPhocaMapsMap extends HtmlView
 
 
 
-		$text = $isNew ? Text::_( 'COM_PHOCAMAPS_NEW' ) : Text::_('COM_PHOCAMAPS_EDIT');
-		ToolbarHelper::title(   Text::_( 'COM_PHOCAMAPS_MAP' ).': <small><small>[ ' . $text.' ]</small></small>' , 'ph-earth');
+		$text = $isNew ? Text::_( 'COM_PHOCAMAPS_PM_NEW_MAP' ) : Text::_('COM_PHOCAMAPS_PM_EDIT_MAP');
+		ToolbarHelper::title( $text, 'ph-earth');
 
 		// If not checked out, can save the item.
 		if (!$checkedOut && $canDo->get('core.edit')){

@@ -44,8 +44,8 @@ class phocaMapsCpViewPhocaMapsIcon extends HtmlView
 		$checkedOut	= !($this->item->checked_out == 0 || $this->item->checked_out == $user->get('id'));
 		$canDo		= PhocamapsIconsHelper::getActions($this->t, $this->state->get('filter.icon_id'));
 
-		$text = $isNew ? Text::_( 'COM_PHOCAMAPS_NEW' ) : Text::_('COM_PHOCAMAPS_EDIT');
-		ToolbarHelper::title(   Text::_( 'COM_PHOCAMAPS_ICON_EXT' ).': <small><small>[ ' . $text.' ]</small></small>' , 'pin');
+		$text = $isNew ? Text::_( 'COM_PHOCAMAPS_PM_NEW_ICON' ) : Text::_('COM_PHOCAMAPS_PM_EDIT_ICON');
+		ToolbarHelper::title( $text, 'pin');
 
 		// If not checked out, can save the item.
 		if (!$checkedOut && $canDo->get('core.edit')){

@@ -60,6 +60,9 @@ class PhocaMapsCpModelPhocaMapsMarkers extends ListModel
 
 		$this->setState('filter.map_id', $mapId);
 
+		$tagId = $app->getUserStateFromRequest($this->context.'.filter.tag_id', 'filter_tag_id', null, 'int');
+		$this->setState('filter.tag_id', $tagId);
+
 		$state = $app->getUserStateFromRequest($this->context.'.filter.published', 'filter_published', '', 'string');
 		$this->setState('filter.published', $state);
 
@@ -82,6 +85,7 @@ class PhocaMapsCpModelPhocaMapsMarkers extends ListModel
 		$id	.= ':'.$this->getState('filter.published');
 		$id	.= ':'.$this->getState('filter.marker_id');
 		$id	.= ':'.$this->getState('filter.map_id');
+		$id	.= ':'.$this->getState('filter.tag_id');
 
 		return parent::getStoreId($id);
 	}
@@ -124,6 +128,10 @@ class PhocaMapsCpModelPhocaMapsMarkers extends ListModel
 		}*/
 
 		$query->select('c.title AS map_title, c.id AS map_id');
+
+		// Join over the tags
+		$query->select('(SELECT GROUP_CONCAT(t.title ORDER BY t.ordering SEPARATOR \', \') FROM #__phocamaps_tags_ref AS r'
+			.' INNER JOIN #__phocamaps_tags AS t ON t.id = r.tagid WHERE r.markerid = a.id) AS tags_title');
 		$query->join('LEFT', '#__phocamaps_map AS c ON c.id = a.catid');
 
 		// Filter by published state.
@@ -139,6 +147,12 @@ class PhocaMapsCpModelPhocaMapsMarkers extends ListModel
 		$mapId = $this->getState('filter.map_id');
 		if (is_numeric($mapId) && (int)$mapId > 0) {
 			$query->where('a.catid = ' . (int) $mapId);
+		}
+
+		// Filter by tag.
+		$tagId = $this->getState('filter.tag_id');
+		if (is_numeric($tagId) && (int)$tagId > 0) {
+			$query->where('a.id IN (SELECT r.markerid FROM #__phocamaps_tags_ref AS r WHERE r.tagid = ' . (int) $tagId . ')');
 		}
 
 

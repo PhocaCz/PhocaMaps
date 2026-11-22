@@ -62,8 +62,19 @@ class PhocaMapsModelMap extends BaseDatabaseModel
 			$this->_data['map'] = $this->_db->loadObject();
 
 			// Marker
+			// Tags are set in the menu item of this map
+			$tags		= array();
+			$tagsMode	= 0;
+			$app		= Factory::getApplication();
+			$menu		= $app->getMenu()->getActive();
+			if (isset($menu->query['view']) && $menu->query['view'] == 'map'
+				&& isset($menu->query['id']) && (int)$menu->query['id'] == (int)$this->_id) {
+				$tags		= $menu->getParams()->get('tags', array());
+				$tagsMode	= (int)$menu->getParams()->get('tags_mode', 0);
+			}
+
 			$where 		= array();
-			$where[]	= 'c.id = '.(int) $this->_id;
+			$where[]	= PhocaMapsTag::getMarkerWhere($this->_id, $tags, $tagsMode);
 			$where[]	= 'a.published = 1';
 
 			if ($this->getState('filter.language')) {

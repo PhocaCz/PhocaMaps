@@ -51,8 +51,8 @@ echo '<h3>'.  Text::_($this->t['l'] . '_TRANSLATION').': '. Text::_($this->t['l'
 echo Text::_($this->t['l'] . '_FOSS_DECLARATION');
 echo Text::_($this->t['l'] . '_FOSS_DECLARATION_DESCRIPTION');
 
-echo '<p>&nbsp;</p><p>Maps are created by OpenStreetmap<br />or by Google Maps™<br />'
-			.'<p>Google™ is a trademark of <a href="http://www.google.com" target="_blank">Google Inc.</a><br />Google Maps™ is a trademark of <a href="http://www.google.com" target="_blank">Google Inc.</a></p>';
+echo '<p>&nbsp;</p><p>Maps are created by OpenStreetMap, Mapy.com<br />or by Google Maps™<br />'
+			.'<p>Google™ is a trademark of <a href="http://www.google.com" target="_blank">Google Inc.</a><br />Google Maps™ is a trademark of <a href="http://www.google.com" target="_blank">Google Inc.</a><br />Mapy.com is a service of <a href="https://www.seznam.cz" target="_blank">Seznam.cz, a.s.</a></p>';
 
 
 echo '<div class="ph-cp-hr"></div>'

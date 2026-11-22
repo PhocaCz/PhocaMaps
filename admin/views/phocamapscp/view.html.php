@@ -30,6 +30,7 @@ class PhocaMapsCpViewPhocaMapsCp extends HtmlView
 		'maps'		=> array($this->t['l'] . '_MAPS', $i.'global', '#01868B'),
 		'markers'		=> array($this->t['l'] . '_MARKERS', $d.$i.'location', '#D75348'),
 		'icons'		=> array($this->t['l'] . '_ICONS', $d.$i.'flag', '#5CA4CD'),
+		'tags'		=> array($this->t['l'] . '_TAGS', $d.$i.'tag-double', '#9F6B3F'),
 		'info'		=> array($this->t['l'] . '_INFO', $d.$i.'info-circle', '#3378cc')
 		);
 		$this->t['version'] = PhocaMapsHelper::getPhocaVersion('com_phocamaps');

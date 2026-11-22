@@ -37,7 +37,8 @@ $tabs = array (
 'general' 		=> Text::_($this->t['l'].'_GENERAL_OPTIONS'),
 'publishing' 	=> Text::_($this->t['l'].'_PUBLISHING_OPTIONS'),
 'design'		=> Text::_($this->t['l'].'_DESIGN_SETTINGS_GOOGLE_MAPS'),
-'osm_design'	=> Text::_($this->t['l'].'_DESIGN_SETTINGS_OPENSTREETMAP')
+'osm_design'	=> Text::_($this->t['l'].'_DESIGN_SETTINGS_OPENSTREETMAP'),
+'mapy_design'	=> Text::_($this->t['l'].'_DESIGN_SETTINGS_MAPYCOM')
 );
 echo $r->navigation($tabs);
 
@@ -47,7 +48,7 @@ echo $r->groupHeader($this->form, $formArray, '');
 echo $r->startTabs();
 
 echo $r->startTab('general', $tabs['general'], 'active');
-$formArray = array ('latitude','longitude', 'gpslatitude', 'gpslongitude', 'catid', 'ordering', 'markerwindow', 'contentwidth', 'contentheight', 'displaygps');
+$formArray = array ('latitude','longitude', 'gpslatitude', 'gpslongitude', 'catid', 'tags', 'ordering', 'markerwindow', 'contentwidth', 'contentheight', 'displaygps');
 echo $r->group($this->form, $formArray);
 $formArray = array('description');
 echo $r->group($this->form, $formArray, 1);
@@ -72,6 +73,11 @@ echo $r->endTab();
 
 echo $r->startTab('osm_design', $tabs['osm_design']);
 $formArray = array ('osm_icon', 'osm_marker_color', 'osm_icon_color', 'osm_icon_prefix', 'osm_icon_spin', 'osm_icon_class');
+echo $r->group($this->form, $formArray);
+echo $r->endTab();
+
+echo $r->startTab('mapy_design', $tabs['mapy_design']);
+$formArray = array ('mapy_icon', 'mapy_marker_color', 'mapy_icon_color', 'mapy_icon_prefix', 'mapy_icon_spin', 'mapy_icon_class');
 echo $r->group($this->form, $formArray);
 echo $r->endTab();
 

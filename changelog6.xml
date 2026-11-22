@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<changelogs>
+	<changelog>
+		<element>com_phocamaps</element>
+		<type>component</type>
+		<version>6.2.0</version>
+		<addition>
+			<item><![CDATA[New Mapy.com map type with custom settings, completely independent of OpenStreetMap.]]></item>
+			<item><![CDATA[Mapy.com configuration options split into free and paid API services.]]></item>
+			<item><![CDATA[Individual Mapy.com settings per map.]]></item>
+			<item><![CDATA[Custom marker styling for Mapy.com.]]></item>
+			<item><![CDATA[Scroll/gesture protection for embedded Mapy.com maps to prevent accidental panning.]]></item>
+			<item><![CDATA[Marker tags: management, filtering, and selection in menu items and the content plugin.]]></item>
+			<item><![CDATA[Font Awesome icon picker with a live marker preview.]]></item>
+			<item><![CDATA["Control Panel" (Dashboard) button across all admin list views.]]></item>
+		</addition>
+		<change>
+			<item><![CDATA[Administration page titles.]]></item>
+			<item><![CDATA[New condition for lazy loading]]></item>
+		</change>
+	</changelog>
+</changelogs>

@@ -23,6 +23,8 @@ require_once( JPATH_COMPONENT.'/controller.php' );
 require_once( JPATH_COMPONENT.'/helpers/phocamaps.php' );
 require_once( JPATH_COMPONENT.'/helpers/phocamapsmap.php' );
 require_once( JPATH_COMPONENT.'/helpers/phocamapsmaposm.php' );
+require_once( JPATH_COMPONENT.'/helpers/phocamapsmapmapy.php' );
+require_once( JPATH_COMPONENT.'/helpers/phocamapstag.php' );
 require_once( JPATH_COMPONENT.'/helpers/phocamapsutils.php' );
 require_once( JPATH_COMPONENT.'/helpers/phocamapsrenderadmin.php' );
 require_once( JPATH_COMPONENT.'/helpers/renderadminview.php' );

@@ -2,12 +2,12 @@
 <extension type="component" method="upgrade" version="6.0">
 	<name>com_phocamaps</name>
 	<author>Jan Pavelka (www.phoca.cz)</author>
-	<creationDate>08/08/2026</creationDate>
+	<creationDate>22/11/2026</creationDate>
 	<authorEmail></authorEmail>
 	<authorUrl>https://www.phoca.cz</authorUrl>
 	<copyright>Jan Pavelka</copyright>
 	<license>GNU/GPL</license>
-	<version>6.1.2</version>
+	<version>6.2.0</version>
 	<description>COM_PHOCAMAPS_XML_DESCRIPTION</description>
 	<namespace path="src">Phoca\Component\Phocamaps</namespace>
 	<scriptfile>script.php</scriptfile>
@@ -63,6 +63,7 @@
 				<menu img="media/com_phocamaps/images/administrator/icon-16-pmap-menu-map.png" alt="COM_PHOCAMAPS_MAPS" view="phocamapsmaps" link="option=com_phocamaps&amp;view=phocamapsmaps">COM_PHOCAMAPS_MAPS</menu>
 				<menu img="media/com_phocamaps/images/administrator/icon-16-pmap-menu-marker.png" alt="COM_PHOCAMAPS_MARKERS" view="phocamapsmarkers" link="option=com_phocamaps&amp;view=phocamapsmarkers">COM_PHOCAMAPS_MARKERS</menu>
 				<menu img="media/com_phocamaps/images/administrator/icon-16-pmap-menu-icon.png" alt="COM_PHOCAMAPS_ICONS" view="phocamapsicons" link="option=com_phocamaps&amp;view=phocamapsicons">COM_PHOCAMAPS_ICONS</menu>
+				<menu img="media/com_phocamaps/images/administrator/icon-16-pmap-menu-tag.png" alt="COM_PHOCAMAPS_TAGS" view="phocamapstags" link="option=com_phocamaps&amp;view=phocamapstags">COM_PHOCAMAPS_TAGS</menu>
 				<menu img="media/com_phocamaps/images/administrator/icon-16-pmap-menu-info.png" alt="COM_PHOCAMAPS_INFO" view="phocamapsinfo" link="option=com_phocamaps&amp;view=phocamapsinfo">COM_PHOCAMAPS_INFO</menu>
 			</submenu>
 
@@ -93,6 +94,7 @@
 	</administration>
 	
 	
+	<changelogurl>https://raw.githubusercontent.com/PhocaCz/PhocaMaps/master/changelog6.xml</changelogurl>
 
 	<updateservers>
 		<server type="extension" name="COM_PHOCAMAPS" priority="1"><![CDATA[https://raw.githubusercontent.com/PhocaCz/PhocaMaps/master/manifest.xml]]></server>

@@ -54,11 +54,18 @@
 				"title": "COM_PHOCAMAPS_ICONS"
 			},
 			"4" : {
+				"image": "icon-16-pmap-menu-tag.png",
+				"view": "phocamapstags",
+				"link": "option=com_phocamaps&amp;view=phocamapstags",
+				"title": "COM_PHOCAMAPS_TAGS"
+			},
+			"5" : {
 				"image": "icon-16-pmap-menu-info.png",
 				"view": "phocamapsinfo",
 				"link": "option=com_phocamaps&amp;view=phocamapsinfo",
 				"title": "COM_PHOCAMAPS_INFO"
 			}
 		}
-	}
+	},
+	"projectBranch": "master"
 }

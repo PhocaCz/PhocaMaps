@@ -40,6 +40,19 @@ CREATE TABLE IF NOT EXISTS `#__phocamaps_map` (
   `trackfiles_osm` varchar(255) NOT NULL default '',
   `trackcolors_osm` varchar(255) NOT NULL default '',
   `fitbounds_osm` tinyint(1) NOT NULL default '0',
+  `mapy_mapset` varchar(10) NOT NULL default '',
+  `mapy_names_overlay` varchar(10) NOT NULL default '',
+  `mapy_switcher` varchar(10) NOT NULL default '',
+  `mapy_zoom_control` varchar(10) NOT NULL default '',
+  `mapy_zoom_wheel` varchar(10) NOT NULL default '',
+  `mapy_current_position` varchar(10) NOT NULL default '',
+  `mapy_full_screen` varchar(10) NOT NULL default '',
+  `mapy_search` varchar(10) NOT NULL default '',
+  `mapy_suggest` varchar(10) NOT NULL default '',
+  `mapy_routing` varchar(10) NOT NULL default '',
+  `mapy_point_info` varchar(10) NOT NULL default '',
+  `mapy_panorama` varchar(10) NOT NULL default '',
+  `mapy_static_map` varchar(10) NOT NULL default '',
   `autolocation` tinyint(1) NOT NULL default '0',
   `description` text,
   `published` tinyint(1) NOT NULL default '0',
@@ -76,6 +89,12 @@ CREATE TABLE IF NOT EXISTS `#__phocamaps_marker` (
   `osm_icon_prefix` varchar(20) NOT NULL default '',
   `osm_icon_spin` tinyint(1) NOT NULL default '0',
   `osm_icon_class` text,
+  `mapy_icon` varchar(100) NOT NULL default '',
+  `mapy_marker_color` varchar(20) NOT NULL default '',
+  `mapy_icon_color` varchar(20) NOT NULL default '',
+  `mapy_icon_prefix` varchar(20) NOT NULL default '',
+  `mapy_icon_spin` tinyint(1) NOT NULL default '0',
+  `mapy_icon_class` text,
 
   `contentwidth` varchar(8) NOT NULL default '',
   `contentheight` varchar(8) NOT NULL default '',
@@ -111,6 +130,28 @@ CREATE TABLE IF NOT EXISTS `#__phocamaps_icon` (
   `params` text,
   `language` char(7) NOT NULL default '',
   PRIMARY KEY  (`id`)
+) CHARACTER SET `utf8`;
+
+CREATE TABLE IF NOT EXISTS `#__phocamaps_tags` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `title` varchar(255) NOT NULL default '',
+  `alias` varchar(255) NOT NULL default '',
+  `description` text,
+  `published` tinyint(1) NOT NULL default '0',
+  `checked_out` int(11) unsigned NOT NULL default '0',
+  `checked_out_time` datetime,
+  `ordering` int(11) NOT NULL default '0',
+  `params` text,
+  `language` char(7) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) CHARACTER SET `utf8`;
+
+CREATE TABLE IF NOT EXISTS `#__phocamaps_tags_ref` (
+  `id` SERIAL,
+  `markerid` int(11) NOT NULL default 0,
+  `tagid` int(11) NOT NULL default 0,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `i_markerid` (`markerid`,`tagid`)
 ) CHARACTER SET `utf8`;
 
 INSERT INTO `#__phocamaps_icon` (`id`, `title`, `alias`, `url`, `urls`, `object`, `objects`, `objectshape`, `published`, `checked_out`, `checked_out_time`, `ordering`, `access`, `hits`, `params`, `language`) VALUES

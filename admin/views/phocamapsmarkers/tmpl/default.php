@@ -38,6 +38,9 @@ echo $r->startMainContainer();
 if ($this->t['maps_api_key'] == '' && $this->t['map_type'] == 1) {
 	echo '<div class="alert alert-error alert-danger">' . Text::_('COM_PHOCAMAPS_MAPS_API_KEY_NOT_SET') .'</div>';
 }
+if ($this->t['mapy_api_key'] == '' && $this->t['map_type'] == 3) {
+	echo '<div class="alert alert-error alert-danger">' . Text::_('COM_PHOCAMAPS_ERROR_MAPY_API_KEY_NOT_SET') .'</div>';
+}
 /*
 echo $r->startFilterBar();
 echo $r->inputFilterSearch($this->t['l'].'_FILTER_SEARCH_LABEL', $this->t['l'].'_FILTER_SEARCH_DESC',
@@ -117,7 +120,11 @@ $checkO .= ' <span class="smallsub">(<span>'.Text::_($this->t['l'].'_FIELD_ALIAS
 echo $r->td($checkO, "small");
 echo $r->td(HTMLHelper::_('jgrid.published', $item->published, $i, $this->t['tasks'].'.', $canChange), "small");
 
-echo $r->td($this->escape($item->map_title), "small");
+$mapO = $this->escape($item->map_title);
+if (!empty($item->tags_title)) {
+	$mapO .= ' <span class="smallsub">(<span>'.Text::_($this->t['l'].'_TAGS').':</span> '. $this->escape($item->tags_title).')</span>';
+}
+echo $r->td($mapO, "small");
 
 echo $r->tdLanguage($item->language, $item->language_title, $this->escape($item->language_title));
 echo $r->td($item->id, "small");

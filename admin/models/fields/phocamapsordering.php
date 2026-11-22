@@ -49,6 +49,12 @@ class JFormFieldPhocaMapsOrdering extends FormField
 					$whereValue	=	'';
 					$table		=	'#__phocamaps_icon';
 				break;
+
+				case "tag":
+					$whereLabel	=	'';
+					$whereValue	=	'';
+					$table		=	'#__phocamaps_tags';
+				break;
 				
 			}
 		} else {

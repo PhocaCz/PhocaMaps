@@ -75,6 +75,8 @@ class PhocaMapsCpViewPhocaMapsIcons extends HtmlView
 		if ($canDo->get('core.delete')) {
 			ToolbarHelper::deleteList( 'COM_PHOCAMAPS_WARNING_DELETE_ITEMS' , 'phocamapsicons.delete', 'COM_PHOCAMAPS_DELETE');
 		}
+		ToolbarHelper::link('index.php?option=com_phocamaps', 'COM_PHOCAMAPS_CONTROL_PANEL', 'home-2');
+
 		ToolbarHelper::divider();
 		ToolbarHelper::help( 'screen.phocamaps', true );
 	}

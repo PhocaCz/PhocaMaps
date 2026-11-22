@@ -120,6 +120,9 @@ class PhocaMapsViewMap extends HtmlView
             $this->map->height = $this->map->height . 'px';
         }
 
+        $this->map->width	= htmlspecialchars($this->map->width, ENT_QUOTES, 'UTF-8');
+        $this->map->height	= htmlspecialchars($this->map->height, ENT_QUOTES, 'UTF-8');
+
 
 
 		if (!isset($this->map->zoom) || (isset($this->map->zoom) && (int)$this->map->zoom < 1)) {
@@ -238,8 +241,8 @@ class PhocaMapsViewMap extends HtmlView
 		}
 
 
-		//OSM tracks
-		if ($this->t['map_type'] == 2) {
+		//OSM tracks (Leaflet maps: OpenStreetMap, Mapy.com)
+		if ($this->t['map_type'] == 2 || $this->t['map_type'] == 3) {
 
 		    $this->t['fitbounds']   = $this->map->fitbounds_osm;
 			$textarea               = $this->map->trackfiles_osm;
@@ -275,7 +278,7 @@ class PhocaMapsViewMap extends HtmlView
 
 		$this->_prepareDocument();
 
-		if ($this->t['map_type'] == 2) {
+		if ($this->t['map_type'] == 2 || $this->t['map_type'] == 3) {
 			parent::display('osm');
 		} else {
 			parent::display($tpl);

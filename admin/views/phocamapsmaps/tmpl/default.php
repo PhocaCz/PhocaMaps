@@ -38,6 +38,9 @@ echo $r->startMainContainer();
 if ($this->t['maps_api_key'] == '' && $this->t['map_type'] == 1) {
 	echo '<div class="alert alert-error alert-danger">' . Text::_('COM_PHOCAMAPS_ERROR_API_KEY_NOT_SET') .'</div>';
 }
+if ($this->t['mapy_api_key'] == '' && $this->t['map_type'] == 3) {
+	echo '<div class="alert alert-error alert-danger">' . Text::_('COM_PHOCAMAPS_ERROR_MAPY_API_KEY_NOT_SET') .'</div>';
+}
 /*
 echo $r->startFilterBar();
 echo $r->inputFilterSearch($this->t['l'].'_FILTER_SEARCH_LABEL', $this->t['l'].'_FILTER_SEARCH_DESC',

@@ -33,7 +33,8 @@ $tabs = array (
 'publishing' 	=> Text::_($this->t['l'].'_PUBLISHING_OPTIONS'),
 'design'		=> Text::_($this->t['l'].'_DESIGN_SETTINGS'),
 'advanced'		=> Text::_($this->t['l'].'_ADVANCED_SETTINGS_GOOGLE_MAPS'),
-'osm_advanced'		=> Text::_($this->t['l'].'_ADVANCED_SETTINGS_OPENSTREETMAP')
+'osm_advanced'		=> Text::_($this->t['l'].'_ADVANCED_SETTINGS_OPENSTREETMAP'),
+'mapycom'		=> Text::_($this->t['l'].'_ADVANCED_SETTINGS_MAPYCOM')
 );
 echo $r->navigation($tabs);
 
@@ -75,6 +76,11 @@ echo $r->endTab();
 
 echo $r->startTab('osm_advanced', $tabs['osm_advanced']);
 $formArray = array ('trackfiles_osm', 'trackcolors_osm', 'fitbounds_osm');
+echo $r->group($this->form, $formArray);
+echo $r->endTab();
+
+echo $r->startTab('mapycom', $tabs['mapycom']);
+$formArray = array ('phocaheadmapy1', 'mapy_mapset', 'mapy_names_overlay', 'mapy_switcher', 'mapy_zoom_control', 'mapy_zoom_wheel', 'mapy_current_position', 'mapy_full_screen', 'phocaheadmapy2', 'mapy_search', 'mapy_suggest', 'mapy_routing', 'mapy_point_info', 'mapy_panorama', 'mapy_static_map');
 echo $r->group($this->form, $formArray);
 echo $r->endTab();
 

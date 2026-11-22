@@ -7,6 +7,7 @@
 		<field name="map_type" type="list" default="2" label="COM_PHOCAMAPS_FIELD_MAP_TYPE_LABEL" description="COM_PHOCAMAPS_FIELD_MAP_TYPE_DESC">
 	<option value="1">COM_PHOCAMAPS_GOOGLE_MAPS</option>
 	<option value="2">COM_PHOCAMAPS_OPENSTREETMAP</option>
+	<option value="3">COM_PHOCAMAPS_MAPYCOM</option>
 </field>
 
 <field name="marker_clustering" type="radio" class="btn-group btn-group-yesno" layout="joomla.form.field.radio.switcher" default="0" label="COM_PHOCAMAPS_FIELD_MARKER_CLUSTERING_LABEL" description="COM_PHOCAMAPS_FIELD_MARKER_CLUSTERING_DESC">
@@ -127,6 +128,88 @@
 	<option value="">COM_PHOCAMAPS_NONE</option>
 	<option value="mapbox">COM_PHOCAMAPS_MAPBOX_API_KEY_NEEDED</option>
 
+</field>
+
+		</fieldset>
+
+		<fieldset name="mapycom" label="COM_PHOCAMAPS_CONFIG_HEAD_MAPYCOM_LABEL">
+
+<field name="mapy_api_key" default="" type="text" filter="string" label="COM_PHOCAMAPS_FIELD_MAPY_API_KEY_LABEL" description="COM_PHOCAMAPS_FIELD_MAPY_API_KEY_DESC"/>
+
+<field name="phocaheadmapy1" type="phocahead" default="COM_PHOCAMAPS_MAPY_HEAD_MAP_LABEL" label="" description=""/>
+
+<field name="mapy_mapset" type="list" default="basic" label="COM_PHOCAMAPS_FIELD_MAPY_MAPSET_LABEL" description="COM_PHOCAMAPS_FIELD_MAPY_MAPSET_DESC">
+	<option value="basic">COM_PHOCAMAPS_MAPY_MAPSET_BASIC</option>
+	<option value="outdoor">COM_PHOCAMAPS_MAPY_MAPSET_OUTDOOR</option>
+	<option value="winter">COM_PHOCAMAPS_MAPY_MAPSET_WINTER</option>
+	<option value="aerial">COM_PHOCAMAPS_MAPY_MAPSET_AERIAL</option>
+</field>
+
+<field name="mapy_names_overlay" type="radio" class="btn-group btn-group-yesno" layout="joomla.form.field.radio.switcher" default="1" label="COM_PHOCAMAPS_FIELD_MAPY_NAMES_OVERLAY_LABEL" description="COM_PHOCAMAPS_FIELD_MAPY_NAMES_OVERLAY_DESC" showon="mapy_mapset:aerial[OR]mapy_switcher:1">
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+<field name="mapy_switcher" type="radio" class="btn-group btn-group-yesno" layout="joomla.form.field.radio.switcher" default="1" label="COM_PHOCAMAPS_FIELD_MAPY_SWITCHER_LABEL" description="COM_PHOCAMAPS_FIELD_MAPY_SWITCHER_DESC">
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+<field name="mapy_zoom_control" type="radio" class="btn-group btn-group-yesno" layout="joomla.form.field.radio.switcher" default="1" label="COM_PHOCAMAPS_FIELD_ENABLE_ZOOM_CONTROL_BUTTON_LABEL" description="COM_PHOCAMAPS_FIELD_ENABLE_ZOOM_CONTROL_BUTTON_DESC">
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+<field name="mapy_zoom_wheel" type="radio" class="btn-group btn-group-yesno" layout="joomla.form.field.radio.switcher" default="1" label="COM_PHOCAMAPS_FIELD_ENABLE_MOUSE_WHEEL_ZOOM_LABEL" description="COM_PHOCAMAPS_FIELD_ENABLE_MOUSE_WHEEL_ZOOM_DESC">
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+<field name="mapy_current_position" type="radio" class="btn-group btn-group-yesno" layout="joomla.form.field.radio.switcher" default="1" label="COM_PHOCAMAPS_FIELD_DISPLAY_CURRENT_POSITION_BUTTON_LABEL" description="COM_PHOCAMAPS_FIELD_DISPLAY_CURRENT_POSITION_BUTTON_DESC">
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+<field name="mapy_full_screen" type="radio" class="btn-group btn-group-yesno" layout="joomla.form.field.radio.switcher" default="1" label="COM_PHOCAMAPS_FIELD_DISPLAY_FULL_SCREEN_BUTTON_LABEL" description="COM_PHOCAMAPS_FIELD_DISPLAY_FULL_SCREEN_BUTTON_DESC">
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+<field name="mapy_guard_embeds" type="radio" class="btn-group btn-group-yesno" layout="joomla.form.field.radio.switcher" default="1" label="COM_PHOCAMAPS_FIELD_MAPY_GUARD_EMBEDS_LABEL" description="COM_PHOCAMAPS_FIELD_MAPY_GUARD_EMBEDS_DESC">
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+<field name="phocaheadmapy2" type="phocahead" default="COM_PHOCAMAPS_MAPY_HEAD_SERVICES_LABEL" label="" description=""/>
+
+<field name="mapy_search" type="radio" class="btn-group btn-group-yesno" layout="joomla.form.field.radio.switcher" default="0" label="COM_PHOCAMAPS_FIELD_MAPY_SEARCH_LABEL" description="COM_PHOCAMAPS_FIELD_MAPY_SEARCH_DESC">
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+<field name="mapy_suggest" type="radio" class="btn-group btn-group-yesno" layout="joomla.form.field.radio.switcher" default="0" label="COM_PHOCAMAPS_FIELD_MAPY_SUGGEST_LABEL" description="COM_PHOCAMAPS_FIELD_MAPY_SUGGEST_DESC" showon="mapy_search:1">
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+<field name="mapy_routing" type="radio" class="btn-group btn-group-yesno" layout="joomla.form.field.radio.switcher" default="0" label="COM_PHOCAMAPS_FIELD_MAPY_ROUTING_LABEL" description="COM_PHOCAMAPS_FIELD_MAPY_ROUTING_DESC">
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+<field name="mapy_point_info" type="radio" class="btn-group btn-group-yesno" layout="joomla.form.field.radio.switcher" default="0" label="COM_PHOCAMAPS_FIELD_MAPY_POINT_INFO_LABEL" description="COM_PHOCAMAPS_FIELD_MAPY_POINT_INFO_DESC">
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+<field name="mapy_panorama" type="radio" class="btn-group btn-group-yesno" layout="joomla.form.field.radio.switcher" default="0" label="COM_PHOCAMAPS_FIELD_MAPY_PANORAMA_LABEL" description="COM_PHOCAMAPS_FIELD_MAPY_PANORAMA_DESC">
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option value="1">COM_PHOCAMAPS_YES</option>
+</field>
+
+<field name="mapy_static_map" type="radio" class="btn-group btn-group-yesno" layout="joomla.form.field.radio.switcher" default="0" label="COM_PHOCAMAPS_FIELD_MAPY_STATIC_MAP_LABEL" description="COM_PHOCAMAPS_FIELD_MAPY_STATIC_MAP_DESC">
+	<option value="0">COM_PHOCAMAPS_NO</option>
+	<option value="1">COM_PHOCAMAPS_YES</option>
 </field>
 
 		</fieldset>

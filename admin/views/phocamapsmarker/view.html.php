@@ -52,8 +52,8 @@ class phocaMapsCpViewPhocaMapsMarker extends HtmlView
 
 
 
-		$text = $isNew ? Text::_( 'COM_PHOCAMAPS_NEW' ) : Text::_('COM_PHOCAMAPS_EDIT');
-		ToolbarHelper::title(   Text::_( 'COM_PHOCAMAPS_MARKER' ).': <small><small>[ ' . $text.' ]</small></small>' , 'location');
+		$text = $isNew ? Text::_( 'COM_PHOCAMAPS_PM_NEW_MARKER' ) : Text::_('COM_PHOCAMAPS_PM_EDIT_MARKER');
+		ToolbarHelper::title( $text, 'location');
 
 		// If not checked out, can save the item.
 		if (!$checkedOut && $canDo->get('core.edit')){
